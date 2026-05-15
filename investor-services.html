@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Investor Services | Arizona Collective Real Estate Group</title>
+<meta name="description" content="Arizona Collective specializes in real estate investment in Phoenix metro — cash flow properties, 1031 exchanges, AirBnB strategy, and portfolio building."/>
+<style>
+/* ── ARIZONA COLLECTIVE — SHARED STYLESHEET ── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap');
+:root{
+  --gold:#C09A4A;--gold2:#E2B96A;--black:#0A0A0A;--dark:#111;
+  --darker:#0D0D0D;--mid:#1A1A1A;--gray:#888;--lgray:#CCC;
+  --cream:#F7F3EC;--white:#FFF;--border:rgba(192,154,74,0.18);
+  --serif:'Playfair Display',Georgia,serif;--sans:'Jost',sans-serif;--nav:72px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--white);color:var(--black);overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-thumb{background:var(--gold);}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:var(--sans);}
+img{display:block;width:100%;object-fit:cover;}
+
+/* TOPBAR */
+#topbar{background:var(--black);padding:8px 5vw;display:flex;justify-content:flex-end;align-items:center;gap:22px;border-bottom:1px solid rgba(255,255,255,0.05);}
+#topbar span{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:.1em;}
+#topbar a{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:.1em;transition:color .2s;}
+#topbar a:hover{color:var(--gold);}
+.tb-div{color:rgba(255,255,255,0.15);}
+
+/* NAV */
+#nav{position:sticky;top:0;z-index:800;background:var(--dark);height:var(--nav);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;border-bottom:1px solid rgba(192,154,74,0.12);}
+.nav-logo{cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;text-decoration:none;}
+.nl-main{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--white);letter-spacing:.06em;line-height:1;}
+.nl-main span{color:var(--gold);}
+.nl-sub{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-top:3px;}
+.nl-tag{font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:2px;border-top:1px solid rgba(192,154,74,.2);padding-top:2px;}
+.nav-menu{display:flex;align-items:center;height:var(--nav);list-style:none;}
+.nav-menu>li{position:relative;height:100%;display:flex;align-items:center;}
+.nav-menu>li>a,.nav-menu>li>span{display:flex;align-items:center;gap:5px;padding:0 15px;height:100%;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);cursor:pointer;white-space:nowrap;transition:color .2s;user-select:none;}
+.nav-menu>li>a:hover,.nav-menu>li>span:hover,.nav-menu>li.open>a,.nav-menu>li.open>span{color:var(--gold);}
+.nav-menu>li>a svg,.nav-menu>li>span svg{width:10px;height:10px;opacity:.5;transition:transform .25s;}
+.nav-menu>li.open>span svg{transform:rotate(180deg);}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-consult{background:var(--gold);color:var(--white);border:none;padding:10px 20px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:background .2s;white-space:nowrap;display:inline-block;}
+.btn-consult:hover{background:var(--gold2);}
+.btn-portal{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);padding:8px 16px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:6px;transition:all .2s;}
+.btn-portal:hover{border-color:var(--gold);color:var(--gold);}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;}
+.hamburger span{width:22px;height:1px;background:var(--white);transition:all .3s;}
+
+/* DROPDOWNS */
+.dropdown{display:none;position:absolute;top:var(--nav);left:0;background:var(--darker);border:1px solid rgba(192,154,74,.12);border-top:2px solid var(--gold);min-width:240px;z-index:900;animation:ddIn .18s ease;}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.nav-menu>li.open>.dropdown{display:block;}
+.dropdown a,.dropdown>span{display:block;padding:11px 22px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);white-space:nowrap;transition:all .18s;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);}
+.dropdown a:hover,.dropdown>span:hover{color:var(--gold);padding-left:28px;background:rgba(192,154,74,.06);}
+.dropdown a:last-child{border-bottom:none;}
+.dd-item{position:relative;}
+.dd-item>span{display:flex!important;align-items:center;justify-content:space-between;}
+.dd-item:hover>.dd-sub,.dd-item.open>.dd-sub{display:block;}
+.dd-sub{display:none;position:absolute;left:100%;top:0;background:var(--darker);border:1px solid rgba(192,154,74,.12);border-left:2px solid var(--gold);min-width:220px;z-index:910;}
+.mega-drop{display:none;position:fixed;left:0;right:0;top:calc(var(--nav) + 37px);background:var(--darker);border-top:2px solid var(--gold);border-bottom:1px solid rgba(192,154,74,.1);z-index:900;padding:36px 5vw;animation:ddIn .2s ease;}
+.nav-menu>li.open>.mega-drop{display:block;}
+.mega-head{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--white);margin-bottom:20px;}
+.mega-head span{color:var(--gold);font-style:italic;}
+.mega-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:0 36px;}
+.mega-cols ul{list-style:none;}
+.mega-cols ul li{border-bottom:1px solid rgba(255,255,255,.04);}
+.mega-cols ul li a{display:block;padding:8px 0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);cursor:pointer;transition:all .18s;}
+.mega-cols ul li a:hover{color:var(--gold);padding-left:8px;}
+
+/* MOBILE NAV */
+.mob-nav{display:none;position:fixed;inset:0;z-index:850;background:var(--dark);flex-direction:column;overflow-y:auto;padding:80px 5vw 40px;}
+.mob-nav.open{display:flex;}
+.mob-close{position:absolute;top:22px;right:5vw;background:none;border:none;color:var(--white);font-size:26px;line-height:1;cursor:pointer;}
+.mob-nav a{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--white);padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;transition:color .2s;display:block;}
+.mob-nav a:hover{color:var(--gold);}
+
+/* PAGE HERO (inner pages) */
+.page-hero{position:relative;height:480px;display:flex;align-items:flex-end;overflow:hidden;}
+.page-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.82) 100%);}
+.page-hero-content{position:relative;z-index:2;padding:0 5vw 56px;width:100%;}
+.page-hero-eyebrow{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:12px;}
+.page-hero-title{font-family:var(--serif);font-size:clamp(38px,5vw,72px);font-weight:400;color:var(--white);line-height:1.0;}
+.page-hero-title em{font-style:italic;color:var(--gold);}
+.page-hero-sub{font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.2em;text-transform:uppercase;margin-top:10px;font-weight:300;}
+.breadcrumb{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:14px;}
+.breadcrumb a{color:var(--gold);cursor:pointer;}
+.breadcrumb a:hover{text-decoration:underline;}
+
+/* SECTION UTILITIES */
+.sec{padding:90px 5vw;}
+.sec-dark{background:var(--dark);}
+.sec-cream{background:var(--cream);}
+.sec-black{background:var(--black);}
+.sec-white{background:var(--white);}
+.eyebrow{font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:500;margin-bottom:10px;}
+.sec-title{font-family:var(--serif);font-size:clamp(30px,3.5vw,50px);font-weight:400;line-height:1.1;}
+.sec-title-w{color:var(--white);}
+.sec-title em{font-style:italic;color:var(--gold);}
+.rule{width:44px;height:1px;background:var(--gold);margin:18px 0;}
+.sub{font-size:14px;color:var(--gray);line-height:1.9;font-weight:300;max-width:600px;}
+.sub-w{color:rgba(255,255,255,.45);}
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease;}
+.fade-up.vis{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+
+/* CONTENT LAYOUTS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.content-img{width:100%;height:480px;object-fit:cover;}
+
+/* SERVICE CARDS */
+.svc-card{background:var(--white);border:1px solid #eee;padding:36px 32px;transition:border-color .3s,box-shadow .3s;}
+.svc-card:hover{border-color:var(--gold);box-shadow:0 8px 40px rgba(192,154,74,.08);}
+.svc-card-icon{width:52px;height:52px;background:rgba(192,154,74,.1);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;}
+.svc-card-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--black);margin-bottom:12px;}
+.svc-card-text{font-size:13px;color:var(--gray);line-height:1.8;font-weight:300;}
+
+/* FEATURE LIST */
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:24px;}
+.feat-list li{display:flex;align-items:flex-start;gap:14px;font-size:13px;color:var(--gray);line-height:1.7;font-weight:300;}
+.feat-list li::before{content:'';width:20px;height:20px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;}
+
+/* STEP CARDS */
+.step-card{padding:36px 28px;border:1px solid #eee;position:relative;}
+.step-num{font-family:var(--serif);font-size:64px;font-weight:400;color:rgba(192,154,74,.1);line-height:1;position:absolute;top:20px;right:20px;}
+.step-icon{font-size:28px;margin-bottom:16px;}
+.step-title{font-size:15px;font-weight:600;letter-spacing:.05em;color:var(--black);margin-bottom:10px;}
+.step-text{font-size:13px;color:var(--gray);line-height:1.8;font-weight:300;}
+
+/* STAT BAND */
+.stat-band{background:var(--black);padding:56px 5vw;}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid rgba(192,154,74,.1);}
+.stat-item{padding:0 40px;border-right:1px solid rgba(192,154,74,.1);text-align:center;}
+.stat-num{font-family:var(--serif);font-size:48px;font-weight:400;color:var(--gold);line-height:1;}
+.stat-lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:8px;}
+
+/* TESTIMONIAL MINI */
+.quote-block{background:var(--cream);border-left:3px solid var(--gold);padding:32px 36px;margin-top:40px;}
+.quote-text{font-family:var(--serif);font-size:18px;font-weight:400;font-style:italic;color:var(--black);line-height:1.7;margin-bottom:16px;}
+.quote-auth{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:500;}
+
+/* CTA BAND */
+.cta-band{background:var(--dark);padding:72px 5vw;text-align:center;}
+.cta-band h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,48px);font-weight:400;color:var(--white);margin-bottom:12px;}
+.cta-band h2 em{font-style:italic;color:var(--gold);}
+.cta-band p{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:32px;font-weight:300;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.8;}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--white);border:none;padding:15px 38px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;transition:background .2s;display:inline-block;}
+.btn-gold:hover{background:var(--gold2);}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.3);padding:15px 38px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;transition:all .2s;display:inline-block;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid #eee;}
+.faq-q{padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:500;letter-spacing:.02em;}
+.faq-q::after{content:'+';font-size:22px;color:var(--gold);line-height:1;flex-shrink:0;transition:transform .3s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{display:none;padding:0 0 20px;font-size:13px;color:var(--gray);line-height:1.8;font-weight:300;}
+.faq-item.open .faq-a{display:block;}
+
+/* FOOTER */
+footer{background:var(--black);padding:64px 5vw 32px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:48px;}
+.fl-main{font-family:var(--serif);font-size:19px;color:var(--white);letter-spacing:.06em;}
+.fl-main span{color:var(--gold);}
+.fl-sub{font-size:8px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);margin-top:3px;}
+.fl-tag{font-size:7px;color:rgba(255,255,255,.2);letter-spacing:.2em;text-transform:uppercase;margin-top:2px;}
+.footer-desc{font-size:11px;color:rgba(255,255,255,.25);line-height:1.9;margin-top:14px;max-width:270px;font-weight:300;}
+.kw-badge{display:inline-block;background:#CC0000;color:var(--white);font-size:9px;font-weight:700;padding:3px 9px;letter-spacing:.06em;margin-top:10px;}
+.fc-title{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:18px;}
+.fc-links{display:flex;flex-direction:column;gap:10px;}
+.fc-links a{font-size:11px;color:rgba(255,255,255,.25);cursor:pointer;transition:color .2s;font-weight:300;}
+.fc-links a:hover{color:var(--gold);}
+.footer-bot{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.18);font-weight:300;}
+.footer-soc{display:flex;gap:8px;}
+.fsoc{width:32px;height:32px;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.25);cursor:pointer;transition:all .2s;}
+.fsoc:hover{border-color:var(--gold);color:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:1050px){.nav-menu{display:none;}.hamburger{display:flex;}.two-col,.three-col{grid-template-columns:1fr;gap:36px;}.four-col{grid-template-columns:1fr 1fr;}.stat-row{grid-template-columns:1fr 1fr;}.footer-grid{grid-template-columns:1fr 1fr;gap:28px;}}
+@media(max-width:640px){.four-col{grid-template-columns:1fr;}.stat-row{grid-template-columns:1fr 1fr;}.footer-grid{grid-template-columns:1fr;}.sec{padding:60px 5vw;}.page-hero{height:340px;}}
+
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div id="topbar">
+  <span>📍 Phoenix Metro, Arizona</span><span class="tb-div">|</span>
+  <a href="tel:6025550190">(602) 555-0190</a><span class="tb-div">|</span>
+  <a href="mailto:hello@arizonacollective.com">hello@arizonacollective.com</a><span class="tb-div">|</span>
+  <a href="index.html#referrals">Partner Login</a>
+</div>
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="nl-main">ARIZ<span>O</span>NA</div>
+    <div class="nl-sub">Collective</div>
+    <div class="nl-tag">Real Estate Group</div>
+  </a>
+  <ul class="nav-menu" id="nav-menu">
+    <li id="li-svc"><span onclick="tdd('li-svc')">Services <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+      <div class="dropdown">
+        <a href="seller-services.html">Seller Services</a>
+        <a href="buyer-services.html">Buyer Services</a>
+        <a href="investor-services.html">Investor Services</a>
+        <div class="dd-item"><span>Commercial RE <svg viewBox="0 0 6 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4-4 4"/></svg></span>
+          <div class="dd-sub">
+            <a href="retail-spaces.html">Retail Spaces</a>
+            <a href="office-spaces.html">Office Spaces</a>
+            <a href="multi-family.html">Multi-Family Investments</a>
+            <a href="development-land.html">Development Land</a>
+            <a href="industrial.html">Industrial Properties</a>
+            <a href="medical-office.html">Medical Office Spaces</a>
+            <a href="restaurant-locations.html">Restaurant Locations</a>
+          </div>
+        </div>
+        <a href="market-strategy.html">Market &amp; Strategy</a>
+        <a href="transaction-support.html">Transaction Support</a>
+        <a href="1031-exchange.html">1031 Exchange</a>
+        <a href="relocation.html">Relocation Services</a>
+        <a href="wealth-managers.html">Wealth Managers</a>
+        <a href="divorce-real-estate.html">Divorce Real Estate</a>
+        <a href="property-management.html">Property Management</a>
+      </div>
+    </li>
+    <li><a href="home-search.html">Home Search</a></li>
+    <li id="li-hood"><span onclick="tdd('li-hood')">Neighborhoods <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+      <div class="mega-drop">
+        <div class="mega-head">Phoenix Metro <span>Neighborhoods</span></div>
+        <div class="mega-cols">
+          <ul><li><a href="index.html#areas">Scottsdale</a></li><li><a href="index.html#areas">Paradise Valley</a></li><li><a href="index.html#areas">Chandler</a></li><li><a href="index.html#areas">Gilbert</a></li><li><a href="index.html#areas">Tempe</a></li><li><a href="index.html#areas">Mesa</a></li><li><a href="index.html#areas">Glendale</a></li><li><a href="index.html#areas">Peoria</a></li><li><a href="index.html#areas">Surprise</a></li></ul>
+          <ul><li><a href="index.html#areas">Goodyear</a></li><li><a href="index.html#areas">Avondale</a></li><li><a href="index.html#areas">Queen Creek</a></li><li><a href="index.html#areas">Maricopa</a></li><li><a href="index.html#areas">Cave Creek</a></li><li><a href="index.html#areas">Fountain Hills</a></li><li><a href="index.html#areas">Buckeye</a></li><li><a href="index.html#areas">Anthem</a></li><li><a href="index.html#areas">Ahwatukee</a></li></ul>
+          <ul><li><a href="index.html#areas">Arcadia</a></li><li><a href="index.html#areas">Biltmore</a></li><li><a href="index.html#areas">Desert Ridge</a></li><li><a href="index.html#areas">North Scottsdale</a></li><li><a href="index.html#areas">Old Town Scottsdale</a></li><li><a href="index.html#areas">South Mountain</a></li><li><a href="index.html#areas">Downtown Phoenix</a></li><li><a href="index.html#areas">Laveen</a></li><li><a href="index.html#areas">Tolleson</a></li></ul>
+          <ul><li><a href="index.html#areas">Sedona</a></li><li><a href="index.html#areas">Prescott</a></li><li><a href="index.html#areas">Flagstaff</a></li><li><a href="index.html#areas">Tucson</a></li><li><a href="index.html#areas">Oro Valley</a></li><li><a href="index.html#areas">Sahuarita</a></li><li><a href="index.html#areas">Casa Grande</a></li><li><a href="index.html#areas">Florence</a></li></ul>
+        </div>
+      </div>
+    </li>
+    <li><a href="about.html">About Us</a></li>
+    <li id="li-lst"><span onclick="tdd('li-lst')">Listings <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+      <div class="dropdown">
+        <a href="index.html#listings">Active Listings</a>
+        <a href="index.html#sold">Sold Properties</a>
+        <a href="index.html#listings">Luxury Listings</a>
+        <a href="index.html#listings">New Construction</a>
+        <a href="index.html#listings">Investment Properties</a>
+      </div>
+    </li>
+    <li id="li-prt"><span onclick="tdd('li-prt')">Portal <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></span>
+      <div class="dropdown">
+        <a href="index.html#referrals">Referral Submission</a>
+        <a href="index.html#referrals">Referral Tracker</a>
+        <a href="index.html#referrals">Partner Login</a>
+        <a href="index.html#referrals">Agent CRM Login</a>
+      </div>
+    </li>
+    <li><a href="index.html#reviews">Reviews</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="btn-portal" href="index.html#referrals"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Login</a>
+    <a class="btn-consult" href="index.html#contact">Book Consultation</a>
+    <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-nav" id="mob-nav">
+  <button class="mob-close" onclick="toggleMob()">×</button>
+  <a href="index.html">Home</a>
+  <a href="seller-services.html">Seller Services</a>
+  <a href="buyer-services.html">Buyer Services</a>
+  <a href="investor-services.html">Investor Services</a>
+  <a href="home-search.html">Home Search</a>
+  <a href="about.html">About Us</a>
+  <a href="blog.html">Blog</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="index.html#referrals">Partner Login</a>
+</div>
+
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&q=85');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html">Services</a></div>
+    <div class="page-hero-eyebrow">Investor Services</div>
+    <h1 class="page-hero-title">Build Wealth Through <em>Arizona Real Estate</em></h1>
+  </div>
+</section>
+<section class="sec sec-white">
+  <div class="two-col">
+    <div class="fade-up">
+      <p class="eyebrow">Real Estate Investing</p>
+      <h2 class="sec-title">Phoenix is One of the <em>Top Investor Markets</em> in the US.</h2>
+      <div class="rule"></div>
+      <p class="sub">Arizona Collective is Phoenix's go-to team for real estate investors at every level — from first rental property to multi-million-dollar portfolios. We understand the numbers, the neighborhoods, and the strategy.</p>
+      <ul class="feat-list">
+        <li>Cash-flow analysis and cap rate evaluation on every property</li>
+        <li>Off-market investment opportunities before they hit MLS</li>
+        <li>Short-term rental (AirBnB) market analysis and projections</li>
+        <li>1031 Exchange coordination and advisory</li>
+        <li>Multi-family and commercial property acquisition</li>
+        <li>Portfolio review and strategic growth planning</li>
+        <li>Property management referrals and tenant coordination</li>
+      </ul>
+    </div>
+    <div class="fade-up d2">
+      <img class="content-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Investor Services"/>
+    </div>
+  </div>
+</section>
+<div class="stat-band"><div class="stat-row"><div class="stat-item fade-up"><div class="stat-num">8.2%</div><div class="stat-lbl">Avg Cap Rate Portfolio</div></div><div class="stat-item fade-up"><div class="stat-num">$120M+</div><div class="stat-lbl">Investment Volume</div></div><div class="stat-item fade-up"><div class="stat-num">150+</div><div class="stat-lbl">Investor Clients</div></div><div class="stat-item fade-up"><div class="stat-num">1031s</div><div class="stat-lbl">Coordinated</div></div></div></div>
+<section class="sec sec-dark">
+  <div class="fade-up" style="text-align:center;max-width:640px;margin:0 auto 56px;">
+    <p class="eyebrow">Investment Strategies</p>
+    <h2 class="sec-title sec-title-w">We Specialize in <em>Every Strategy</em></h2>
+    <div class="rule" style="margin:16px auto;"></div>
+  </div>
+  <div class="three-col">
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);" class="fade-up">
+      <div class="svc-card-icon">🏘️</div>
+      <div class="svc-card-title" style="color:var(--white);">Buy &amp; Hold</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">Long-term rental properties with strong cash flow, appreciation potential, and tenant demand across Phoenix metro's fastest-growing corridors.</div>
+    </div>
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);">
+      <div class="svc-card-icon">🏖️</div>
+      <div class="svc-card-title" style="color:var(--white);">Short-Term Rentals</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">AirBnB and VRBO strategy in Scottsdale, Tempe, and Old Town — we analyze occupancy rates, nightly revenue, and zoning before you buy.</div>
+    </div>
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);">
+      <div class="svc-card-icon">🔨</div>
+      <div class="svc-card-title" style="color:var(--white);">Fix &amp; Flip</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">We identify undervalued properties with strong ARV potential, connect you with reliable contractors, and help you execute profitable flips.</div>
+    </div>
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);">
+      <div class="svc-card-icon">🔄</div>
+      <div class="svc-card-title" style="color:var(--white);">1031 Exchange</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">Defer capital gains taxes by rolling your proceeds into a like-kind property. We coordinate the timeline, identify replacement properties, and manage the process.</div>
+    </div>
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);">
+      <div class="svc-card-icon">🏢</div>
+      <div class="svc-card-title" style="color:var(--white);">Multi-Family</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">Duplexes, triplexes, and small apartment buildings — we analyze income, expenses, and value-add potential across Phoenix metro.</div>
+    </div>
+    <div class="svc-card" style="background:rgba(255,255,255,0.04);border-color:rgba(192,154,74,0.15);">
+      <div class="svc-card-icon">📈</div>
+      <div class="svc-card-title" style="color:var(--white);">Portfolio Building</div>
+      <div class="svc-card-text" style="color:rgba(255,255,255,0.45);">From your first rental to your tenth — we help you build a strategic portfolio with compounding cash flow and long-term wealth creation.</div>
+    </div>
+  </div>
+</section>
+<section class="sec sec-cream">
+  <div class="fade-up" style="max-width:700px;margin:0 auto;">
+    <p class="eyebrow">Common Questions</p>
+    <h2 class="sec-title">Investor <em>FAQ</em></h2>
+    <div class="rule"></div>
+    <div style="margin-top:32px;">
+      <div class="faq-item"><div class="faq-q">What areas have the best cash flow in Phoenix right now?</div><div class="faq-a">Mesa, Glendale, and parts of Phoenix proper currently offer the strongest cap rates (7–9%). Scottsdale and Tempe command premium prices but also premium short-term rental income. We run the numbers for your specific strategy.</div></div>
+      <div class="faq-item"><div class="faq-q">Is Phoenix still a good market to invest in?</div><div class="faq-a">Yes. Phoenix continues to be one of the top-ranked investor markets nationally due to population growth, corporate relocations, strong rental demand, and relative affordability compared to California coastal markets.</div></div>
+      <div class="faq-item"><div class="faq-q">Can you help me find off-market deals?</div><div class="faq-a">Absolutely. We maintain relationships with wholesalers, attorneys, and distressed sellers that give our investor clients access to deals that never hit the MLS. Tell us your criteria and we'll send you matches.</div></div>
+      <div class="faq-item"><div class="faq-q">Do you work with out-of-state investors?</div><div class="faq-a">Yes — many of our best investor clients are based in California, Washington, and other states. We handle everything locally including virtual tours, inspection walk-throughs, and property management referrals.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <h2>Ready to Grow Your <em>Investment Portfolio?</em></h2>
+  <p>Schedule a free investor consultation. We'll analyze your goals and identify the best opportunities in today's Phoenix market.</p>
+  <div class="cta-btns">
+    <a class="btn-gold" href="index.html#contact">Book Free Consultation</a>
+    <a class="btn-outline" href="tel:6025550190">Call (602) 555-0190</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="fl-main">ARIZ<span>O</span>NA</div>
+      <div class="fl-sub">Collective</div>
+      <div class="fl-tag">Real Estate Group</div>
+      <p class="footer-desc">Phoenix's trusted real estate team. Boutique service, proven results, and the power of Keller Williams behind every transaction.</p>
+      <span class="kw-badge">Keller Williams Arizona Realty</span>
+    </div>
+    <div>
+      <div class="fc-title">Services</div>
+      <div class="fc-links">
+        <a href="seller-services.html">Seller Services</a>
+        <a href="buyer-services.html">Buyer Services</a>
+        <a href="investor-services.html">Investor Services</a>
+        <a href="1031-exchange.html">1031 Exchange</a>
+        <a href="relocation.html">Relocation</a>
+        <a href="property-management.html">Property Management</a>
+      </div>
+    </div>
+    <div>
+      <div class="fc-title">Company</div>
+      <div class="fc-links">
+        <a href="about.html">About Us</a>
+        <a href="index.html#reviews">Reviews</a>
+        <a href="index.html#referrals">Referral Portal</a>
+        <a href="blog.html">Blog</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+    <div>
+      <div class="fc-title">Contact</div>
+      <div class="fc-links">
+        <a href="tel:6025550190">(602) 555-0190</a>
+        <a href="mailto:hello@arizonacollective.com">Email Us</a>
+        <a href="index.html#contact">Book Consultation</a>
+        <a href="home-search.html">Search Homes</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <span class="footer-copy">© 2025 Arizona Collective Real Estate Group · Keller Williams Arizona Realty · All Rights Reserved</span>
+    <div class="footer-soc">
+      <div class="fsoc">IG</div><div class="fsoc">FB</div><div class="fsoc">TT</div><div class="fsoc">YT</div><div class="fsoc">LI</div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+function tdd(id,nested){
+  var el=document.getElementById(id);if(!el)return;
+  var wasOpen=el.classList.contains('open');
+  if(!nested){document.querySelectorAll('#nav-menu>li.open').forEach(function(li){li.classList.remove('open');});}
+  if(!wasOpen)el.classList.add('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#nav-menu')&&!e.target.closest('.mob-nav')){
+    document.querySelectorAll('.open').forEach(function(el){el.classList.remove('open');});
+  }
+});
+function toggleMob(){document.getElementById('mob-nav').classList.toggle('open');}
+var obs=new IntersectionObserver(function(ents){ents.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.07});
+document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});
+document.querySelectorAll('.faq-q').forEach(function(q){
+  q.addEventListener('click',function(){
+    var item=this.closest('.faq-item');
+    item.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
