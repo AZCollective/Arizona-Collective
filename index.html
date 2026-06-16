@@ -720,36 +720,7 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
     </div>
   </div>
 </footer>
-
-<!-- PORTAL MODAL -->
-<div id="portal-modal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closePortal()">&times;</button>
-    <div class="modal-eyebrow">Arizona Collective</div>
-    <div class="modal-title">Team Portal</div>
-    <div class="modal-tabs">
-      <button class="modal-tab active" onclick="switchTab(this,'agent')">Agent Login</button>
-      <button class="modal-tab" onclick="switchTab(this,'partner')">Partner Login</button>
-    </div>
-    <div id="tab-agent" class="modal-form">
-      <label>Agent Email</label>
-      <input type="email" placeholder="you@kw.com"/>
-      <label>Password</label>
-      <input type="password" placeholder="••••••••"/>
-      <button class="modal-submit">Access Agent CRM</button>
-      <p class="modal-note">Need access? Contact your team lead at<br><a href="mailto:alexhernandez@kw.com" style="color:var(--gold);">alexhernandez@kw.com</a></p>
-    </div>
-    <div id="tab-partner" class="modal-form" style="display:none;">
-      <label>Partner Email</label>
-      <input type="email" placeholder="partner@brokerage.com"/>
-      <label>Password</label>
-      <input type="password" placeholder="••••••••"/>
-      <button class="modal-submit">Access Referral Portal</button>
-      <p class="modal-note">Not a partner yet? <a href="#" style="color:var(--gold);">Apply to join our referral network &rarr;</a></p>
-    </div>
-  </div>
-</div>
-
+  
 <script>
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);});
