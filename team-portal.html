@@ -8,23 +8,22 @@
 <style>
 #login-screen{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;}
 .login-box{width:100%;max-width:420px;padding:56px 48px;border:1px solid rgba(192,154,74,0.2);background:#0d0d0d;text-align:center;}
-.login-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;letter-spacing:0.04em;color:#fff;margin-bottom:4px;}
-.login-sub{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#C09A4A;font-family:'Inter',sans-serif;font-weight:300;margin-bottom:40px;}
-.login-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:8px;}
-.login-desc{font-size:12px;color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;font-weight:300;margin-bottom:32px;line-height:1.7;}
-.login-label{display:block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;margin-bottom:8px;text-align:left;}
-.login-input{width:100%;background:#1a1a1a;border:1px solid rgba(192,154,74,0.2);color:#fff;padding:13px 16px;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:20px;transition:border .2s;}
+.login-logo{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:600;letter-spacing:0.04em;color:#fff;margin-bottom:4px;}
+.login-sub{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#C09A4A;font-family:"Inter",sans-serif;font-weight:300;margin-bottom:40px;}
+.login-title{font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:8px;}
+.login-desc{font-size:12px;color:rgba(255,255,255,0.35);font-family:"Inter",sans-serif;font-weight:300;margin-bottom:32px;line-height:1.7;}
+.login-label{display:block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-family:"Inter",sans-serif;margin-bottom:8px;text-align:left;}
+.login-input{width:100%;background:#1a1a1a;border:1px solid rgba(192,154,74,0.2);color:#fff;padding:13px 16px;font-size:14px;font-family:"Inter",sans-serif;outline:none;margin-bottom:20px;transition:border .2s;}
 .login-input:focus{border-color:#C09A4A;}
-.login-btn{width:100%;background:#C09A4A;color:#0a0a0a;border:none;padding:14px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:background .3s;margin-bottom:16px;}
+.login-btn{width:100%;background:#C09A4A;color:#0a0a0a;border:none;padding:14px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;font-family:"Inter",sans-serif;transition:background .3s;margin-bottom:16px;}
 .login-btn:hover{background:#E2B96A;}
-.login-error{font-size:12px;color:#e50914;font-family:'Inter',sans-serif;margin-top:-8px;margin-bottom:12px;display:none;}
-.login-footer{font-size:11px;color:rgba(255,255,255,0.2);font-family:'Inter',sans-serif;margin-top:24px;line-height:1.6;}
+.login-error{font-size:12px;color:#e50914;font-family:"Inter",sans-serif;margin-top:-8px;margin-bottom:12px;display:none;}
+.login-footer{font-size:11px;color:rgba(255,255,255,0.2);font-family:"Inter",sans-serif;margin-top:24px;line-height:1.6;}
 .login-footer a{color:#C09A4A;}
 #crm-app{display:none;}
 </style>
 </head>
 <body>
-
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Arizona Collective</div>
@@ -32,13 +31,12 @@
     <div class="login-title">Agent Access</div>
     <p class="login-desc">This portal is for Arizona Collective team members only. Enter your team password to access the CRM.</p>
     <label class="login-label">Team Password</label>
-    <input type="password" class="login-input" id="portal-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryLogin()"/>
+    <input type="password" class="login-input" id="portal-password" placeholder="Enter password" onkeydown="if(event.key==='Enter')tryLogin()"/>
     <div class="login-error" id="login-error">Incorrect password. Try again or contact Alex.</div>
     <button class="login-btn" onclick="tryLogin()">Access CRM</button>
     <div class="login-footer">Need access? Contact <a href="mailto:alexhernandez@kw.com">alexhernandez@kw.com</a></div>
   </div>
 </div>
-
 <div id="crm-app">
 <style>
 :root{
@@ -487,7 +485,7 @@ async function saveContactToDB(c){
     await sbFetch('contacts?id=eq.'+c.id, 'PATCH', payload);
   } else {
     const res = await sbFetch('contacts', 'POST', payload);
-    if(res && res[0]) c.id = res[0].id;
+    if(res && res[0]){ c.id = res[0].id; }
   }
 }
 
@@ -1059,7 +1057,7 @@ async function saveContactDetail(cid){
 }
 
 async function deleteContact(id){
-  await deleteContactFromDB(id);
+  if(typeof id === 'number') await deleteContactFromDB(id);
   contacts=contacts.filter(x=>x.id!==id);
   selectedContact=null;
   closeContactDetail();
@@ -1098,7 +1096,7 @@ async function saveContact(){
     c.agentId=document.getElementById('mAgent').value;c.type=document.getElementById('mType').value;
     showToast('Updated!','ok');
   } else {
-    const nc={id:'new_'+Date.now(),fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
+    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
     contacts.push(nc);selectedContact=nc.id;
     showToast('Contact added!','ok');
   }
@@ -1144,29 +1142,29 @@ const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate
       <button class="mbtn mbtn-save" onclick="saveEditAgent()">Save Changes</button>
     </div>
   </div>
-</div></div>
-
+</div>
+</div>
 <script>
-const TEAM_PASSWORD = 'AZCollective2025!';
+const TEAM_PASSWORD = "AZCollective2025!";
 function tryLogin() {
-  const input = document.getElementById('portal-password').value;
-  const error = document.getElementById('login-error');
+  const input = document.getElementById("portal-password").value;
+  const error = document.getElementById("login-error");
   if (input === TEAM_PASSWORD) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('crm-app').style.display = 'block';
-    sessionStorage.setItem('az_portal_auth', 'true');
-    if(typeof loadFromDB === 'function') loadFromDB();
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("crm-app").style.display = "block";
+    sessionStorage.setItem("az_portal_auth", "true");
+    if(typeof loadFromDB === "function") loadFromDB();
   } else {
-    error.style.display = 'block';
-    document.getElementById('portal-password').value = '';
-    document.getElementById('portal-password').focus();
+    error.style.display = "block";
+    document.getElementById("portal-password").value = "";
+    document.getElementById("portal-password").focus();
   }
 }
-if (sessionStorage.getItem('az_portal_auth') === 'true') {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('crm-app').style.display = 'block';
+if (sessionStorage.getItem("az_portal_auth") === "true") {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("crm-app").style.display = "block";
 }
-document.getElementById('portal-password').focus();
+document.getElementById("portal-password").focus();
 </script>
 </body>
 </html>
