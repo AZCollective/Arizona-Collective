@@ -1097,7 +1097,9 @@ async function saveContact(){
     showToast('Updated!','ok');
   } else {
     const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
-    contacts.push(nc);selectedContact=nc.id;
+    await saveContactToDB(nc);
+    contacts.push(nc);
+    selectedContact=nc.id;
     showToast('Contact added!','ok');
   }
   closeOverlay('contactModal');renderNavAgents();renderMain();
