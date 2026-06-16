@@ -25,13 +25,11 @@ a{text-decoration:none;color:inherit;}
 button{cursor:pointer;font-family:var(--sans);}
 img{display:block;width:100%;object-fit:cover;}
 
-/* ── TOPBAR ── */
 #topbar{background:rgba(0,0,0,0.97);padding:8px 5vw;display:flex;justify-content:flex-end;align-items:center;gap:24px;border-bottom:1px solid rgba(255,255,255,0.06);}
 #topbar a{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:0.12em;text-transform:uppercase;transition:color .2s;}
 #topbar a:hover{color:var(--gold);}
 .tb-divider{color:rgba(255,255,255,0.15);font-size:11px;}
 
-/* ── NAV ── */
 #nav{position:fixed;top:0;width:100%;z-index:999;transition:background .3s,border .3s;border-bottom:1px solid transparent;}
 #nav.scrolled{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:var(--nav);}
@@ -41,21 +39,17 @@ img{display:block;width:100%;object-fit:cover;}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color .2s;font-weight:400;}
 .nav-links a:hover{color:var(--gold);}
-
-/* dropdown */
 .nav-drop{position:relative;}
 .nav-drop-menu{display:none;position:absolute;top:100%;left:0;background:rgba(10,10,10,0.98);border:1px solid var(--border);padding:12px 0;min-width:200px;z-index:100;}
 .nav-drop:hover .nav-drop-menu{display:block;}
 .nav-drop-menu a{display:block;padding:9px 20px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:color .2s;}
 .nav-drop-menu a:hover{color:var(--gold);}
-.nav-drop > a::after{content:' ▾';font-size:8px;opacity:0.5;}
-
+.nav-drop>a::after{content:' ▾';font-size:8px;opacity:0.5;}
 .nav-portal-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:9px 18px;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;transition:all .3s;cursor:pointer;}
 .nav-portal-btn:hover{background:var(--gold);color:var(--black);}
 .nav-menu-toggle{display:none;background:none;border:none;padding:8px;cursor:pointer;}
 .nav-menu-toggle span{display:block;width:22px;height:1px;background:var(--white);margin:5px 0;}
 
-/* ── HERO ── */
 #hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background:
   linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.6) 70%, rgba(10,10,10,1) 100%),
@@ -74,7 +68,6 @@ img{display:block;width:100%;object-fit:cover;}
 .hero-scroll span{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);writing-mode:vertical-rl;}
 .hero-scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--gold));}
 
-/* ── SEARCH BAR ── */
 #search-bar{background:var(--darker);padding:32px 5vw;border-bottom:1px solid var(--border);}
 .search-inner{display:flex;gap:0;max-width:900px;}
 .search-inner select,.search-inner input{background:var(--mid);border:1px solid var(--border);border-right:none;color:var(--white);padding:13px 18px;font-size:12px;font-family:var(--sans);outline:none;flex:1;-webkit-appearance:none;}
@@ -83,7 +76,6 @@ img{display:block;width:100%;object-fit:cover;}
 .search-btn{background:var(--gold);color:var(--black);border:none;padding:13px 28px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;font-family:var(--sans);cursor:pointer;flex:0 0 auto;transition:background .3s;white-space:nowrap;}
 .search-btn:hover{background:var(--gold2);}
 
-/* ── STATS ── */
 #stats{background:var(--darker);border-bottom:1px solid var(--border);}
 .stats-inner{display:grid;grid-template-columns:repeat(3,1fr);padding:0 5vw;}
 .stat-item{padding:32px 0;text-align:center;border-right:1px solid var(--border);}
@@ -91,13 +83,11 @@ img{display:block;width:100%;object-fit:cover;}
 .stat-num{font-family:var(--serif);font-size:40px;font-weight:300;color:var(--gold);letter-spacing:-0.02em;}
 .stat-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-top:4px;font-weight:400;}
 
-/* ── SECTIONS ── */
 section{padding:100px 5vw;}
 .section-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
 .section-headline{font-family:var(--serif);font-size:clamp(32px,4vw,54px);font-weight:300;line-height:1.1;letter-spacing:-0.01em;color:var(--white);}
 .section-headline em{font-style:italic;color:var(--gold2);}
 
-/* ── LISTINGS ── */
 #listings{background:var(--black);}
 .listings-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;}
 .listings-filters{display:flex;gap:4px;flex-wrap:wrap;}
@@ -118,7 +108,6 @@ section{padding:100px 5vw;}
 .listing-meta strong{color:rgba(255,255,255,0.7);}
 .listings-cta{text-align:center;margin-top:48px;}
 
-/* ── INTRO / ABOUT ── */
 #intro{background:var(--darker);border-top:1px solid var(--border);}
 .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
 .intro-text p{font-size:14px;line-height:1.95;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:20px;}
@@ -129,7 +118,6 @@ section{padding:100px 5vw;}
 .pillar-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;}
 .intro-img img{height:540px;object-fit:cover;}
 
-/* ── SERVICES ── */
 #services{background:var(--black);}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
 .service-card{background:var(--black);padding:40px 34px;transition:background .3s;}
@@ -140,7 +128,6 @@ section{padding:100px 5vw;}
 .service-link{display:inline-block;margin-top:18px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid transparent;transition:border .2s;}
 .service-link:hover{border-bottom-color:var(--gold);}
 
-/* ── NEIGHBORHOODS ── */
 #neighborhoods{background:var(--darker);}
 .neighborhoods-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:48px;}
 .neighborhoods-intro p{font-size:13px;line-height:1.9;color:rgba(255,255,255,0.45);font-weight:300;}
@@ -153,7 +140,6 @@ section{padding:100px 5vw;}
 .area-meta{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
 .neighborhoods-all{text-align:center;margin-top:40px;}
 
-/* ── PROCESS ── */
 #process{background:var(--black);border-top:1px solid var(--border);}
 .process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:60px;border:1px solid var(--border);}
 .process-step{padding:36px 28px;border-right:1px solid var(--border);position:relative;}
@@ -162,7 +148,6 @@ section{padding:100px 5vw;}
 .process-step-title{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:400;}
 .process-step-desc{font-size:12px;line-height:1.8;color:rgba(255,255,255,0.38);font-weight:300;}
 
-/* ── REVIEWS ── */
 #reviews{background:var(--darker);border-top:1px solid var(--border);}
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
 .review-card{background:var(--darker);padding:36px 32px;}
@@ -174,7 +159,6 @@ section{padding:100px 5vw;}
 .review-detail{font-size:10px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-top:2px;}
 .reviews-cta{text-align:center;margin-top:48px;}
 
-/* ── TESTIMONIAL PULL QUOTE ── */
 #pullquote{background:var(--black);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .pullquote-inner{max-width:760px;margin:0 auto;text-align:center;padding:80px 5vw;}
 .quote-mark{font-family:var(--serif);font-size:80px;color:var(--gold);line-height:0.5;margin-bottom:32px;opacity:0.35;}
@@ -182,7 +166,6 @@ section{padding:100px 5vw;}
 .quote-attr{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.3);}
 .quote-attr span{color:var(--gold);}
 
-/* ── CTA BANNER ── */
 #cta-banner{background:var(--darker);}
 .cta-banner-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:80px 5vw;border:1px solid var(--border);position:relative;overflow:hidden;}
 .cta-banner-inner::before{content:'';position:absolute;top:0;right:0;width:40%;height:100%;background:linear-gradient(to left,rgba(192,154,74,0.05),transparent);pointer-events:none;}
@@ -190,25 +173,6 @@ section{padding:100px 5vw;}
 .cta-title em{font-style:italic;color:var(--gold2);}
 .cta-actions{display:flex;flex-direction:column;gap:12px;min-width:200px;}
 
-/* ── PORTAL MODAL ── */
-#portal-modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;}
-#portal-modal.open{display:flex;}
-.modal-box{background:var(--darker);border:1px solid var(--border);max-width:400px;width:90%;padding:48px 40px;position:relative;}
-.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:rgba(255,255,255,0.4);font-size:20px;cursor:pointer;transition:color .2s;}
-.modal-close:hover{color:var(--white);}
-.modal-eyebrow{font-size:9px;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.modal-title{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--white);margin-bottom:32px;}
-.modal-tabs{display:flex;gap:0;margin-bottom:28px;border:1px solid var(--border);}
-.modal-tab{flex:1;padding:10px;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;background:transparent;border:none;color:rgba(255,255,255,0.4);cursor:pointer;transition:all .2s;}
-.modal-tab.active{background:var(--gold);color:var(--black);}
-.modal-form label{display:block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:8px;}
-.modal-form input{width:100%;background:var(--mid);border:1px solid var(--border);color:var(--white);padding:12px 14px;font-size:13px;font-family:var(--sans);outline:none;margin-bottom:16px;}
-.modal-form input:focus{border-color:var(--gold);}
-.modal-submit{width:100%;background:var(--gold);color:var(--black);border:none;padding:14px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background .3s;margin-top:4px;}
-.modal-submit:hover{background:var(--gold2);}
-.modal-note{font-size:11px;color:rgba(255,255,255,0.25);text-align:center;margin-top:16px;line-height:1.6;}
-
-/* ── FOOTER ── */
 footer{background:var(--darker);border-top:1px solid var(--border);}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding:60px 5vw;}
 .footer-brand p{margin-top:16px;font-size:12px;line-height:1.85;color:rgba(255,255,255,0.3);font-weight:300;max-width:260px;}
@@ -220,7 +184,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
 .footer-bottom a{font-size:11px;color:rgba(255,255,255,0.22);margin-left:20px;transition:color .2s;}
 .footer-bottom a:hover{color:var(--gold);}
 
-/* ── MOBILE ── */
 @media(max-width:960px){
   .nav-links{display:none;}
   .nav-menu-toggle{display:block;}
@@ -253,7 +216,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div id="topbar">
   <a href="tel:6193765699">(619) 376-5699</a>
   <span class="tb-divider">|</span>
@@ -262,7 +224,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   <a href="#">Keller Williams Integrity First Realty</a>
 </div>
 
-<!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -298,7 +259,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -316,7 +276,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </section>
 
-<!-- SEARCH BAR -->
 <div id="search-bar">
   <div class="search-inner">
     <select>
@@ -347,25 +306,14 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </div>
 
-<!-- STATS -->
 <div id="stats">
   <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num">$120M+</div>
-      <div class="stat-label">Volume Closed</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">500+</div>
-      <div class="stat-label">Homes Sold</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">5.0 ★</div>
-      <div class="stat-label">Google Rating</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">$120M+</div><div class="stat-label">Volume Closed</div></div>
+    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Homes Sold</div></div>
+    <div class="stat-item"><div class="stat-num">5.0 ★</div><div class="stat-label">Google Rating</div></div>
   </div>
 </div>
 
-<!-- FEATURED LISTINGS -->
 <section id="listings">
   <div class="listings-header">
     <div>
@@ -441,7 +389,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </section>
 
-<!-- ABOUT / INTRO -->
 <section id="intro">
   <p class="section-eyebrow">Who We Are</p>
   <h2 class="section-headline">Arizona Collective —<br><em>Your Phoenix Experts.</em></h2>
@@ -450,26 +397,10 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
       <p>We're the Arizona Collective Real Estate Group, a dedicated team operating under Keller Williams Integrity First Realty. With deep roots in the Phoenix metro, we specialize in turning real estate goals into real outcomes — for first-time buyers, seasoned sellers, and serious investors alike.</p>
       <p>Led by Alex Hernandez, our approach combines local market expertise, data-driven strategy, and a genuine commitment to every client we work with. From Scottsdale to San Tan Valley, we know this market because we live it every day.</p>
       <div class="intro-pillars">
-        <div class="pillar">
-          <div class="pillar-icon">🏆</div>
-          <div class="pillar-title">Top 1% Agents</div>
-          <div class="pillar-desc">Consistently ranked among Arizona's top-producing teams.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">📊</div>
-          <div class="pillar-title">Data-Driven</div>
-          <div class="pillar-desc">Every recommendation backed by real-time MLS data.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">🤝</div>
-          <div class="pillar-title">Full-Service</div>
-          <div class="pillar-desc">Offer to close — negotiation, inspection, escrow, and beyond.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-icon">💼</div>
-          <div class="pillar-title">Investor Ready</div>
-          <div class="pillar-desc">Specialized in investment properties and 1031 exchanges.</div>
-        </div>
+        <div class="pillar"><div class="pillar-icon">🏆</div><div class="pillar-title">Top 1% Agents</div><div class="pillar-desc">Consistently ranked among Arizona's top-producing teams.</div></div>
+        <div class="pillar"><div class="pillar-icon">📊</div><div class="pillar-title">Data-Driven</div><div class="pillar-desc">Every recommendation backed by real-time MLS data.</div></div>
+        <div class="pillar"><div class="pillar-icon">🤝</div><div class="pillar-title">Full-Service</div><div class="pillar-desc">Offer to close — negotiation, inspection, escrow, and beyond.</div></div>
+        <div class="pillar"><div class="pillar-icon">💼</div><div class="pillar-title">Investor Ready</div><div class="pillar-desc">Specialized in investment properties and 1031 exchanges.</div></div>
       </div>
       <br/>
       <a href="about.html" class="btn-ghost">Meet the Team &rarr;</a>
@@ -480,51 +411,19 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <p class="section-eyebrow">What We Do</p>
   <h2 class="section-headline">Full-spectrum real estate <em>services</em></h2>
   <div class="services-grid">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <h3 class="service-title">Buyer Representation</h3>
-      <p class="service-desc">From first-time buyers to seasoned move-up clients, we guide you through search, offer strategy, negotiation, and close with clarity and confidence.</p>
-      <a href="buyer-services.html" class="service-link">Learn More &rarr;</a>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <h3 class="service-title">Seller Representation</h3>
-      <p class="service-desc">We price, prepare, and market your property to attract qualified buyers quickly. Professional photography, digital reach, and precise positioning.</p>
-      <a href="seller-services.html" class="service-link">Learn More &rarr;</a>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <h3 class="service-title">Investor Services</h3>
-      <p class="service-desc">Acquiring your first rental, scaling a portfolio, or exploring development — our team brings the data and deal flow to support your investment goals.</p>
-      <a href="investor-services.html" class="service-link">Learn More &rarr;</a>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <h3 class="service-title">Relocation Services</h3>
-      <p class="service-desc">Relocating to Arizona? We specialize in seamless out-of-state moves — virtual tours, remote coordination, and concierge-level service from start to close.</p>
-      <a href="relocation.html" class="service-link">Learn More &rarr;</a>
-    </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <h3 class="service-title">1031 Exchanges</h3>
-      <p class="service-desc">Maximize investment returns with strategic tax-deferred exchanges. We work alongside qualified intermediaries to keep your equity working harder.</p>
-      <a href="1031-exchange-page.html" class="service-link">Learn More &rarr;</a>
-    </div>
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <h3 class="service-title">Commercial Real Estate</h3>
-      <p class="service-desc">Office, retail, industrial, and multi-family — our commercial division handles acquisitions, dispositions, and leasing across the Phoenix metro.</p>
-      <a href="investor-services.html" class="service-link">Learn More &rarr;</a>
-    </div>
+    <div class="service-card"><div class="service-num">01</div><h3 class="service-title">Buyer Representation</h3><p class="service-desc">From first-time buyers to seasoned move-up clients, we guide you through search, offer strategy, negotiation, and close with clarity and confidence.</p><a href="buyer-services.html" class="service-link">Learn More &rarr;</a></div>
+    <div class="service-card"><div class="service-num">02</div><h3 class="service-title">Seller Representation</h3><p class="service-desc">We price, prepare, and market your property to attract qualified buyers quickly. Professional photography, digital reach, and precise positioning.</p><a href="seller-services.html" class="service-link">Learn More &rarr;</a></div>
+    <div class="service-card"><div class="service-num">03</div><h3 class="service-title">Investor Services</h3><p class="service-desc">Acquiring your first rental, scaling a portfolio, or exploring development — our team brings the data and deal flow to support your investment goals.</p><a href="investor-services.html" class="service-link">Learn More &rarr;</a></div>
+    <div class="service-card"><div class="service-num">04</div><h3 class="service-title">Relocation Services</h3><p class="service-desc">Relocating to Arizona? We specialize in seamless out-of-state moves — virtual tours, remote coordination, and concierge-level service from start to close.</p><a href="relocation.html" class="service-link">Learn More &rarr;</a></div>
+    <div class="service-card"><div class="service-num">05</div><h3 class="service-title">1031 Exchanges</h3><p class="service-desc">Maximize investment returns with strategic tax-deferred exchanges. We work alongside qualified intermediaries to keep your equity working harder.</p><a href="1031-exchange-page.html" class="service-link">Learn More &rarr;</a></div>
+    <div class="service-card"><div class="service-num">06</div><h3 class="service-title">Commercial Real Estate</h3><p class="service-desc">Office, retail, industrial, and multi-family — our commercial division handles acquisitions, dispositions, and leasing across the Phoenix metro.</p><a href="investor-services.html" class="service-link">Learn More &rarr;</a></div>
   </div>
 </section>
 
-<!-- NEIGHBORHOODS -->
 <section id="neighborhoods">
   <div class="neighborhoods-intro">
     <div>
@@ -534,129 +433,46 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
     <p>From the foothills of Scottsdale to the master-planned communities of Queen Creek and San Tan Valley, we know the neighborhoods, schools, builders, and value drivers that matter most across the East Valley and beyond.</p>
   </div>
   <div class="areas-grid">
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&q=80" alt="Scottsdale"/>
-      <div class="area-overlay"><div class="area-name">Scottsdale</div><div class="area-meta">Luxury Living &bull; Resort Lifestyle</div></div>
-    </div>
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80" alt="Gilbert"/>
-      <div class="area-overlay"><div class="area-name">Gilbert</div><div class="area-meta">East Valley &bull; Top-Rated Schools</div></div>
-    </div>
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Chandler"/>
-      <div class="area-overlay"><div class="area-name">Chandler</div><div class="area-meta">Innovation Hub &bull; Tech Corridor</div></div>
-    </div>
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80" alt="Queen Creek"/>
-      <div class="area-overlay"><div class="area-name">Queen Creek</div><div class="area-meta">New Construction &bull; Family Communities</div></div>
-    </div>
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=700&q=80" alt="San Tan Valley"/>
-      <div class="area-overlay"><div class="area-name">San Tan Valley</div><div class="area-meta">Emerging Market &bull; Value Growth</div></div>
-    </div>
-    <div class="area-card">
-      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" alt="Mesa"/>
-      <div class="area-overlay"><div class="area-name">Mesa &bull; Tempe</div><div class="area-meta">Central Valley &bull; All Price Points</div></div>
-    </div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700&q=80" alt="Scottsdale"/><div class="area-overlay"><div class="area-name">Scottsdale</div><div class="area-meta">Luxury Living &bull; Resort Lifestyle</div></div></div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80" alt="Gilbert"/><div class="area-overlay"><div class="area-name">Gilbert</div><div class="area-meta">East Valley &bull; Top-Rated Schools</div></div></div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Chandler"/><div class="area-overlay"><div class="area-name">Chandler</div><div class="area-meta">Innovation Hub &bull; Tech Corridor</div></div></div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&q=80" alt="Queen Creek"/><div class="area-overlay"><div class="area-name">Queen Creek</div><div class="area-meta">New Construction &bull; Family Communities</div></div></div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=700&q=80" alt="San Tan Valley"/><div class="area-overlay"><div class="area-name">San Tan Valley</div><div class="area-meta">Emerging Market &bull; Value Growth</div></div></div>
+    <div class="area-card"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&q=80" alt="Mesa"/><div class="area-overlay"><div class="area-name">Mesa &bull; Tempe</div><div class="area-meta">Central Valley &bull; All Price Points</div></div></div>
   </div>
   <div class="neighborhoods-all">
     <a href="#" class="btn-ghost">View All Areas &rarr;</a>
   </div>
 </section>
 
-<!-- PROCESS -->
 <section id="process">
   <p class="section-eyebrow">How It Works</p>
   <h2 class="section-headline">Our <em>Simple Process</em></h2>
   <div class="process-steps">
-    <div class="process-step">
-      <div class="process-step-num">01</div>
-      <div class="process-step-title">Consultation</div>
-      <p class="process-step-desc">We start by understanding your goals, timeline, and must-haves — no pressure, no obligation.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-step-num">02</div>
-      <div class="process-step-title">Market Analysis</div>
-      <p class="process-step-desc">Deep CMA and identification of real opportunities in your target neighborhoods and price range.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-step-num">03</div>
-      <div class="process-step-title">Search & Tour</div>
-      <p class="process-step-desc">Full MLS access, off-market deals, new builds — we tour on your schedule, in person or virtually.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-step-num">04</div>
-      <div class="process-step-title">Offer & Negotiate</div>
-      <p class="process-step-desc">Expert offer strategy and tough negotiation to maximize your position in any market condition.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-step-num">05</div>
-      <div class="process-step-title">Close & Celebrate</div>
-      <p class="process-step-desc">We manage every detail through inspection, escrow, and closing day. Keys in hand, stress left behind.</p>
-    </div>
+    <div class="process-step"><div class="process-step-num">01</div><div class="process-step-title">Consultation</div><p class="process-step-desc">We start by understanding your goals, timeline, and must-haves — no pressure, no obligation.</p></div>
+    <div class="process-step"><div class="process-step-num">02</div><div class="process-step-title">Market Analysis</div><p class="process-step-desc">Deep CMA and identification of real opportunities in your target neighborhoods and price range.</p></div>
+    <div class="process-step"><div class="process-step-num">03</div><div class="process-step-title">Search & Tour</div><p class="process-step-desc">Full MLS access, off-market deals, new builds — we tour on your schedule, in person or virtually.</p></div>
+    <div class="process-step"><div class="process-step-num">04</div><div class="process-step-title">Offer & Negotiate</div><p class="process-step-desc">Expert offer strategy and tough negotiation to maximize your position in any market condition.</p></div>
+    <div class="process-step"><div class="process-step-num">05</div><div class="process-step-title">Close & Celebrate</div><p class="process-step-desc">We manage every detail through inspection, escrow, and closing day. Keys in hand, stress left behind.</p></div>
   </div>
 </section>
 
-<!-- REVIEWS -->
 <section id="reviews">
   <p class="section-eyebrow">Client Testimonials</p>
   <h2 class="section-headline">What Our Clients <em>Say</em></h2>
   <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Working with Arizona Collective was the best decision we made. They found our dream home in Scottsdale in under two weeks and negotiated $30K under asking. Absolutely incredible service."</p>
-      <div class="review-author">
-        <div class="review-avatar">JM</div>
-        <div><div class="review-name">Jason &amp; Maria H.</div><div class="review-detail">Bought in Scottsdale</div></div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"As first-time homebuyers we were terrified. This team held our hand every step of the way — explained everything clearly and always had our best interests at heart."</p>
-      <div class="review-author">
-        <div class="review-avatar">KT</div>
-        <div><div class="review-name">Kayla T.</div><div class="review-detail">Bought in Gilbert</div></div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Listed my Chandler home and had three offers in 48 hours — two over asking. Their marketing strategy was incredible. Sold for $22K above list price."</p>
-      <div class="review-author">
-        <div class="review-avatar">RD</div>
-        <div><div class="review-name">Robert D.</div><div class="review-detail">Sold in Chandler</div></div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"I've bought and sold 4 properties with this team. Their knowledge of the Phoenix investment market is unmatched. If you're serious about Arizona real estate, look no further."</p>
-      <div class="review-author">
-        <div class="review-avatar">AP</div>
-        <div><div class="review-name">Alex P.</div><div class="review-detail">Investor · Phoenix &amp; Mesa</div></div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Moving from out of state, we couldn't have navigated Phoenix without this team. Virtual tours, handled everything remotely — the whole process was seamless."</p>
-      <div class="review-author">
-        <div class="review-avatar">SL</div>
-        <div><div class="review-name">Sarah &amp; Luke M.</div><div class="review-detail">Relocated to Tempe</div></div>
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Professional, responsive, and genuinely caring. Treated our home sale like it was their own. Closed 12 days early with zero stress. This is what great real estate looks like."</p>
-      <div class="review-author">
-        <div class="review-avatar">CN</div>
-        <div><div class="review-name">Carol N.</div><div class="review-detail">Sold in Peoria</div></div>
-      </div>
-    </div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Working with Arizona Collective was the best decision we made. They found our dream home in Scottsdale in under two weeks and negotiated $30K under asking. Absolutely incredible service."</p><div class="review-author"><div class="review-avatar">JM</div><div><div class="review-name">Jason &amp; Maria H.</div><div class="review-detail">Bought in Scottsdale</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"As first-time homebuyers we were terrified. This team held our hand every step of the way — explained everything clearly and always had our best interests at heart."</p><div class="review-author"><div class="review-avatar">KT</div><div><div class="review-name">Kayla T.</div><div class="review-detail">Bought in Gilbert</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Listed my Chandler home and had three offers in 48 hours — two over asking. Their marketing strategy was incredible. Sold for $22K above list price."</p><div class="review-author"><div class="review-avatar">RD</div><div><div class="review-name">Robert D.</div><div class="review-detail">Sold in Chandler</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"I've bought and sold 4 properties with this team. Their knowledge of the Phoenix investment market is unmatched. If you're serious about Arizona real estate, look no further."</p><div class="review-author"><div class="review-avatar">AP</div><div><div class="review-name">Alex P.</div><div class="review-detail">Investor · Phoenix &amp; Mesa</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Moving from out of state, we couldn't have navigated Phoenix without this team. Virtual tours, handled everything remotely — the whole process was seamless."</p><div class="review-author"><div class="review-avatar">SL</div><div><div class="review-name">Sarah &amp; Luke M.</div><div class="review-detail">Relocated to Tempe</div></div></div></div>
+    <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Professional, responsive, and genuinely caring. Treated our home sale like it was their own. Closed 12 days early with zero stress. This is what great real estate looks like."</p><div class="review-author"><div class="review-avatar">CN</div><div><div class="review-name">Carol N.</div><div class="review-detail">Sold in Peoria</div></div></div></div>
   </div>
   <div class="reviews-cta">
     <a href="#" class="btn-ghost">Read All Google Reviews &rarr;</a>
   </div>
 </section>
 
-<!-- PULL QUOTE -->
 <div id="pullquote">
   <div class="pullquote-inner">
     <div class="quote-mark">&ldquo;</div>
@@ -665,7 +481,6 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </div>
 
-<!-- CTA BANNER -->
 <section id="cta-banner">
   <div class="cta-banner-inner">
     <div>
@@ -679,12 +494,11 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="nav-logo-main" style="font-family:var(--serif);font-size:18px;color:var(--white);">Arizona Collective</div>
-      <div class="nav-logo-sub" style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Real Estate Group</div>
+      <div style="font-family:var(--serif);font-size:18px;color:var(--white);">Arizona Collective</div>
+      <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-top:4px;">Real Estate Group</div>
       <p>Phoenix's trusted real estate team. Boutique service, proven results, and the power of Keller Williams behind every transaction.</p>
     </div>
     <div class="footer-col">
@@ -720,21 +534,10 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
     </div>
   </div>
 </footer>
-  
+
 <script>
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80);});
-
-function openPortal(){document.getElementById('portal-modal').classList.add('open');}
-function closePortal(){document.getElementById('portal-modal').classList.remove('open');}
-document.getElementById('portal-modal').addEventListener('click',function(e){if(e.target===this)closePortal();});
-
-function switchTab(btn,tab){
-  document.querySelectorAll('.modal-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('tab-agent').style.display=tab==='agent'?'block':'none';
-  document.getElementById('tab-partner').style.display=tab==='partner'?'block':'none';
-}
 
 document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.addEventListener('click',function(){
