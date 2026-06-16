@@ -6,73 +6,25 @@
 <title>Team Portal | Arizona Collective Real Estate Group</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
-/* ── LOGIN SCREEN ── */
-#login-screen{
-  position:fixed;inset:0;z-index:9999;
-  background:#0a0a0a;
-  display:flex;align-items:center;justify-content:center;
-}
-.login-box{
-  width:100%;max-width:420px;padding:56px 48px;
-  border:1px solid rgba(192,154,74,0.2);
-  background:#0d0d0d;
-  text-align:center;
-}
-.login-logo{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:22px;font-weight:600;letter-spacing:0.04em;color:#fff;
-  margin-bottom:4px;
-}
-.login-sub{
-  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
-  color:#C09A4A;font-family:'Inter',sans-serif;font-weight:300;
-  margin-bottom:40px;
-}
-.login-title{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:28px;font-weight:300;color:#fff;margin-bottom:8px;
-}
-.login-desc{
-  font-size:12px;color:rgba(255,255,255,0.35);
-  font-family:'Inter',sans-serif;font-weight:300;
-  margin-bottom:32px;line-height:1.7;
-}
-.login-label{
-  display:block;font-size:10px;letter-spacing:0.16em;
-  text-transform:uppercase;color:rgba(255,255,255,0.35);
-  font-family:'Inter',sans-serif;margin-bottom:8px;text-align:left;
-}
-.login-input{
-  width:100%;background:#1a1a1a;border:1px solid rgba(192,154,74,0.2);
-  color:#fff;padding:13px 16px;font-size:14px;
-  font-family:'Inter',sans-serif;outline:none;margin-bottom:20px;
-  transition:border .2s;
-}
+#login-screen{position:fixed;inset:0;z-index:9999;background:#0a0a0a;display:flex;align-items:center;justify-content:center;}
+.login-box{width:100%;max-width:420px;padding:56px 48px;border:1px solid rgba(192,154,74,0.2);background:#0d0d0d;text-align:center;}
+.login-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:22px;font-weight:600;letter-spacing:0.04em;color:#fff;margin-bottom:4px;}
+.login-sub{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#C09A4A;font-family:'Inter',sans-serif;font-weight:300;margin-bottom:40px;}
+.login-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:300;color:#fff;margin-bottom:8px;}
+.login-desc{font-size:12px;color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;font-weight:300;margin-bottom:32px;line-height:1.7;}
+.login-label{display:block;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.35);font-family:'Inter',sans-serif;margin-bottom:8px;text-align:left;}
+.login-input{width:100%;background:#1a1a1a;border:1px solid rgba(192,154,74,0.2);color:#fff;padding:13px 16px;font-size:14px;font-family:'Inter',sans-serif;outline:none;margin-bottom:20px;transition:border .2s;}
 .login-input:focus{border-color:#C09A4A;}
-.login-btn{
-  width:100%;background:#C09A4A;color:#0a0a0a;border:none;
-  padding:14px;font-size:11px;letter-spacing:0.18em;
-  text-transform:uppercase;font-weight:500;cursor:pointer;
-  font-family:'Inter',sans-serif;transition:background .3s;margin-bottom:16px;
-}
+.login-btn{width:100%;background:#C09A4A;color:#0a0a0a;border:none;padding:14px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:background .3s;margin-bottom:16px;}
 .login-btn:hover{background:#E2B96A;}
-.login-error{
-  font-size:12px;color:#e50914;font-family:'Inter',sans-serif;
-  margin-top:-8px;margin-bottom:12px;display:none;
-}
-.login-footer{
-  font-size:11px;color:rgba(255,255,255,0.2);
-  font-family:'Inter',sans-serif;margin-top:24px;line-height:1.6;
-}
+.login-error{font-size:12px;color:#e50914;font-family:'Inter',sans-serif;margin-top:-8px;margin-bottom:12px;display:none;}
+.login-footer{font-size:11px;color:rgba(255,255,255,0.2);font-family:'Inter',sans-serif;margin-top:24px;line-height:1.6;}
 .login-footer a{color:#C09A4A;}
-
-/* ── CRM hidden until login ── */
 #crm-app{display:none;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">Arizona Collective</div>
@@ -83,13 +35,10 @@
     <input type="password" class="login-input" id="portal-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryLogin()"/>
     <div class="login-error" id="login-error">Incorrect password. Try again or contact Alex.</div>
     <button class="login-btn" onclick="tryLogin()">Access CRM</button>
-    <div class="login-footer">
-      Need access? Contact <a href="mailto:alexhernandez@kw.com">alexhernandez@kw.com</a>
-    </div>
+    <div class="login-footer">Need access? Contact <a href="mailto:alexhernandez@kw.com">alexhernandez@kw.com</a></div>
   </div>
 </div>
 
-<!-- CRM APP (hidden until login) -->
 <div id="crm-app">
 <style>
 :root{
@@ -153,6 +102,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 .nav-bottom{padding:12px 10px;border-top:1px solid #1f1f1f;}
 .btn-add-agent{width:100%;padding:8px;background:transparent;border:1px solid var(--bg5);color:var(--t3);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all var(--tr);}
 .btn-add-agent:hover{border-color:var(--red);color:var(--t1);}
+.agent-actions{display:none;gap:4px;margin-left:auto;flex-shrink:0;}
+.agent-row:hover .agent-actions{display:flex;}
+.agent-row:hover .agent-badge{display:none;}
+.agent-act-btn{background:none;border:none;cursor:pointer;font-size:12px;padding:2px 4px;border-radius:3px;transition:background .15s;line-height:1;}
+.agent-act-btn:hover{background:var(--bg5);}
+.agent-edit-modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.7);align-items:center;justify-content:center;}
+.agent-edit-modal.open{display:flex;}
 
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
@@ -501,14 +457,51 @@ function renderNavAgents(){
     const hot=a.isAll?0:contacts.filter(c=>c.agentId===a.id&&(c.type==='hot'||c.followUps.some(f=>!f.done))).length;
     const row=document.createElement('div');
     row.className='agent-row'+(selectedAgent===a.id?' active':'');
-    row.onclick=()=>{selectedAgent=a.id;renderNavAgents();renderMain();};
+    row.onclick=(e)=>{if(e.target.closest('.agent-actions'))return;selectedAgent=a.id;renderNavAgents();renderMain();};
+    const actBtns=a.isAll?'':`
+      <div class="agent-actions">
+        <button class="agent-act-btn" title="Edit" onclick="editAgent('${a.id}')">✏️</button>
+        <button class="agent-act-btn" title="Delete" onclick="deleteAgent('${a.id}')">🗑️</button>
+      </div>`;
     row.innerHTML=`
       <div class="ag-av" style="background:${a.color}22;color:${a.color}">${a.isAll?'★':initials(a.name.split(' ')[0],a.name.split(' ')[1]||'')}</div>
       <div class="agent-info"><div class="agent-name">${a.name}</div>${!a.isAll?`<div class="agent-role">${a.role||''}</div>`:''}</div>
       <div class="agent-badge ${hot>0?'hot':''}">${count}</div>
+      ${actBtns}
     `;
     el.appendChild(row);
   });
+}
+
+function deleteAgent(id){
+  const a=agents.find(x=>x.id===id);
+  if(!a)return;
+  if(!confirm('Delete agent "'+a.name+'"? Their contacts will be unassigned.'))return;
+  contacts.forEach(c=>{if(c.agentId===id)c.agentId='';});
+  agents=agents.filter(x=>x.id!==id);
+  if(selectedAgent===id)selectedAgent='all';
+  renderNavAgents();renderMain();
+}
+
+function editAgent(id){
+  const a=agents.find(x=>x.id===id);
+  if(!a)return;
+  document.getElementById('eAgentId').value=id;
+  document.getElementById('eAgentName').value=a.name;
+  document.getElementById('eAgentRole').value=a.role||'';
+  document.getElementById('eAgentColor').value=a.color||'#e50914';
+  document.getElementById('editAgentModal').classList.add('open');
+}
+
+function saveEditAgent(){
+  const id=document.getElementById('eAgentId').value;
+  const a=agents.find(x=>x.id===id);
+  if(!a)return;
+  a.name=document.getElementById('eAgentName').value.trim()||a.name;
+  a.role=document.getElementById('eAgentRole').value.trim();
+  a.color=document.getElementById('eAgentColor').value;
+  document.getElementById('editAgentModal').classList.remove('open');
+  renderNavAgents();renderMain();
 }
 
 // ── VIEW ROUTER ──
@@ -1018,11 +1011,25 @@ renderNavAgents();
 renderMain();
 // Set today as default selected day
 const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate()};
-</script></div>
+</script>
+
+<!-- EDIT AGENT MODAL -->
+<div class="overlay agent-edit-modal" id="editAgentModal">
+  <div class="modal" style="max-width:340px;">
+    <div class="modal-title">Edit Agent</div>
+    <input type="hidden" id="eAgentId"/>
+    <div class="mfield"><label class="mlabel">Name</label><input class="minput" id="eAgentName" placeholder="Full name"/></div>
+    <div class="mfield"><label class="mlabel">Role</label><input class="minput" id="eAgentRole" placeholder="e.g. Buyer's Agent"/></div>
+    <div class="mfield"><label class="mlabel">Color</label><input type="color" id="eAgentColor" style="width:48px;height:32px;border:none;background:none;cursor:pointer;padding:0;"/></div>
+    <div class="mbtns">
+      <button class="mbtn mbtn-cancel" onclick="document.getElementById('editAgentModal').classList.remove('open')">Cancel</button>
+      <button class="mbtn mbtn-save" onclick="saveEditAgent()">Save Changes</button>
+    </div>
+  </div>
+</div></div>
 
 <script>
 const TEAM_PASSWORD = 'AZCollective2025!';
-
 function tryLogin() {
   const input = document.getElementById('portal-password').value;
   const error = document.getElementById('login-error');
@@ -1036,14 +1043,10 @@ function tryLogin() {
     document.getElementById('portal-password').focus();
   }
 }
-
-// Auto-login if already authenticated this session
 if (sessionStorage.getItem('az_portal_auth') === 'true') {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('crm-app').style.display = 'block';
 }
-
-// Allow Enter key
 document.getElementById('portal-password').focus();
 </script>
 </body>
