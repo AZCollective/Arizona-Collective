@@ -399,22 +399,133 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 <div class="toast" id="toast"></div>
 
 <script>
+// ── SUPABASE CONFIG ──
+const SB_URL = 'https://kqdaudcpfynzewwwnrwz.supabase.co';
+const SB_KEY = 'sb_publishable_R72a4GHCdmTczwSfaiucUQ_fL1Txx2m';
+
+async function sbFetch(path, method='GET', body=null){
+  const opts = {
+    method,
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': method==='POST' ? 'return=representation' : (method==='PATCH'||method==='DELETE' ? 'return=representation' : '')
+    }
+  };
+  if(body) opts.body = JSON.stringify(body);
+  const res = await fetch(SB_URL + '/rest/v1/' + path, opts);
+  if(!res.ok){ const e=await res.text(); console.error('SB error:',e); return null; }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
 // ── DATA ──
 let agents=[
   {id:'all',name:'All Agents',color:'#e50914',isAll:true},
-  {id:'a1',name:'Marcus Riley',role:"Buyer's Agent",color:'#46d369'},
-  {id:'a2',name:'Priya Nair',role:'Listing Agent',color:'#3ea6ff'},
-  {id:'a3',name:'Derek Thorn',role:'Investment Specialist',color:'#f5c842'},
 ];
-let contacts=[
-  {id:1,fn:'Marcus',ln:'Rivera',phone:'(602) 555-0142',email:'marcus@email.com',agentId:'a1',type:'hot',notes:'Scottsdale 3BR, $450k. Chase pre-approved.',followUps:[{id:11,date:'2026-05-01',time:'10:00',msg:'Send 3 new Scottsdale listings',ai:true,done:false}]},
-  {id:2,fn:'Priya',ln:'Sandoval',phone:'(480) 555-0271',email:'priya.s@gmail.com',agentId:'a2',type:'seller',notes:'PV home, 60-day close. Motivated.',followUps:[{id:21,date:'2026-04-29',time:'14:00',msg:'Send CMA and listing proposal',ai:false,done:false}]},
-  {id:3,fn:'Derek',ln:'Thompson',phone:'(623) 555-0389',email:'derek.t@outlook.com',agentId:'a3',type:'investor',notes:'Multi-family 4-8 units Mesa/Tempe. Cash.',followUps:[]},
-  {id:4,fn:'Sara',ln:'Medina',phone:'(602) 555-0991',email:'sara.m@yahoo.com',agentId:'a1',type:'buyer',notes:'First-time buyer Chandler. Pre-qual pending.',followUps:[{id:41,date:'2026-05-05',time:'09:00',msg:'Pre-qual status + Chandler listings under $380k',ai:true,done:false}]},
-  {id:5,fn:'Luis',ln:'Garcia',phone:'(480) 555-0554',email:'lgarcia@gmail.com',agentId:'a2',type:'hot',notes:'Ready to offer Mesa property. $520k.',followUps:[{id:51,date:'2026-04-28',time:'11:00',msg:'Confirm offer terms and submit',ai:false,done:false}]},
-  {id:6,fn:'Tamara',ln:'Wells',phone:'(623) 555-0123',email:'tamara@icloud.com',agentId:'a3',type:'investor',notes:'Commercial strip mall, Glendale.',followUps:[]},
-  {id:7,fn:'James',ln:'Okafor',phone:'(602) 555-0773',email:'jokafor@gmail.com',agentId:'a1',type:'buyer',notes:'Looking in Tempe near ASU. Budget $320k.',followUps:[{id:71,date:'2026-05-08',time:'15:00',msg:'Send Tempe listings near ASU corridor',ai:true,done:false}]},
-];
+let contacts=[];
+
+// ── LOAD FROM SUPABASE ──
+async function loadFromDB(){
+  showLoading(true);
+  try {
+    // Load agents
+    const dbAgents = await sbFetch('agents?select=*&order=name');
+    if(dbAgents && dbAgents.length > 0){
+      agents = [{id:'all',name:'All Agents',color:'#e50914',isAll:true}, ...dbAgents];
+    } else {
+      // Seed default agents on first run
+      const defaults = [
+        {id:'a1',name:'Alex Hernandez',role:'Lead Agent',color:'#46d369'},
+        {id:'a2',name:'Parker Schmeichel',role:'Agent',color:'#3ea6ff'},
+        {id:'a3',name:'Derrick Thram',role:'Team Leader',color:'#f5c842'},
+      ];
+      for(const a of defaults){ await sbFetch('agents', 'POST', a); }
+      agents = [{id:'all',name:'All Agents',color:'#e50914',isAll:true}, ...defaults];
+    }
+
+    // Load contacts with followups
+    const dbContacts = await sbFetch('contacts?select=*&order=fn');
+    const dbFollowups = await sbFetch('followups?select=*&order=date');
+    contacts = (dbContacts||[]).map(c => ({
+      ...c,
+      agentId: c.agent_id,
+      followUps: (dbFollowups||[]).filter(f=>f.contact_id===c.id).map(f=>({
+        id: f.id,
+        date: f.date,
+        time: f.time,
+        msg: f.msg,
+        ai: f.ai,
+        done: f.done
+      }))
+    }));
+  } catch(e){ console.error('Load error:',e); }
+  showLoading(false);
+  renderNavAgents();
+  renderMain();
+}
+
+function showLoading(on){
+  let el = document.getElementById('dbLoading');
+  if(!el){
+    el = document.createElement('div');
+    el.id='dbLoading';
+    el.style.cssText='position:fixed;top:0;left:0;right:0;height:2px;background:#e50914;z-index:9999;transition:opacity .3s;';
+    document.body.appendChild(el);
+  }
+  el.style.opacity = on ? '1' : '0';
+}
+
+// ── SAVE CONTACT TO DB ──
+async function saveContactToDB(c){
+  const payload = {
+    fn:c.fn, ln:c.ln, phone:c.phone, email:c.email,
+    agent_id:c.agentId, type:c.type, notes:c.notes||''
+  };
+  if(c.id && typeof c.id === 'number'){
+    await sbFetch('contacts?id=eq.'+c.id, 'PATCH', payload);
+  } else {
+    const res = await sbFetch('contacts', 'POST', payload);
+    if(res && res[0]) c.id = res[0].id;
+  }
+}
+
+// ── DELETE CONTACT FROM DB ──
+async function deleteContactFromDB(id){
+  await sbFetch('contacts?id=eq.'+id, 'DELETE');
+}
+
+// ── SAVE AGENT TO DB ──
+async function saveAgentToDB(a){
+  const existing = await sbFetch('agents?id=eq.'+a.id);
+  if(existing && existing.length > 0){
+    await sbFetch('agents?id=eq.'+a.id, 'PATCH', {name:a.name,role:a.role,color:a.color});
+  } else {
+    await sbFetch('agents', 'POST', {id:a.id,name:a.name,role:a.role||'Agent',color:a.color});
+  }
+}
+
+// ── DELETE AGENT FROM DB ──
+async function deleteAgentFromDB(id){
+  await sbFetch('agents?id=eq.'+id, 'DELETE');
+}
+
+// ── SAVE FOLLOWUP TO DB ──
+async function saveFollowupToDB(contactId, f){
+  const payload = {contact_id:contactId,date:f.date,time:f.time,msg:f.msg,ai:f.ai,done:f.done};
+  if(f.id && typeof f.id === 'number' && f.id < 9999999999){
+    await sbFetch('followups?id=eq.'+f.id, 'PATCH', payload);
+  } else {
+    const res = await sbFetch('followups', 'POST', payload);
+    if(res && res[0]) f.id = res[0].id;
+  }
+}
+
+// ── DELETE FOLLOWUP FROM DB ──
+async function deleteFollowupFromDB(id){
+  await sbFetch('followups?id=eq.'+id, 'DELETE');
+}
 
 let currentView='home';
 let selectedAgent='all';
@@ -473,10 +584,11 @@ function renderNavAgents(){
   });
 }
 
-function deleteAgent(id){
+async function deleteAgent(id){
   const a=agents.find(x=>x.id===id);
   if(!a)return;
   if(!confirm('Delete agent "'+a.name+'"? Their contacts will be unassigned.'))return;
+  await deleteAgentFromDB(id);
   contacts.forEach(c=>{if(c.agentId===id)c.agentId='';});
   agents=agents.filter(x=>x.id!==id);
   if(selectedAgent===id)selectedAgent='all';
@@ -493,13 +605,14 @@ function editAgent(id){
   document.getElementById('editAgentModal').classList.add('open');
 }
 
-function saveEditAgent(){
+async function saveEditAgent(){
   const id=document.getElementById('eAgentId').value;
   const a=agents.find(x=>x.id===id);
   if(!a)return;
   a.name=document.getElementById('eAgentName').value.trim()||a.name;
   a.role=document.getElementById('eAgentRole').value.trim();
   a.color=document.getElementById('eAgentColor').value;
+  await saveAgentToDB(a);
   document.getElementById('editAgentModal').classList.remove('open');
   renderNavAgents();renderMain();
 }
@@ -895,13 +1008,15 @@ function cdTabContent(c,fuPending,fuDone){
 let cdAIToggle=false;
 function toggleCDAI(){cdAIToggle=!cdAIToggle;const t=document.getElementById('cdAITog');if(t)t.className='tog'+(cdAIToggle?' on':'');}
 
-function scheduleFUFromContact(cid){
+async function scheduleFUFromContact(cid){
   const date=document.getElementById('fuDateCD')?.value;
   const time=document.getElementById('fuTimeCD')?.value||'09:00';
   const msg=document.getElementById('fuMsgCD')?.value?.trim();
   if(!date||!msg){showToast('Fill date and message.','err');return;}
   const c=contacts.find(x=>x.id===cid);
-  c.followUps.push({id:Date.now(),date,time,msg,ai:cdAIToggle,done:false});
+  const newFU={id:'fu_'+Date.now(),date,time,msg,ai:cdAIToggle,done:false};
+  c.followUps.push(newFU);
+  await saveFollowupToDB(c.id, newFU);
   cdAIToggle=false;
   showToast('Scheduled!','ok');
   renderNavAgents();renderMain();renderContactDetail();
@@ -921,13 +1036,13 @@ function fuCardHTML(cid,f){
   </div>`;
 }
 
-function markFUDone(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f)f.done=true;showToast('Done!','ok');renderNavAgents();renderMain();renderContactDetail();}
+async function markFUDone(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f){f.done=true;await saveFollowupToDB(cid,f);}showToast('Done!','ok');renderNavAgents();renderMain();renderContactDetail();}
 function enableAI(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f)f.ai=true;showToast('AI enabled!','ok');renderContactDetail();}
-function deleteFU(cid,fid){const c=contacts.find(x=>x.id===cid);if(c)c.followUps=c.followUps.filter(x=>x.id!==fid);renderNavAgents();renderMain();renderContactDetail();}
+async function deleteFU(cid,fid){const c=contacts.find(x=>x.id===cid);if(c){c.followUps=c.followUps.filter(x=>x.id!==fid);await deleteFollowupFromDB(fid);}renderNavAgents();renderMain();renderContactDetail();}
 
 function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();}
 
-function saveContactDetail(cid){
+async function saveContactDetail(cid){
   const c=contacts.find(x=>x.id===cid);
   if(contactDetailTab==='info'){
     c.fn=document.getElementById('dFN')?.value||c.fn;
@@ -938,11 +1053,13 @@ function saveContactDetail(cid){
     c.agentId=document.getElementById('dAgent')?.value||c.agentId;
   }
   if(contactDetailTab==='notes')c.notes=document.getElementById('dNotes')?.value||c.notes;
+  await saveContactToDB(c);
   showToast('Saved!','ok');
   renderNavAgents();renderMain();renderContactDetail();
 }
 
-function deleteContact(id){
+async function deleteContact(id){
+  await deleteContactFromDB(id);
   contacts=contacts.filter(x=>x.id!==id);
   selectedContact=null;
   closeContactDetail();
@@ -971,7 +1088,7 @@ function openContactModal(editId){
   document.getElementById('contactModal').classList.add('open');
 }
 
-function saveContact(){
+async function saveContact(){
   const fn=document.getElementById('mFN').value.trim();
   const ln=document.getElementById('mLN').value.trim();
   if(!fn||!ln){showToast('Name required.','err');return;}
@@ -981,7 +1098,7 @@ function saveContact(){
     c.agentId=document.getElementById('mAgent').value;c.type=document.getElementById('mType').value;
     showToast('Updated!','ok');
   } else {
-    const nc={id:Date.now(),fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
+    const nc={id:'new_'+Date.now(),fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
     contacts.push(nc);selectedContact=nc.id;
     showToast('Contact added!','ok');
   }
@@ -990,10 +1107,12 @@ function saveContact(){
 }
 
 function openAgentModal(){document.getElementById('aN').value='';document.getElementById('aRole').value='';document.getElementById('agentModal').classList.add('open');}
-function saveAgent(){
+async function saveAgent(){
   const name=document.getElementById('aN').value.trim();
   if(!name){showToast('Name required.','err');return;}
-  agents.push({id:'a'+Date.now(),name,role:document.getElementById('aRole').value.trim()||'Agent',color:document.getElementById('aColor').value});
+  const newAg={id:'a'+Date.now(),name,role:document.getElementById('aRole').value.trim()||'Agent',color:document.getElementById('aColor').value};
+  agents.push(newAg);
+  await saveAgentToDB(newAg);
   closeOverlay('agentModal');renderNavAgents();
   showToast('Agent added!','ok');
 }
@@ -1007,8 +1126,7 @@ function showToast(msg,type=''){
 }
 
 // ── INIT ──
-renderNavAgents();
-renderMain();
+loadFromDB();
 // Set today as default selected day
 const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate()};
 </script>
@@ -1037,6 +1155,7 @@ function tryLogin() {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('crm-app').style.display = 'block';
     sessionStorage.setItem('az_portal_auth', 'true');
+    if(typeof loadFromDB === 'function') loadFromDB();
   } else {
     error.style.display = 'block';
     document.getElementById('portal-password').value = '';
