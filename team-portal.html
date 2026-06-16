@@ -402,8 +402,6 @@ const SB_URL = 'https://kqdaudcpfynzewwwnrwz.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxZGF1ZGNwZnluemV3d3ducnd6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2MjA0MzAsImV4cCI6MjA5NzE5NjQzMH0.IlzkC1--f0aNe1M3Cv4LMb4hBnDghHPNPva9-L2mhNY';
 
 async function sbFetch(path, method='GET', body=null){
-  const url = SB_URL + '/rest/v1/' + path;
-  console.log('[SB]', method, url, body||'');
   const opts = {
     method,
     headers: {
@@ -414,10 +412,9 @@ async function sbFetch(path, method='GET', body=null){
     }
   };
   if(body) opts.body = JSON.stringify(body);
-  const res = await fetch(url, opts);
+  const res = await fetch(SB_URL + '/rest/v1/' + path, opts);
+  if(!res.ok){ const e=await res.text(); console.error('SB error:',e); return null; }
   const text = await res.text();
-  console.log('[SB response]', res.status, text.substring(0,200));
-  if(!res.ok){ console.error('SB error:', text); return null; }
   return text ? JSON.parse(text) : null;
 }
 
