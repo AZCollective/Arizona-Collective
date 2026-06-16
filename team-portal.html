@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Team Portal | Arizona Collective Real Estate Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
+<style>
+/* ── LOGIN SCREEN ── */
+#login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:#0a0a0a;
+  display:flex;align-items:center;justify-content:center;
+}
+.login-box{
+  width:100%;max-width:420px;padding:56px 48px;
+  border:1px solid rgba(192,154,74,0.2);
+  background:#0d0d0d;
+  text-align:center;
+}
+.login-logo{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:22px;font-weight:600;letter-spacing:0.04em;color:#fff;
+  margin-bottom:4px;
+}
+.login-sub{
+  font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+  color:#C09A4A;font-family:'Inter',sans-serif;font-weight:300;
+  margin-bottom:40px;
+}
+.login-title{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:28px;font-weight:300;color:#fff;margin-bottom:8px;
+}
+.login-desc{
+  font-size:12px;color:rgba(255,255,255,0.35);
+  font-family:'Inter',sans-serif;font-weight:300;
+  margin-bottom:32px;line-height:1.7;
+}
+.login-label{
+  display:block;font-size:10px;letter-spacing:0.16em;
+  text-transform:uppercase;color:rgba(255,255,255,0.35);
+  font-family:'Inter',sans-serif;margin-bottom:8px;text-align:left;
+}
+.login-input{
+  width:100%;background:#1a1a1a;border:1px solid rgba(192,154,74,0.2);
+  color:#fff;padding:13px 16px;font-size:14px;
+  font-family:'Inter',sans-serif;outline:none;margin-bottom:20px;
+  transition:border .2s;
+}
+.login-input:focus{border-color:#C09A4A;}
+.login-btn{
+  width:100%;background:#C09A4A;color:#0a0a0a;border:none;
+  padding:14px;font-size:11px;letter-spacing:0.18em;
+  text-transform:uppercase;font-weight:500;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:background .3s;margin-bottom:16px;
+}
+.login-btn:hover{background:#E2B96A;}
+.login-error{
+  font-size:12px;color:#e50914;font-family:'Inter',sans-serif;
+  margin-top:-8px;margin-bottom:12px;display:none;
+}
+.login-footer{
+  font-size:11px;color:rgba(255,255,255,0.2);
+  font-family:'Inter',sans-serif;margin-top:24px;line-height:1.6;
+}
+.login-footer a{color:#C09A4A;}
+
+/* ── CRM hidden until login ── */
+#crm-app{display:none;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Arizona Collective</div>
+    <div class="login-sub">Real Estate Group &bull; Team Portal</div>
+    <div class="login-title">Agent Access</div>
+    <p class="login-desc">This portal is for Arizona Collective team members only. Enter your team password to access the CRM.</p>
+    <label class="login-label">Team Password</label>
+    <input type="password" class="login-input" id="portal-password" placeholder="••••••••" onkeydown="if(event.key==='Enter')tryLogin()"/>
+    <div class="login-error" id="login-error">Incorrect password. Try again or contact Alex.</div>
+    <button class="login-btn" onclick="tryLogin()">Access CRM</button>
+    <div class="login-footer">
+      Need access? Contact <a href="mailto:alexhernandez@kw.com">alexhernandez@kw.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- CRM APP (hidden until login) -->
+<div id="crm-app">
+<style>
+:root{
+  --bg:#0a0a0a;
+  --bg2:#141414;
+  --bg3:#1c1c1c;
+  --bg4:#282828;
+  --bg5:#333;
+  --red:#e50914;
+  --red2:#f40612;
+  --red-dim:rgba(229,9,20,.18);
+  --red-glow:rgba(229,9,20,.08);
+  --gold:#f5c842;
+  --green:#46d369;
+  --blue:#3ea6ff;
+  --purple:#a855f7;
+  --t1:#fff;
+  --t2:#e5e5e5;
+  --t3:#a3a3a3;
+  --t4:#6b6b6b;
+  --t5:#3d3d3d;
+  --tr:.15s ease;
+  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;}
+
+/* ── APP SHELL ── */
+.app{display:flex;height:100vh;}
+
+/* ── LEFT NAV ── */
+.nav{width:220px;background:var(--bg2);border-right:1px solid #1f1f1f;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.nav-brand{padding:20px 18px 14px;border-bottom:1px solid #1f1f1f;}
+.brand-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;color:var(--red);line-height:1;}
+.brand-sub{font-size:10px;color:var(--t4);margin-top:3px;letter-spacing:.12em;text-transform:uppercase;}
+
+.nav-section{padding:14px 14px 4px;font-size:9px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.14em;}
+
+.nav-item{padding:9px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;border-radius:0;transition:background var(--tr);position:relative;font-size:13px;color:var(--t3);font-weight:400;}
+.nav-item:hover{background:var(--bg3);color:var(--t2);}
+.nav-item.active{color:var(--t1);font-weight:500;}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);}
+.nav-icon{font-size:15px;width:18px;text-align:center;flex-shrink:0;}
+
+.nav-agents{flex:1;overflow-y:auto;padding:4px 0;}
+.nav-agents::-webkit-scrollbar{width:3px;}
+.nav-agents::-webkit-scrollbar-thumb{background:var(--bg4);}
+
+.agent-row{padding:8px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:background var(--tr);border-left:3px solid transparent;}
+.agent-row:hover{background:var(--bg3);}
+.agent-row.active{background:var(--bg3);border-left-color:var(--red);}
+.agent-row.active .agent-name{color:var(--t1);}
+.ag-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;}
+.agent-info{flex:1;min-width:0;}
+.agent-name{font-size:13px;color:var(--t3);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.agent-role{font-size:10px;color:var(--t5);margin-top:1px;}
+.agent-badge{font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:var(--bg4);color:var(--t4);}
+.agent-badge.hot{background:var(--red-dim);color:#ff6b6b;}
+
+.nav-bottom{padding:12px 10px;border-top:1px solid #1f1f1f;}
+.btn-add-agent{width:100%;padding:8px;background:transparent;border:1px solid var(--bg5);color:var(--t3);border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all var(--tr);}
+.btn-add-agent:hover{border-color:var(--red);color:var(--t1);}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── TOP NAV BAR ── */
+.topnav{padding:0 24px;background:var(--bg2);border-bottom:1px solid #1f1f1f;display:flex;align-items:center;gap:0;height:50px;flex-shrink:0;}
+.tnav-item{padding:0 16px;height:100%;display:flex;align-items:center;font-size:13px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:color var(--tr),border-color var(--tr);white-space:nowrap;}
+.tnav-item:hover{color:var(--t2);}
+.tnav-item.active{color:var(--t1);border-bottom-color:var(--red);}
+.tnav-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.search-wrap{position:relative;}
+.search-wrap input{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:6px 10px 6px 28px;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;width:180px;transition:border var(--tr),width var(--tr);}
+.search-wrap input:focus{border-color:var(--red);width:220px;}
+.search-wrap input::placeholder{color:var(--t5);}
+.search-icon{position:absolute;left:8px;top:50%;transform:translateY(-50%);color:var(--t5);font-size:13px;}
+.btn-new-contact{padding:7px 14px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background var(--tr);}
+.btn-new-contact:hover{background:var(--red2);}
+
+/* ── CONTENT AREA ── */
+.content{flex:1;overflow:hidden;display:flex;}
+.view{flex:1;overflow-y:auto;background:var(--bg);}
+.view::-webkit-scrollbar{width:4px;}
+.view::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px;}
+
+/* ── HERO BANNER ── */
+.hero{position:relative;height:200px;overflow:hidden;margin-bottom:0;flex-shrink:0;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0505 0%,#0d0d0d 60%,#050510 100%);}
+.hero-pattern{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(229,9,20,.5) 40px,rgba(229,9,20,.5) 41px),repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(229,9,20,.5) 40px,rgba(229,9,20,.5) 41px);}
+.hero-content{position:relative;z-index:2;padding:28px 28px 0;}
+.hero-eyebrow{font-size:10px;color:var(--red);font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:.04em;line-height:.95;color:var(--t1);}
+.hero-title span{color:var(--red);}
+.hero-meta{display:flex;gap:16px;margin-top:12px;align-items:center;}
+.hero-stat{text-align:center;}
+.hero-stat-val{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.04em;}
+.hero-stat-val.r{color:var(--red);}
+.hero-stat-val.g{color:var(--green);}
+.hero-stat-val.b{color:var(--blue);}
+.hero-stat-val.p{color:var(--purple);}
+.hero-stat-label{font-size:9px;color:var(--t4);text-transform:uppercase;letter-spacing:.1em;margin-top:-2px;}
+.hero-div{width:1px;height:36px;background:var(--bg5);}
+.hero-fade{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--bg));}
+
+/* ── ROW SECTION ── */
+.row-section{padding:16px 28px;margin-bottom:4px;}
+.row-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.row-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;color:var(--t1);}
+.row-see-all{font-size:11px;color:var(--red);cursor:pointer;font-weight:500;margin-left:auto;}
+.row-see-all:hover{color:var(--red2);}
+
+/* ── NETFLIX CARDS ── */
+.card-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;}
+.card-scroll::-webkit-scrollbar{height:3px;}
+.card-scroll::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:2px;}
+
+.ncard{width:170px;flex-shrink:0;border-radius:var(--r);overflow:hidden;cursor:pointer;background:var(--bg3);border:1px solid transparent;transition:transform var(--tr),border-color var(--tr);position:relative;}
+.ncard:hover{transform:scale(1.04);border-color:var(--bg5);}
+.ncard.selected{border-color:var(--red);box-shadow:0 0 0 1px var(--red);}
+
+.ncard-thumb{height:100px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.ncard-initials{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.04em;position:relative;z-index:1;}
+.ncard-type-pill{position:absolute;top:7px;left:7px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;letter-spacing:.05em;}
+.ncard-ai-pill{position:absolute;top:7px;right:7px;font-size:9px;font-weight:600;padding:2px 7px;border-radius:2px;background:rgba(168,85,247,.85);color:#fff;text-transform:uppercase;}
+.ncard-progress{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--bg4);}
+.ncard-progress-bar{height:100%;background:var(--red);border-radius:1px;}
+.ncard-body{padding:8px 10px 10px;}
+.ncard-name{font-size:13px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;font-size:15px;}
+.ncard-sub{font-size:11px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ncard-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.ntag{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:600;text-transform:uppercase;}
+
+/* ── GRID VIEW (all contacts) ── */
+.all-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;padding:0 28px 24px;}
+
+/* ── CALENDAR VIEW ── */
+.cal-wrap{padding:0 28px 24px;}
+.cal-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.cal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;}
+.cal-nav{display:flex;gap:4px;}
+.cal-nav-btn{width:28px;height:28px;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);color:var(--t2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
+.cal-nav-btn:hover{background:var(--bg4);color:var(--t1);}
+.cal-today-btn{padding:5px 12px;background:transparent;border:1px solid var(--bg4);border-radius:var(--r);color:var(--t3);font-size:11px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--tr);}
+.cal-today-btn:hover{border-color:var(--red);color:var(--t1);}
+
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day-name{text-align:center;font-size:10px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.08em;padding:6px 0 10px;}
+.cal-cell{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);min-height:90px;padding:6px;cursor:pointer;transition:border-color var(--tr),background var(--tr);position:relative;}
+.cal-cell:hover{border-color:var(--bg5);background:var(--bg4);}
+.cal-cell.today{border-color:var(--red);}
+.cal-cell.today .cal-date{color:var(--red);font-weight:700;}
+.cal-cell.other-month{opacity:.3;}
+.cal-cell.selected-day{border-color:var(--red);background:var(--red-glow);}
+.cal-date{font-size:12px;font-weight:500;color:var(--t3);margin-bottom:4px;}
+.cal-events{display:flex;flex-direction:column;gap:2px;}
+.cal-ev{font-size:9px;padding:2px 5px;border-radius:2px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;}
+.cal-ev.ai{background:rgba(168,85,247,.25);color:#c084fc;}
+.cal-ev.manual{background:rgba(229,9,20,.2);color:#ff6b6b;}
+.cal-ev.done{background:rgba(70,211,105,.12);color:var(--green);opacity:.6;}
+.cal-more{font-size:9px;color:var(--t5);padding:1px 0;cursor:pointer;}
+.cal-more:hover{color:var(--t3);}
+
+/* ── DAY DETAIL PANEL ── */
+.day-panel{width:300px;background:var(--bg2);border-left:1px solid #1f1f1f;display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.day-panel-header{padding:16px;border-bottom:1px solid #1f1f1f;}
+.day-panel-date{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.06em;}
+.day-panel-sub{font-size:11px;color:var(--t4);margin-top:2px;}
+.day-panel-body{flex:1;overflow-y:auto;padding:12px 14px;}
+.day-panel-body::-webkit-scrollbar{width:3px;}
+.day-panel-body::-webkit-scrollbar-thumb{background:var(--bg4);}
+.day-ev-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:border-color var(--tr);}
+.day-ev-card:hover{border-color:var(--bg5);}
+.day-ev-card.ai-ev{border-left:2px solid var(--purple);}
+.day-ev-card.manual-ev{border-left:2px solid var(--red);}
+.day-ev-card.done-ev{border-left:2px solid var(--green);opacity:.5;}
+.day-ev-name{font-size:13px;font-weight:500;color:var(--t1);}
+.day-ev-time{font-size:11px;color:var(--t4);margin-top:3px;}
+.day-ev-msg{font-size:11px;color:var(--t3);margin-top:5px;line-height:1.4;}
+.day-ev-tags{display:flex;gap:5px;margin-top:7px;}
+.day-ev-tag{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:600;}
+.ev-btn-row{display:flex;gap:5px;margin-top:8px;}
+.ev-btn{padding:3px 9px;border-radius:3px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--bg5);background:transparent;color:var(--t3);font-family:'DM Sans',sans-serif;transition:all var(--tr);}
+.ev-btn:hover{background:var(--bg4);color:var(--t1);}
+.ev-btn.primary{background:var(--red);border-color:var(--red);color:#fff;}
+.ev-btn.primary:hover{background:var(--red2);}
+.ev-btn.ai-b{background:rgba(168,85,247,.15);border-color:rgba(168,85,247,.3);color:#c084fc;}
+.day-empty{padding:24px 0;text-align:center;color:var(--t5);font-size:12px;}
+
+/* schedule form */
+.sched-form{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;}
+.sched-form h4{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.06em;color:var(--t2);margin-bottom:10px;}
+.sf-field{margin-bottom:8px;}
+.sf-label{font-size:9px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.sf-input{width:100%;background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--r);padding:7px 9px;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;transition:border var(--tr);}
+.sf-input:focus{border-color:var(--red);}
+.sf-input::placeholder{color:var(--t5);}
+.sf-select{appearance:none;cursor:pointer;}
+.sf-select option{background:var(--bg3);}
+.ai-toggle-row{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--bg2);border:1px solid rgba(168,85,247,.2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;}
+.ai-tog-text{flex:1;}
+.ai-tog-title{font-size:11px;color:#c084fc;font-weight:600;}
+.ai-tog-sub{font-size:9px;color:var(--t5);margin-top:1px;}
+.tog{width:30px;height:16px;background:var(--bg4);border-radius:8px;position:relative;transition:background var(--tr);flex-shrink:0;}
+.tog.on{background:var(--purple);}
+.tog-k{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;transition:transform var(--tr);}
+.tog.on .tog-k{transform:translateX(14px);}
+.btn-schedule{width:100%;padding:8px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background var(--tr);letter-spacing:.02em;}
+.btn-schedule:hover{background:var(--red2);}
+
+/* ── DETAIL SIDE (contact) ── */
+.contact-detail{width:320px;background:var(--bg2);border-left:1px solid #1f1f1f;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;}
+.cd-header{padding:16px;border-bottom:1px solid #1f1f1f;position:relative;}
+.cd-close{position:absolute;top:12px;right:12px;width:26px;height:26px;background:var(--bg4);border:none;color:var(--t3);border-radius:var(--r);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
+.cd-close:hover{background:var(--bg5);color:var(--t1);}
+.cd-av{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;margin-bottom:10px;}
+.cd-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.04em;}
+.cd-meta{font-size:11px;color:var(--t4);margin-top:3px;}
+.cd-tabs{display:flex;border-bottom:1px solid #1f1f1f;}
+.cdtab{flex:1;padding:9px 0;text-align:center;font-size:11px;font-weight:600;color:var(--t4);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--tr);}
+.cdtab:hover{color:var(--t2);}
+.cdtab.active{color:var(--t1);border-bottom-color:var(--red);}
+.cd-body{flex:1;overflow-y:auto;padding:14px 16px;}
+.cd-body::-webkit-scrollbar{width:3px;}
+.cd-body::-webkit-scrollbar-thumb{background:var(--bg4);}
+.cd-field{margin-bottom:12px;}
+.cd-label{font-size:9px;font-weight:600;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.cd-input{width:100%;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:7px 10px;color:var(--t1);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border var(--tr);}
+.cd-input:focus{border-color:var(--red);}
+.cd-input::placeholder{color:var(--t5);}
+.cd-textarea{resize:none;min-height:80px;}
+.cd-select{appearance:none;cursor:pointer;}
+.cd-select option{background:var(--bg3);}
+.cd-footer{padding:12px 16px;border-top:1px solid #1f1f1f;display:flex;gap:6px;}
+.btn-save-cd{flex:1;padding:8px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background var(--tr);}
+.btn-save-cd:hover{background:var(--red2);}
+.btn-del-cd{padding:8px 10px;background:transparent;border:1px solid #333;color:var(--t4);border-radius:var(--r);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--tr);}
+.btn-del-cd:hover{border-color:#ff6b6b;color:#ff6b6b;}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--bg4);border-radius:10px;padding:26px;width:460px;max-width:95vw;}
+.modal h2{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.06em;margin-bottom:18px;}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.m-full{grid-column:1/-1;}
+.m-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:6px;}
+.mbtn{padding:8px 18px;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all var(--tr);}
+.mbtn-cancel{background:transparent;border:1px solid var(--bg4);color:var(--t3);}
+.mbtn-cancel:hover{border-color:var(--bg5);color:var(--t2);}
+.mbtn-save{background:var(--red);border:none;color:#fff;}
+.mbtn-save:hover{background:var(--red2);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:10px 16px;font-size:13px;color:var(--t1);z-index:200;transform:translateY(60px);opacity:0;transition:all .25s ease;pointer-events:none;max-width:260px;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.ok{border-left:2px solid var(--green);}
+.toast.err{border-left:2px solid var(--red);}
+
+/* ── EMPTY ── */
+.empty-state{padding:40px;text-align:center;color:var(--t5);}
+.empty-icon{font-size:32px;margin-bottom:10px;opacity:.4;}
+</style>
+<div class="app">
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-brand">
+    <div class="brand-logo">AZ Collective</div>
+    <div class="brand-sub">Real Estate CRM</div>
+  </div>
+  <div class="nav-section">Browse</div>
+  <div class="nav-item active" onclick="setView('home',this)"><span class="nav-icon">⊞</span>Dashboard</div>
+  <div class="nav-item" onclick="setView('all',this)"><span class="nav-icon">◉</span>All Contacts</div>
+  <div class="nav-item" onclick="setView('calendar',this)"><span class="nav-icon">◫</span>Calendar</div>
+  <div class="nav-item" onclick="setView('hot',this)"><span class="nav-icon">▲</span>Hot Leads</div>
+  <div class="nav-item" onclick="setView('ai',this)"><span class="nav-icon">✦</span>AI Scheduled</div>
+  <div class="nav-section">Agents <span style="cursor:pointer;color:var(--red);font-size:14px;float:right;" onclick="openAgentModal()">+</span></div>
+  <div class="nav-agents" id="navAgents"></div>
+  <div class="nav-bottom">
+    <button class="btn-add-agent" onclick="openAgentModal()">+ Add Agent</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topnav">
+    <div class="tnav-item active" id="tnav-home" onclick="setView('home',null,'home')">Home</div>
+    <div class="tnav-item" id="tnav-buyers" onclick="setTypeFilter('buyer')">Buyers</div>
+    <div class="tnav-item" id="tnav-sellers" onclick="setTypeFilter('seller')">Sellers</div>
+    <div class="tnav-item" id="tnav-investors" onclick="setTypeFilter('investor')">Investors</div>
+    <div class="tnav-right">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" placeholder="Search contacts..." oninput="setSearch(this.value)">
+      </div>
+      <button class="btn-new-contact" onclick="openContactModal()">+ Contact</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="view" id="mainView"></div>
+    <div id="rightPanel"></div>
+  </div>
+</div>
+
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="overlay" id="contactModal">
+  <div class="modal">
+    <h2 id="modalTitle">New Contact</h2>
+    <div class="m-grid">
+      <div class="cd-field"><div class="cd-label">First Name</div><input class="cd-input" id="mFN" placeholder="Jane"></div>
+      <div class="cd-field"><div class="cd-label">Last Name</div><input class="cd-input" id="mLN" placeholder="Smith"></div>
+      <div class="cd-field"><div class="cd-label">Phone</div><input class="cd-input" id="mPhone" placeholder="(602) 555-0100"></div>
+      <div class="cd-field"><div class="cd-label">Email</div><input class="cd-input" id="mEmail" placeholder="jane@email.com"></div>
+      <div class="cd-field m-full"><div class="cd-label">Assign to Agent</div><select class="cd-input cd-select" id="mAgent"></select></div>
+      <div class="cd-field m-full"><div class="cd-label">Lead Type</div>
+        <select class="cd-input cd-select" id="mType">
+          <option value="buyer">Buyer</option><option value="seller">Seller</option><option value="investor">Investor</option><option value="hot">Hot Lead</option>
+        </select>
+      </div>
+    </div>
+    <div class="m-actions">
+      <button class="mbtn mbtn-cancel" onclick="closeOverlay('contactModal')">Cancel</button>
+      <button class="mbtn mbtn-save" onclick="saveContact()">Save Contact</button>
+    </div>
+  </div>
+</div>
+
+<!-- AGENT MODAL -->
+<div class="overlay" id="agentModal">
+  <div class="modal" style="width:360px;">
+    <h2>Add Agent</h2>
+    <div class="cd-field"><div class="cd-label">Full Name</div><input class="cd-input" id="aN" placeholder="Agent Name"></div>
+    <div class="cd-field"><div class="cd-label">Role</div><input class="cd-input" id="aRole" placeholder="e.g. Buyer's Agent"></div>
+    <div class="cd-field"><div class="cd-label">Color</div>
+      <select class="cd-input cd-select" id="aColor">
+        <option value="#e50914">Red</option><option value="#46d369">Green</option><option value="#3ea6ff">Blue</option>
+        <option value="#f5c842">Gold</option><option value="#a855f7">Purple</option><option value="#f97316">Orange</option>
+      </select>
+    </div>
+    <div class="m-actions">
+      <button class="mbtn mbtn-cancel" onclick="closeOverlay('agentModal')">Cancel</button>
+      <button class="mbtn mbtn-save" onclick="saveAgent()">Add Agent</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── DATA ──
+let agents=[
+  {id:'all',name:'All Agents',color:'#e50914',isAll:true},
+  {id:'a1',name:'Marcus Riley',role:"Buyer's Agent",color:'#46d369'},
+  {id:'a2',name:'Priya Nair',role:'Listing Agent',color:'#3ea6ff'},
+  {id:'a3',name:'Derek Thorn',role:'Investment Specialist',color:'#f5c842'},
+];
+let contacts=[
+  {id:1,fn:'Marcus',ln:'Rivera',phone:'(602) 555-0142',email:'marcus@email.com',agentId:'a1',type:'hot',notes:'Scottsdale 3BR, $450k. Chase pre-approved.',followUps:[{id:11,date:'2026-05-01',time:'10:00',msg:'Send 3 new Scottsdale listings',ai:true,done:false}]},
+  {id:2,fn:'Priya',ln:'Sandoval',phone:'(480) 555-0271',email:'priya.s@gmail.com',agentId:'a2',type:'seller',notes:'PV home, 60-day close. Motivated.',followUps:[{id:21,date:'2026-04-29',time:'14:00',msg:'Send CMA and listing proposal',ai:false,done:false}]},
+  {id:3,fn:'Derek',ln:'Thompson',phone:'(623) 555-0389',email:'derek.t@outlook.com',agentId:'a3',type:'investor',notes:'Multi-family 4-8 units Mesa/Tempe. Cash.',followUps:[]},
+  {id:4,fn:'Sara',ln:'Medina',phone:'(602) 555-0991',email:'sara.m@yahoo.com',agentId:'a1',type:'buyer',notes:'First-time buyer Chandler. Pre-qual pending.',followUps:[{id:41,date:'2026-05-05',time:'09:00',msg:'Pre-qual status + Chandler listings under $380k',ai:true,done:false}]},
+  {id:5,fn:'Luis',ln:'Garcia',phone:'(480) 555-0554',email:'lgarcia@gmail.com',agentId:'a2',type:'hot',notes:'Ready to offer Mesa property. $520k.',followUps:[{id:51,date:'2026-04-28',time:'11:00',msg:'Confirm offer terms and submit',ai:false,done:false}]},
+  {id:6,fn:'Tamara',ln:'Wells',phone:'(623) 555-0123',email:'tamara@icloud.com',agentId:'a3',type:'investor',notes:'Commercial strip mall, Glendale.',followUps:[]},
+  {id:7,fn:'James',ln:'Okafor',phone:'(602) 555-0773',email:'jokafor@gmail.com',agentId:'a1',type:'buyer',notes:'Looking in Tempe near ASU. Budget $320k.',followUps:[{id:71,date:'2026-05-08',time:'15:00',msg:'Send Tempe listings near ASU corridor',ai:true,done:false}]},
+];
+
+let currentView='home';
+let selectedAgent='all';
+let selectedContact=null;
+let typeFilter='all';
+let searchQ='';
+let editingContactId=null;
+let calYear=2026,calMonth=4; // May 2026 (0-indexed)
+let selectedDay=null;
+let calAIToggle=false;
+let contactDetailTab='info';
+
+// ── HELPERS ──
+function initials(fn,ln){return(fn[0]||'')+(ln[0]||'');}
+function agentById(id){return agents.find(a=>a.id===id);}
+function typeColor(t){return{buyer:'#3ea6ff',seller:'#46d369',investor:'#f5c842',hot:'#e50914'}[t]||'#a855f7';}
+function typeLabel(t){return t==='hot'?'Hot':t.charAt(0).toUpperCase()+t.slice(1);}
+function thumbBg(t){return{buyer:'#05101f',seller:'#051a0d',investor:'#1a1400',hot:'#1f0505'}[t]||'#111';}
+function progress(c){const done=c.followUps.filter(f=>f.done).length;const total=c.followUps.length;return total?Math.round((done/total)*100):0;}
+
+function filteredContacts(){
+  let pool=selectedAgent==='all'?[...contacts]:contacts.filter(c=>c.agentId===selectedAgent);
+  if(typeFilter!=='all')pool=pool.filter(c=>c.type===typeFilter);
+  if(searchQ)pool=pool.filter(c=>(c.fn+' '+c.ln+c.email).toLowerCase().includes(searchQ.toLowerCase()));
+  return pool;
+}
+
+function allFollowUps(){
+  const all=[];
+  contacts.forEach(c=>c.followUps.forEach(f=>all.push({...f,contactId:c.id,contactName:c.fn+' '+c.ln,agentId:c.agentId})));
+  return all;
+}
+
+// ── NAV AGENTS ──
+function renderNavAgents(){
+  const el=document.getElementById('navAgents');
+  el.innerHTML='';
+  agents.forEach(a=>{
+    const count=a.isAll?contacts.length:contacts.filter(c=>c.agentId===a.id).length;
+    const hot=a.isAll?0:contacts.filter(c=>c.agentId===a.id&&(c.type==='hot'||c.followUps.some(f=>!f.done))).length;
+    const row=document.createElement('div');
+    row.className='agent-row'+(selectedAgent===a.id?' active':'');
+    row.onclick=()=>{selectedAgent=a.id;renderNavAgents();renderMain();};
+    row.innerHTML=`
+      <div class="ag-av" style="background:${a.color}22;color:${a.color}">${a.isAll?'★':initials(a.name.split(' ')[0],a.name.split(' ')[1]||'')}</div>
+      <div class="agent-info"><div class="agent-name">${a.name}</div>${!a.isAll?`<div class="agent-role">${a.role||''}</div>`:''}</div>
+      <div class="agent-badge ${hot>0?'hot':''}">${count}</div>
+    `;
+    el.appendChild(row);
+  });
+}
+
+// ── VIEW ROUTER ──
+function setView(v,navEl,tnavId){
+  if(v!=='calendar'){document.getElementById('rightPanel').innerHTML='';selectedContact=null;}
+  currentView=v;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(navEl)navEl.classList.add('active');
+  document.querySelectorAll('.tnav-item').forEach(n=>n.classList.remove('active'));
+  if(tnavId)document.getElementById('tnav-'+tnavId)?.classList.add('active');
+  renderMain();
+}
+function setTypeFilter(t){
+  typeFilter=typeFilter===t?'all':t;
+  currentView='all';
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.tnav-item').forEach(n=>n.classList.remove('active'));
+  renderMain();
+}
+function setSearch(q){searchQ=q;renderMain();}
+
+function renderMain(){
+  const mv=document.getElementById('mainView');
+  if(currentView==='calendar'){renderCalendar(mv);return;}
+  if(currentView==='all'){renderAllView(mv);return;}
+  if(currentView==='hot'){renderRowView(mv,'hot');return;}
+  if(currentView==='ai'){renderRowView(mv,'ai');return;}
+  renderHomeView(mv);
+}
+
+// ── HOME VIEW ──
+function renderHomeView(el){
+  const pool=filteredContacts();
+  const hot=pool.filter(c=>c.type==='hot');
+  const buyers=pool.filter(c=>c.type==='buyer');
+  const sellers=pool.filter(c=>c.type==='seller');
+  const investors=pool.filter(c=>c.type==='investor');
+  const aiSched=pool.filter(c=>c.followUps.some(f=>f.ai&&!f.done));
+  const fuPending=pool.filter(c=>c.followUps.some(f=>!f.done));
+
+  const ag=agentById(selectedAgent);
+  el.innerHTML=`
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-pattern"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Arizona Collective Real Estate Group</div>
+        <div class="hero-title">${ag&&!ag.isAll ? ag.name : 'All'}<span>${ag&&!ag.isAll ? 'Pipeline' : 'Leads'}</span></div>
+        <div class="hero-meta">
+          <div class="hero-stat"><div class="hero-stat-val">${pool.length}</div><div class="hero-stat-label">Contacts</div></div>
+          <div class="hero-div"></div>
+          <div class="hero-stat"><div class="hero-stat-val r">${hot.length}</div><div class="hero-stat-label">Hot</div></div>
+          <div class="hero-div"></div>
+          <div class="hero-stat"><div class="hero-stat-val g">${fuPending.length}</div><div class="hero-stat-label">Follow-ups</div></div>
+          <div class="hero-div"></div>
+          <div class="hero-stat"><div class="hero-stat-val p">${aiSched.length}</div><div class="hero-stat-label">AI Sched.</div></div>
+        </div>
+      </div>
+      <div class="hero-fade"></div>
+    </div>
+    ${hot.length?rowSection('🔴 Hot Leads',hot):''}
+    ${aiSched.length?rowSection('✦ AI Scheduled',aiSched):''}
+    ${buyers.length?rowSection('Buyers',buyers):''}
+    ${sellers.length?rowSection('Sellers',sellers):''}
+    ${investors.length?rowSection('Investors',investors):''}
+    ${!pool.length?'<div class="empty-state"><div class="empty-icon">🎬</div><p>No contacts match this filter.</p></div>':''}
+    <div style="height:24px;"></div>
+  `;
+  el.querySelectorAll('.ncard[data-id]').forEach(card=>{
+    card.addEventListener('click',()=>openContactDetail(parseInt(card.dataset.id)));
+  });
+}
+
+function rowSection(title,pool){
+  return `<div class="row-section">
+    <div class="row-header"><div class="row-title">${title}</div><div class="row-see-all" onclick="setView('all',null)">See all ›</div></div>
+    <div class="card-scroll">${pool.map(c=>cardHTML(c)).join('')}</div>
+  </div>`;
+}
+
+function cardHTML(c){
+  const hasAI=c.followUps.some(f=>f.ai&&!f.done);
+  const fuPending=c.followUps.filter(f=>!f.done).length;
+  const prog=progress(c);
+  return `<div class="ncard${selectedContact===c.id?' selected':''}" data-id="${c.id}">
+    <div class="ncard-thumb" style="background:${thumbBg(c.type)}">
+      <div class="ncard-initials" style="color:${typeColor(c.type)}">${initials(c.fn,c.ln)}</div>
+      <div class="ncard-type-pill" style="background:${typeColor(c.type)}22;color:${typeColor(c.type)}">${typeLabel(c.type)}</div>
+      ${hasAI?'<div class="ncard-ai-pill">AI</div>':''}
+      <div class="ncard-progress"><div class="ncard-progress-bar" style="width:${prog}%"></div></div>
+    </div>
+    <div class="ncard-body">
+      <div class="ncard-name">${c.fn} ${c.ln}</div>
+      <div class="ncard-sub">${c.email}</div>
+      <div class="ncard-tags">
+        ${fuPending?`<span class="ntag" style="background:rgba(229,9,20,.15);color:#ff6b6b">${fuPending} FU</span>`:''}
+        ${hasAI?'<span class="ntag" style="background:rgba(168,85,247,.15);color:#c084fc">AI</span>':''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAllView(el){
+  const pool=filteredContacts();
+  el.innerHTML=`
+    <div style="padding:24px 28px 10px;display:flex;align-items:center;gap:12px;">
+      <div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:.06em;">All Contacts</div>
+      <div style="margin-left:auto;font-size:12px;color:var(--t4);">${pool.length} results</div>
+    </div>
+    <div class="all-grid">${pool.map(c=>cardHTML(c)).join('')}
+      <div class="ncard" style="background:transparent;border:1px dashed var(--bg4);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:160px;cursor:pointer;" onclick="openContactModal()">
+        <div style="font-size:24px;color:var(--t5);">+</div>
+        <div style="font-size:11px;color:var(--t5);margin-top:4px;">Add Contact</div>
+      </div>
+    </div>
+  `;
+  el.querySelectorAll('.ncard[data-id]').forEach(card=>{
+    card.addEventListener('click',()=>openContactDetail(parseInt(card.dataset.id)));
+  });
+}
+
+function renderRowView(el,mode){
+  let pool=filteredContacts();
+  if(mode==='hot')pool=pool.filter(c=>c.type==='hot');
+  if(mode==='ai')pool=pool.filter(c=>c.followUps.some(f=>f.ai&&!f.done));
+  el.innerHTML=`
+    <div style="padding:24px 28px 10px;"><div style="font-family:\'Bebas Neue\',sans-serif;font-size:22px;letter-spacing:.06em;">${mode==='hot'?'Hot Leads':'AI Scheduled'}</div></div>
+    <div class="all-grid">${pool.map(c=>cardHTML(c)).join('')}</div>
+  `;
+  el.querySelectorAll('.ncard[data-id]').forEach(card=>{
+    card.addEventListener('click',()=>openContactDetail(parseInt(card.dataset.id)));
+  });
+}
+
+// ── CALENDAR ──
+function renderCalendar(el){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const firstDay=new Date(calYear,calMonth,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  const daysInPrev=new Date(calYear,calMonth,0).getDate();
+  const today=new Date();
+  const allFU=allFollowUps();
+
+  function fuForDay(y,m,d){
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    return allFU.filter(f=>f.date===ds);
+  }
+
+  let cells='';
+  let cellIdx=0;
+  // prev month
+  for(let i=firstDay-1;i>=0;i--){
+    const d=daysInPrev-i;
+    cells+=`<div class="cal-cell other-month"><div class="cal-date">${d}</div></div>`;cellIdx++;
+  }
+  // this month
+  for(let d=1;d<=daysInMonth;d++){
+    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+    const isSel=selectedDay&&selectedDay.y===calYear&&selectedDay.m===calMonth&&selectedDay.d===d;
+    const fus=fuForDay(calYear,calMonth,d);
+    const shown=fus.slice(0,3);
+    const more=fus.length-3;
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    cells+=`<div class="cal-cell${isToday?' today':''}${isSel?' selected-day':''}" onclick="selectCalDay(${calYear},${calMonth},${d})">
+      <div class="cal-date">${d}</div>
+      <div class="cal-events">
+        ${shown.map(f=>`<div class="cal-ev ${f.done?'done':f.ai?'ai':'manual'}" title="${f.contactName}: ${f.msg}">${f.contactName.split(' ')[0]}: ${f.msg.substring(0,18)}…</div>`).join('')}
+        ${more>0?`<div class="cal-more">+${more} more</div>`:''}
+      </div>
+    </div>`;cellIdx++;
+  }
+  // next month
+  const remaining=(7-cellIdx%7)%7;
+  for(let d=1;d<=remaining;d++){cells+=`<div class="cal-cell other-month"><div class="cal-date">${d}</div></div>`;}
+
+  el.innerHTML=`
+    <div class="cal-wrap">
+      <div class="cal-header">
+        <div class="cal-title">${months[calMonth]} ${calYear}</div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="shiftCal(-1)">&#8249;</button>
+          <button class="cal-today-btn" onclick="goToday()">Today</button>
+          <button class="cal-nav-btn" onclick="shiftCal(1)">&#8250;</button>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:10px;align-items:center;font-size:11px;color:var(--t4);">
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:rgba(229,9,20,.5);display:inline-block;"></span>Manual</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:rgba(168,85,247,.5);display:inline-block;"></span>AI Auto</span>
+          <span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:rgba(70,211,105,.4);display:inline-block;"></span>Done</span>
+        </div>
+      </div>
+      <div class="cal-grid">
+        ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<div class="cal-day-name">${d}</div>`).join('')}
+        ${cells}
+      </div>
+    </div>
+  `;
+
+  // right panel = day detail
+  renderDayPanel();
+}
+
+function shiftCal(dir){
+  calMonth+=dir;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCalendar(document.getElementById('mainView'));
+}
+function goToday(){const t=new Date();calYear=t.getFullYear();calMonth=t.getMonth();selectedDay={y:calYear,m:calMonth,d:t.getDate()};renderCalendar(document.getElementById('mainView'));}
+function selectCalDay(y,m,d){selectedDay={y,m,d};renderCalendar(document.getElementById('mainView'));}
+
+// ── DAY PANEL ──
+function renderDayPanel(){
+  const rp=document.getElementById('rightPanel');
+  if(currentView!=='calendar'){rp.innerHTML='';return;}
+
+  const day=selectedDay||{y:new Date().getFullYear(),m:new Date().getMonth(),d:new Date().getDate()};
+  const ds=`${day.y}-${String(day.m+1).padStart(2,'0')}-${String(day.d).padStart(2,'0')}`;
+  const allFU=allFollowUps().filter(f=>f.date===ds);
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const dayObj=new Date(day.y,day.m,day.d);
+  const dayName=days[dayObj.getDay()];
+
+  const contactOptions=contacts.map(c=>`<option value="${c.id}">${c.fn} ${c.ln}</option>`).join('');
+
+  rp.innerHTML=`<div class="day-panel">
+    <div class="day-panel-header">
+      <div class="day-panel-date">${dayName}, ${months[day.m]} ${day.d}</div>
+      <div class="day-panel-sub">${allFU.length} event${allFU.length!==1?'s':''} scheduled</div>
+    </div>
+    <div class="day-panel-body">
+      <div class="sched-form">
+        <h4>Schedule Follow-up</h4>
+        <div class="sf-field"><div class="sf-label">Contact</div>
+          <select class="sf-input sf-select" id="sfContact">${contactOptions}</select>
+        </div>
+        <div class="sf-field"><div class="sf-label">Time</div>
+          <input type="time" class="sf-input" id="sfTime" value="09:00">
+        </div>
+        <div class="sf-field"><div class="sf-label">Message / Task</div>
+          <textarea class="sf-input" id="sfMsg" placeholder="e.g. Send updated listings, confirm offer terms..." style="height:56px;resize:none;"></textarea>
+        </div>
+        <div class="ai-toggle-row" onclick="toggleCalAI()">
+          <div class="ai-tog-text">
+            <div class="ai-tog-title">✦ AI Auto Follow-up</div>
+            <div class="ai-tog-sub">AI sends message automatically at scheduled time</div>
+          </div>
+          <div class="tog ${calAIToggle?'on':''}" id="calAITog"><div class="tog-k"></div></div>
+        </div>
+        <button class="btn-schedule" onclick="scheduleFromCalendar('${ds}')">Add to Calendar</button>
+      </div>
+      ${allFU.length?allFU.map(f=>{
+        const c=contacts.find(x=>x.id===f.contactId);
+        const ag=c?agentById(c.agentId):null;
+        return `<div class="day-ev-card ${f.done?'done-ev':f.ai?'ai-ev':'manual-ev'}">
+          <div class="day-ev-name">${f.contactName}</div>
+          <div class="day-ev-time">${formatTime(f.time)} ${f.ai?'· AI Auto':'· Manual'}</div>
+          <div class="day-ev-msg">${f.msg}</div>
+          <div class="day-ev-tags">
+            ${f.ai?`<span class="day-ev-tag" style="background:rgba(168,85,247,.15);color:#c084fc;">AI</span>`:''}
+            ${f.done?`<span class="day-ev-tag" style="background:rgba(70,211,105,.12);color:var(--green);">Done</span>`:''}
+            ${c?`<span class="day-ev-tag" style="background:${typeColor(c.type)}22;color:${typeColor(c.type)};">${typeLabel(c.type)}</span>`:''}
+          </div>
+          ${!f.done?`<div class="ev-btn-row">
+            <button class="ev-btn primary" onclick="markFUDoneFromCal(${f.contactId},${f.id})">Done</button>
+            ${!f.ai?`<button class="ev-btn ai-b" onclick="enableAIFromCal(${f.contactId},${f.id})">Enable AI</button>`:''}
+            <button class="ev-btn" onclick="deleteFUFromCal(${f.contactId},${f.id})">Remove</button>
+          </div>`:''}
+        </div>`;
+      }).join(''):`<div class="day-empty">No events on this day.<br>Schedule one above.</div>`}
+    </div>
+  </div>`;
+}
+
+function formatTime(t){if(!t)return'';const[h,m]=t.split(':');const hr=parseInt(h);return`${hr%12||12}:${m} ${hr>=12?'PM':'AM'}`;}
+
+function toggleCalAI(){calAIToggle=!calAIToggle;const tog=document.getElementById('calAITog');if(tog){tog.className='tog'+(calAIToggle?' on':'');}}
+
+function scheduleFromCalendar(ds){
+  const cid=parseInt(document.getElementById('sfContact')?.value);
+  const time=document.getElementById('sfTime')?.value||'09:00';
+  const msg=document.getElementById('sfMsg')?.value?.trim();
+  if(!msg){showToast('Add a message first.','err');return;}
+  const c=contacts.find(x=>x.id===cid);
+  if(!c){showToast('Select a contact.','err');return;}
+  c.followUps.push({id:Date.now(),date:ds,time,msg,ai:calAIToggle,done:false});
+  calAIToggle=false;
+  showToast(`Scheduled for ${c.fn}!`,'ok');
+  renderCalendar(document.getElementById('mainView'));
+}
+
+function markFUDoneFromCal(cid,fid){
+  const c=contacts.find(x=>x.id===cid);
+  const f=c?.followUps.find(x=>x.id===fid);
+  if(f)f.done=true;
+  showToast('Marked complete!','ok');
+  renderCalendar(document.getElementById('mainView'));
+}
+function enableAIFromCal(cid,fid){
+  const c=contacts.find(x=>x.id===cid);
+  const f=c?.followUps.find(x=>x.id===fid);
+  if(f)f.ai=true;
+  showToast('AI enabled!','ok');
+  renderCalendar(document.getElementById('mainView'));
+}
+function deleteFUFromCal(cid,fid){
+  const c=contacts.find(x=>x.id===cid);
+  if(c)c.followUps=c.followUps.filter(x=>x.id!==fid);
+  renderCalendar(document.getElementById('mainView'));
+}
+
+// ── CONTACT DETAIL ──
+function openContactDetail(id){
+  selectedContact=id;
+  contactDetailTab='info';
+  renderMain();
+  renderContactDetail();
+}
+
+function renderContactDetail(){
+  const rp=document.getElementById('rightPanel');
+  if(currentView==='calendar')return;
+  const c=contacts.find(x=>x.id===selectedContact);
+  if(!c){rp.innerHTML='';return;}
+  const ag=agentById(c.agentId);
+  const fuPending=c.followUps.filter(f=>!f.done);
+  const fuDone=c.followUps.filter(f=>f.done);
+
+  rp.innerHTML=`<div class="contact-detail">
+    <div class="cd-header">
+      <button class="cd-close" onclick="closeContactDetail()">✕</button>
+      <div class="cd-av" style="background:${typeColor(c.type)}22;color:${typeColor(c.type)}">${initials(c.fn,c.ln)}</div>
+      <div class="cd-name">${c.fn} ${c.ln}</div>
+      <div class="cd-meta">${typeLabel(c.type)} ${ag?'· '+ag.name:''}</div>
+    </div>
+    <div class="cd-tabs">
+      <div class="cdtab ${contactDetailTab==='info'?'active':''}" onclick="switchCDTab('info')">Info</div>
+      <div class="cdtab ${contactDetailTab==='notes'?'active':''}" onclick="switchCDTab('notes')">Notes</div>
+      <div class="cdtab ${contactDetailTab==='followup'?'active':''}" onclick="switchCDTab('followup')">
+        FU${fuPending.length?` <span style="background:var(--red);color:#fff;border-radius:10px;padding:0 4px;font-size:9px;">${fuPending.length}</span>`:''}
+      </div>
+    </div>
+    <div class="cd-body">${cdTabContent(c,fuPending,fuDone)}</div>
+    <div class="cd-footer">
+      <button class="btn-save-cd" onclick="saveContactDetail(${c.id})">Save</button>
+      <button class="btn-del-cd" onclick="deleteContact(${c.id})">Delete</button>
+    </div>
+  </div>`;
+}
+
+function cdTabContent(c,fuPending,fuDone){
+  const ag=agentById(c.agentId);
+  if(contactDetailTab==='info'){
+    return `
+      <div class="cd-field"><div class="cd-label">First Name</div><input class="cd-input" id="dFN" value="${c.fn}"></div>
+      <div class="cd-field"><div class="cd-label">Last Name</div><input class="cd-input" id="dLN" value="${c.ln}"></div>
+      <div class="cd-field"><div class="cd-label">Phone</div><input class="cd-input" id="dPhone" value="${c.phone}"></div>
+      <div class="cd-field"><div class="cd-label">Email</div><input class="cd-input" id="dEmail" value="${c.email}"></div>
+      <div class="cd-field"><div class="cd-label">Lead Type</div>
+        <select class="cd-input cd-select" id="dType">${['buyer','seller','investor','hot'].map(t=>`<option value="${t}" ${c.type===t?'selected':''}>${typeLabel(t)}</option>`).join('')}</select>
+      </div>
+      <div class="cd-field"><div class="cd-label">Agent</div>
+        <select class="cd-input cd-select" id="dAgent">${agents.filter(a=>!a.isAll).map(a=>`<option value="${a.id}" ${c.agentId===a.id?'selected':''}>${a.name}</option>`).join('')}</select>
+      </div>`;
+  }
+  if(contactDetailTab==='notes'){
+    return `<div class="cd-field"><div class="cd-label">Notes</div><textarea class="cd-input cd-textarea" id="dNotes">${c.notes}</textarea></div>`;
+  }
+  if(contactDetailTab==='followup'){
+    const today=new Date().toISOString().split('T')[0];
+    return `
+      <div class="sched-form" style="background:var(--bg);border-color:var(--bg4);">
+        <h4>Schedule Follow-up</h4>
+        <div class="sf-field"><div class="sf-label">Date</div><input type="date" class="sf-input" id="fuDateCD" min="${today}"></div>
+        <div class="sf-field"><div class="sf-label">Time</div><input type="time" class="sf-input" id="fuTimeCD" value="09:00"></div>
+        <div class="sf-field"><div class="sf-label">Message</div><textarea class="sf-input" id="fuMsgCD" placeholder="Follow-up task or message..." style="height:50px;resize:none;"></textarea></div>
+        <div class="ai-toggle-row" onclick="toggleCDAI()" style="background:var(--bg2);">
+          <div class="ai-tog-text"><div class="ai-tog-title">✦ AI Auto</div><div class="ai-tog-sub">AI sends at scheduled time</div></div>
+          <div class="tog" id="cdAITog"><div class="tog-k"></div></div>
+        </div>
+        <button class="btn-schedule" onclick="scheduleFUFromContact(${c.id})">Schedule</button>
+      </div>
+      ${fuPending.map(f=>fuCardHTML(c.id,f)).join('')}
+      ${fuDone.length?`<div style="font-size:9px;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin:10px 0 6px;">Completed</div>`:''}
+      ${fuDone.map(f=>fuCardHTML(c.id,f)).join('')}
+    `;
+  }
+  return '';
+}
+
+let cdAIToggle=false;
+function toggleCDAI(){cdAIToggle=!cdAIToggle;const t=document.getElementById('cdAITog');if(t)t.className='tog'+(cdAIToggle?' on':'');}
+
+function scheduleFUFromContact(cid){
+  const date=document.getElementById('fuDateCD')?.value;
+  const time=document.getElementById('fuTimeCD')?.value||'09:00';
+  const msg=document.getElementById('fuMsgCD')?.value?.trim();
+  if(!date||!msg){showToast('Fill date and message.','err');return;}
+  const c=contacts.find(x=>x.id===cid);
+  c.followUps.push({id:Date.now(),date,time,msg,ai:cdAIToggle,done:false});
+  cdAIToggle=false;
+  showToast('Scheduled!','ok');
+  renderNavAgents();renderMain();renderContactDetail();
+}
+
+function fuCardHTML(cid,f){
+  const d=new Date(f.date+'T'+f.time);
+  const ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  return `<div class="day-ev-card ${f.done?'done-ev':f.ai?'ai-ev':'manual-ev'}" style="margin-bottom:8px;">
+    <div class="day-ev-name" style="font-size:12px;">${f.ai?'✦ ':'📌 '}${f.msg.substring(0,60)}${f.msg.length>60?'…':''}</div>
+    <div class="day-ev-time">${ds}</div>
+    ${!f.done?`<div class="ev-btn-row">
+      <button class="ev-btn primary" onclick="markFUDone(${cid},${f.id})">Done</button>
+      ${!f.ai?`<button class="ev-btn ai-b" onclick="enableAI(${cid},${f.id})">AI</button>`:''}
+      <button class="ev-btn" onclick="deleteFU(${cid},${f.id})">✕</button>
+    </div>`:''}
+  </div>`;
+}
+
+function markFUDone(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f)f.done=true;showToast('Done!','ok');renderNavAgents();renderMain();renderContactDetail();}
+function enableAI(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f)f.ai=true;showToast('AI enabled!','ok');renderContactDetail();}
+function deleteFU(cid,fid){const c=contacts.find(x=>x.id===cid);if(c)c.followUps=c.followUps.filter(x=>x.id!==fid);renderNavAgents();renderMain();renderContactDetail();}
+
+function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();}
+
+function saveContactDetail(cid){
+  const c=contacts.find(x=>x.id===cid);
+  if(contactDetailTab==='info'){
+    c.fn=document.getElementById('dFN')?.value||c.fn;
+    c.ln=document.getElementById('dLN')?.value||c.ln;
+    c.phone=document.getElementById('dPhone')?.value||c.phone;
+    c.email=document.getElementById('dEmail')?.value||c.email;
+    c.type=document.getElementById('dType')?.value||c.type;
+    c.agentId=document.getElementById('dAgent')?.value||c.agentId;
+  }
+  if(contactDetailTab==='notes')c.notes=document.getElementById('dNotes')?.value||c.notes;
+  showToast('Saved!','ok');
+  renderNavAgents();renderMain();renderContactDetail();
+}
+
+function deleteContact(id){
+  contacts=contacts.filter(x=>x.id!==id);
+  selectedContact=null;
+  closeContactDetail();
+  renderNavAgents();renderMain();
+  showToast('Contact deleted.');
+}
+
+function closeContactDetail(){selectedContact=null;document.getElementById('rightPanel').innerHTML='';}
+
+// ── MODALS ──
+function openContactModal(editId){
+  editingContactId=editId||null;
+  const agSel=document.getElementById('mAgent');
+  agSel.innerHTML=agents.filter(a=>!a.isAll).map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+  if(editId){
+    const c=contacts.find(x=>x.id===editId);
+    document.getElementById('modalTitle').textContent='Edit Contact';
+    document.getElementById('mFN').value=c.fn;document.getElementById('mLN').value=c.ln;
+    document.getElementById('mPhone').value=c.phone;document.getElementById('mEmail').value=c.email;
+    agSel.value=c.agentId;document.getElementById('mType').value=c.type;
+  } else {
+    document.getElementById('modalTitle').textContent='New Contact';
+    ['mFN','mLN','mPhone','mEmail'].forEach(id=>document.getElementById(id).value='');
+    if(selectedAgent!=='all')agSel.value=selectedAgent;
+  }
+  document.getElementById('contactModal').classList.add('open');
+}
+
+function saveContact(){
+  const fn=document.getElementById('mFN').value.trim();
+  const ln=document.getElementById('mLN').value.trim();
+  if(!fn||!ln){showToast('Name required.','err');return;}
+  if(editingContactId){
+    const c=contacts.find(x=>x.id===editingContactId);
+    c.fn=fn;c.ln=ln;c.phone=document.getElementById('mPhone').value;c.email=document.getElementById('mEmail').value;
+    c.agentId=document.getElementById('mAgent').value;c.type=document.getElementById('mType').value;
+    showToast('Updated!','ok');
+  } else {
+    const nc={id:Date.now(),fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
+    contacts.push(nc);selectedContact=nc.id;
+    showToast('Contact added!','ok');
+  }
+  closeOverlay('contactModal');renderNavAgents();renderMain();
+  if(selectedContact&&currentView!=='calendar')renderContactDetail();
+}
+
+function openAgentModal(){document.getElementById('aN').value='';document.getElementById('aRole').value='';document.getElementById('agentModal').classList.add('open');}
+function saveAgent(){
+  const name=document.getElementById('aN').value.trim();
+  if(!name){showToast('Name required.','err');return;}
+  agents.push({id:'a'+Date.now(),name,role:document.getElementById('aRole').value.trim()||'Agent',color:document.getElementById('aColor').value});
+  closeOverlay('agentModal');renderNavAgents();
+  showToast('Agent added!','ok');
+}
+function closeOverlay(id){document.getElementById(id).classList.remove('open');}
+
+// ── TOAST ──
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast'+(type?' '+type:'');t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// ── INIT ──
+renderNavAgents();
+renderMain();
+// Set today as default selected day
+const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate()};
+</script></div>
+
+<script>
+const TEAM_PASSWORD = 'AZCollective2025!';
+
+function tryLogin() {
+  const input = document.getElementById('portal-password').value;
+  const error = document.getElementById('login-error');
+  if (input === TEAM_PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('crm-app').style.display = 'block';
+    sessionStorage.setItem('az_portal_auth', 'true');
+  } else {
+    error.style.display = 'block';
+    document.getElementById('portal-password').value = '';
+    document.getElementById('portal-password').focus();
+  }
+}
+
+// Auto-login if already authenticated this session
+if (sessionStorage.getItem('az_portal_auth') === 'true') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('crm-app').style.display = 'block';
+}
+
+// Allow Enter key
+document.getElementById('portal-password').focus();
+</script>
+</body>
+</html>
