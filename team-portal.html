@@ -1227,7 +1227,7 @@ function renderFUCalendar(cid){
     else if(isSel) cls+=' selected';
     else if(isToday) cls+=' today';
     if(hasFU) cls+=' has-fu';
-    const click=isPast?'':'onclick="selectFUDate(''+cid+'',''+dateStr+'')"';
+    const click=isPast?'':('onclick="selectFUDate('+JSON.stringify(cid)+',\''+dateStr+'\')"');
     days+=`<div class="${cls}" ${click}>${d}</div>`;
   }
   el.innerHTML=`
