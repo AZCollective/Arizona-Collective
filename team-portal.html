@@ -486,16 +486,19 @@ function showLoading(on){
 // ── SAVE CONTACT TO DB ──
 async function saveContactToDB(c){
   const payload = {
-    fn:c.fn, ln:c.ln, phone:c.phone, email:c.email,
-    agent_id:c.agentId, type:c.type, notes:c.notes||'',
+    fn:c.fn||'', ln:c.ln||'', phone:c.phone||'', email:c.email||'',
+    agent_id:c.agentId||'', type:c.type||'buyer', notes:c.notes||'',
     status:c.status||null
   };
-  if(c.id && (typeof c.id === 'number' || (typeof c.id === 'string' && !c.id.startsWith('new_') && !isNaN(parseInt(c.id))))){
-    await sbFetch('contacts?id=eq.'+c.id, 'PATCH', payload);
-  } else if(!c.id) {
-    const res = await sbFetch('contacts', 'POST', payload);
-    if(res && res[0]){ c.id = res[0].id; }
-  }
+  try {
+    if(c.id && typeof c.id === 'number'){
+      await sbFetch('contacts?id=eq.'+c.id, 'PATCH', payload);
+    } else {
+      const res = await sbFetch('contacts', 'POST', payload);
+      if(res && res[0]){ c.id = res[0].id; }
+      else { console.error('saveContactToDB: no id returned', res); }
+    }
+  } catch(e){ console.error('saveContactToDB error:', e); }
 }
 
 // ── DELETE CONTACT FROM DB ──
@@ -1148,14 +1151,13 @@ async function saveContact(){
     c.agentId=document.getElementById('mAgent').value;c.type=document.getElementById('mType').value;
     showToast('Updated!','ok');
   } else {
-    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',followUps:[]};
+    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',status:null,followUps:[]};
     await saveContactToDB(nc);
     contacts.push(nc);
-    selectedContact=nc.id;
     showToast('Contact added!','ok');
-  }
-  closeOverlay('contactModal');renderNavAgents();renderMain();
-  if(selectedContact&&currentView!=='calendar')renderContactDetail();
+    closeOverlay('contactModal');
+    renderNavAgents();renderMain();
+    if(nc.id){selectedContact=nc.id;renderContactDetail();}
 }
 
 function openAgentModal(){document.getElementById('aN').value='';document.getElementById('aRole').value='';document.getElementById('agentModal').classList.add('open');}
