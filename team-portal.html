@@ -262,6 +262,74 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 .btn-schedule{width:100%;padding:8px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background var(--tr);letter-spacing:.02em;}
 .btn-schedule:hover{background:var(--red2);}
 
+/* ── VISUAL CALENDAR PICKER ── */
+.fu-cal-picker{margin-bottom:12px;}
+.fu-cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.fu-cal-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.06em;color:var(--t2);}
+.fu-cal-nav{background:none;border:none;color:var(--t2);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:4px;transition:background var(--tr);}
+.fu-cal-nav:hover{background:var(--bg4);}
+.fu-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+.fu-cal-dow{font-size:9px;font-weight:700;color:var(--t5);text-align:center;padding:2px 0;letter-spacing:.08em;text-transform:uppercase;}
+.fu-cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;border-radius:4px;cursor:pointer;transition:background var(--tr);color:var(--t2);}
+.fu-cal-day:hover{background:var(--bg4);}
+.fu-cal-day.empty{cursor:default;}
+.fu-cal-day.past{color:var(--t5);cursor:default;}
+.fu-cal-day.today{border:1px solid var(--red);color:var(--red);}
+.fu-cal-day.selected{background:var(--red);color:#fff;font-weight:700;}
+.fu-cal-day.has-fu{position:relative;}
+.fu-cal-day.has-fu::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--red);}
+.fu-selected-date{font-size:11px;color:var(--red);text-align:center;margin-bottom:8px;font-weight:600;letter-spacing:.04em;min-height:14px;}
+
+/* ── TIME PICKER GRID ── */
+.fu-time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:8px;}
+.fu-time-btn{padding:5px 2px;background:var(--bg3);border:1px solid var(--bg4);border-radius:4px;font-size:10px;color:var(--t2);cursor:pointer;text-align:center;transition:all var(--tr);}
+.fu-time-btn:hover{border-color:var(--red);color:var(--red);}
+.fu-time-btn.selected{background:var(--red);color:#fff;border-color:var(--red);}
+.fu-time-custom{width:100%;margin-top:4px;}
+
+/* ── FU CARD REDESIGN ── */
+.fu-card{background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);padding:10px 12px;margin-bottom:8px;position:relative;}
+.fu-card.fu-done{opacity:.5;}
+.fu-card.fu-ai{border-color:rgba(168,85,247,.3);}
+.fu-card-top{display:flex;align-items:flex-start;gap:8px;}
+.fu-card-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.fu-card-msg{font-size:12px;color:var(--t1);line-height:1.5;flex:1;}
+.fu-card-time{font-size:10px;color:var(--t5);margin-top:4px;letter-spacing:.04em;}
+.fu-card-btns{display:flex;gap:4px;margin-top:8px;}
+.fu-cb{padding:4px 10px;border-radius:4px;font-size:10px;font-weight:600;cursor:pointer;border:none;font-family:"DM Sans",sans-serif;transition:opacity var(--tr);}
+.fu-cb:hover{opacity:.85;}
+.fu-cb-done{background:var(--red);color:#fff;}
+.fu-cb-del{background:var(--bg4);color:var(--t2);}
+.fu-cb-ai{background:rgba(168,85,247,.2);color:#a855f7;border:1px solid rgba(168,85,247,.3);}
+.fu-section-title{font-size:9px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.12em;margin:12px 0 6px;}
+
+/* ── CSV IMPORT MODAL ── */
+.csv-modal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.8);align-items:center;justify-content:center;}
+.csv-modal.open{display:flex;}
+.csv-box{background:var(--bg2);border:1px solid var(--bg4);border-radius:var(--r);width:90%;max-width:520px;padding:28px 28px 24px;max-height:80vh;overflow-y:auto;}
+.csv-title{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:.06em;color:var(--t1);margin-bottom:4px;}
+.csv-sub{font-size:11px;color:var(--t5);margin-bottom:20px;line-height:1.6;}
+.csv-dropzone{border:2px dashed var(--bg5);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:border var(--tr);margin-bottom:16px;}
+.csv-dropzone:hover,.csv-dropzone.drag{border-color:var(--red);}
+.csv-dropzone-icon{font-size:28px;margin-bottom:8px;}
+.csv-dropzone-text{font-size:12px;color:var(--t5);}
+.csv-dropzone-text span{color:var(--red);cursor:pointer;}
+.csv-preview{background:var(--bg3);border-radius:var(--r);padding:12px;margin-bottom:16px;display:none;}
+.csv-preview-title{font-size:10px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.csv-row{display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--bg4);color:var(--t2);}
+.csv-row:last-child{border-bottom:none;}
+.csv-map{margin-bottom:16px;display:none;}
+.csv-map-title{font-size:10px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;}
+.csv-map-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-bottom:6px;font-size:11px;}
+.csv-map-arrow{color:var(--t5);}
+.csv-map-select{background:var(--bg3);border:1px solid var(--bg4);color:var(--t1);padding:5px 8px;border-radius:4px;font-size:11px;font-family:"DM Sans",sans-serif;width:100%;}
+.csv-import-btn{width:100%;padding:10px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;transition:opacity var(--tr);}
+.csv-import-btn:hover{opacity:.85;}
+.csv-import-btn:disabled{opacity:.4;cursor:default;}
+.csv-result{font-size:12px;color:#46d369;text-align:center;margin-top:12px;display:none;}
+.import-btn-trigger{padding:6px 14px;background:var(--bg3);border:1px solid var(--bg4);border-radius:var(--r);font-size:11px;color:var(--t2);cursor:pointer;font-family:"DM Sans",sans-serif;transition:all var(--tr);margin-left:8px;}
+.import-btn-trigger:hover{border-color:var(--red);color:var(--red);}
+
 /* ── DETAIL SIDE (contact) ── */
 .contact-detail{width:320px;background:var(--bg2);border-left:1px solid #1f1f1f;display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;}
 .cd-header{padding:16px;border-bottom:1px solid #1f1f1f;position:relative;}
@@ -321,6 +389,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 <div class="nav">
   <div class="nav-brand">
     <div class="brand-logo">AZ Collective</div>
+        <div style="padding:0 14px 8px;"><button class="import-btn-trigger" onclick="openCSVImport()" title="Import contacts from CSV">⬆ Import</button></div>
     <div class="brand-sub">Real Estate CRM</div>
   </div>
   <div class="nav-section">Browse</div>
@@ -1037,21 +1106,43 @@ function cdTabContent(c,fuPending,fuDone){
     return `<div class="cd-field"><div class="cd-label">Notes</div><textarea class="cd-input cd-textarea" id="dNotes">${c.notes}</textarea></div>`;
   }
   if(contactDetailTab==='followup'){
-    const today=new Date().toISOString().split('T')[0];
+    const calDots = c.followUps.filter(f=>!f.done).map(f=>f.date);
     return `
       <div class="sched-form" style="background:var(--bg);border-color:var(--bg4);">
-        <h4>Schedule Follow-up</h4>
-        <div class="sf-field"><div class="sf-label">Date</div><input type="date" class="sf-input" id="fuDateCD" min="${today}"></div>
-        <div class="sf-field"><div class="sf-label">Time</div><input type="time" class="sf-input" id="fuTimeCD" value="09:00"></div>
-        <div class="sf-field"><div class="sf-label">Message</div><textarea class="sf-input" id="fuMsgCD" placeholder="Follow-up task or message..." style="height:50px;resize:none;"></textarea></div>
+        <h4 style="margin-bottom:12px;">Schedule Follow-up</h4>
+
+        <!-- VISUAL CALENDAR PICKER -->
+        <div class="fu-cal-picker" id="fuCalPicker_${c.id}"></div>
+        <div class="fu-selected-date" id="fuSelectedDateLabel_${c.id}">Select a date above</div>
+        <input type="hidden" id="fuDateCD_${c.id}" value=""/>
+
+        <!-- TIME QUICK SELECT -->
+        <div class="sf-label" style="margin-bottom:6px;">Time</div>
+        <div class="fu-time-grid" id="fuTimeGrid_${c.id}">
+          ${['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM','6:00 PM'].map(t=>`
+            <div class="fu-time-btn" onclick="selectFUTime('${c.id}','${t}',this)">${t}</div>
+          `).join('')}
+        </div>
+        <input type="time" class="sf-input fu-time-custom" id="fuTimeCD_${c.id}" value="09:00" oninput="clearFUTimeBtns('${c.id}')"/>
+
+        <!-- MESSAGE -->
+        <div class="sf-field" style="margin-top:8px;">
+          <div class="sf-label">Note / Task</div>
+          <textarea class="sf-input" id="fuMsgCD_${c.id}" placeholder="e.g. Call to discuss offer, send listings, check in..." style="height:60px;resize:none;"></textarea>
+        </div>
+
+        <!-- AI TOGGLE -->
         <div class="ai-toggle-row" onclick="toggleCDAI()" style="background:var(--bg2);">
-          <div class="ai-tog-text"><div class="ai-tog-title">✦ AI Auto</div><div class="ai-tog-sub">AI sends at scheduled time</div></div>
+          <div class="ai-tog-text"><div class="ai-tog-title">✦ AI Auto</div><div class="ai-tog-sub">AI sends message at scheduled time</div></div>
           <div class="tog" id="cdAITog"><div class="tog-k"></div></div>
         </div>
-        <button class="btn-schedule" onclick="scheduleFUFromContact(${c.id})">Schedule</button>
+
+        <button class="btn-schedule" onclick="scheduleFUFromContact(${c.id})">Add Follow-up</button>
       </div>
+
+      ${fuPending.length ? '<div class="fu-section-title">Upcoming</div>' : ''}
       ${fuPending.map(f=>fuCardHTML(c.id,f)).join('')}
-      ${fuDone.length?`<div style="font-size:9px;color:var(--t5);text-transform:uppercase;letter-spacing:.1em;margin:10px 0 6px;">Completed</div>`:''}
+      ${fuDone.length ? '<div class="fu-section-title">Completed</div>' : ''}
       ${fuDone.map(f=>fuCardHTML(c.id,f)).join('')}
     `;
   }
@@ -1062,29 +1153,37 @@ let cdAIToggle=false;
 function toggleCDAI(){cdAIToggle=!cdAIToggle;const t=document.getElementById('cdAITog');if(t)t.className='tog'+(cdAIToggle?' on':'');}
 
 async function scheduleFUFromContact(cid){
-  const date=document.getElementById('fuDateCD')?.value;
-  const time=document.getElementById('fuTimeCD')?.value||'09:00';
-  const msg=document.getElementById('fuMsgCD')?.value?.trim();
-  if(!date||!msg){showToast('Fill date and message.','err');return;}
+  const date=document.getElementById('fuDateCD_'+cid)?.value;
+  const timeInput=document.getElementById('fuTimeCD_'+cid)?.value||'09:00';
+  const msg=document.getElementById('fuMsgCD_'+cid)?.value?.trim();
+  if(!date){showToast('Please select a date.','err');return;}
+  if(!msg){showToast('Please add a note or task.','err');return;}
   const c=contacts.find(x=>x.id===cid);
-  const newFU={id:'fu_'+Date.now(),date,time,msg,ai:cdAIToggle,done:false};
+  if(!c)return;
+  const newFU={id:null,date,time:timeInput,msg,ai:cdAIToggle,done:false};
   c.followUps.push(newFU);
   await saveFollowupToDB(c.id, newFU);
   cdAIToggle=false;
-  showToast('Scheduled!','ok');
+  showToast('Follow-up scheduled!','ok');
   renderNavAgents();renderMain();renderContactDetail();
+  setTimeout(()=>initFUCalendar(cid),50);
 }
 
 function fuCardHTML(cid,f){
-  const d=new Date(f.date+'T'+f.time);
+  const d=new Date(f.date+'T'+(f.time||'09:00'));
   const ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  return `<div class="day-ev-card ${f.done?'done-ev':f.ai?'ai-ev':'manual-ev'}" style="margin-bottom:8px;">
-    <div class="day-ev-name" style="font-size:12px;">${f.ai?'✦ ':'📌 '}${f.msg.substring(0,60)}${f.msg.length>60?'…':''}</div>
-    <div class="day-ev-time">${ds}</div>
-    ${!f.done?`<div class="ev-btn-row">
-      <button class="ev-btn primary" onclick="markFUDone(${cid},${f.id})">Done</button>
-      ${!f.ai?`<button class="ev-btn ai-b" onclick="enableAI(${cid},${f.id})">AI</button>`:''}
-      <button class="ev-btn" onclick="deleteFU(${cid},${f.id})">✕</button>
+  return `<div class="fu-card ${f.done?'fu-done':''} ${f.ai?'fu-ai':''}">
+    <div class="fu-card-top">
+      <div class="fu-card-icon">${f.done?'✅':f.ai?'✦':'📌'}</div>
+      <div style="flex:1;">
+        <div class="fu-card-msg">${f.msg}</div>
+        <div class="fu-card-time">${ds}</div>
+      </div>
+    </div>
+    ${!f.done?`<div class="fu-card-btns">
+      <button class="fu-cb fu-cb-done" onclick="markFUDone(${cid},${f.id})">✓ Done</button>
+      ${!f.ai?`<button class="fu-cb fu-cb-ai" onclick="enableAI(${cid},${f.id})">✦ AI</button>`:''}
+      <button class="fu-cb fu-cb-del" onclick="deleteFU(${cid},${f.id})">Delete</button>
     </div>`:''}
   </div>`;
 }
@@ -1093,7 +1192,98 @@ async function markFUDone(cid,fid){const c=contacts.find(x=>x.id===cid);const f=
 function enableAI(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f)f.ai=true;showToast('AI enabled!','ok');renderContactDetail();}
 async function deleteFU(cid,fid){const c=contacts.find(x=>x.id===cid);if(c){c.followUps=c.followUps.filter(x=>x.id!==fid);await deleteFollowupFromDB(fid);}renderNavAgents();renderMain();renderContactDetail();}
 
-function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();}
+// ── VISUAL CALENDAR FOR FU ──
+let fuCalState={};
+
+function initFUCalendar(cid){
+  const now=new Date();
+  if(!fuCalState[cid]) fuCalState[cid]={year:now.getFullYear(),month:now.getMonth(),selected:null};
+  renderFUCalendar(cid);
+}
+
+function renderFUCalendar(cid){
+  const el=document.getElementById('fuCalPicker_'+cid);
+  if(!el)return;
+  const st=fuCalState[cid];
+  const y=st.year, m=st.month;
+  const c=contacts.find(x=>x.id===cid);
+  const fuDates=c?c.followUps.filter(f=>!f.done).map(f=>f.date):[];
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dows=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const today=new Date(); today.setHours(0,0,0,0);
+  const firstDay=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  let days='';
+  for(let d=0;d<firstDay;d++) days+=`<div class="fu-cal-day empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const dt=new Date(y,m,d); dt.setHours(0,0,0,0);
+    const isPast=dt<today;
+    const isToday=dt.getTime()===today.getTime();
+    const isSel=st.selected===dateStr;
+    const hasFU=fuDates.includes(dateStr);
+    let cls='fu-cal-day';
+    if(isPast) cls+=' past';
+    else if(isSel) cls+=' selected';
+    else if(isToday) cls+=' today';
+    if(hasFU) cls+=' has-fu';
+    const click=isPast?'':'onclick="selectFUDate(''+cid+'',''+dateStr+'')"';
+    days+=`<div class="${cls}" ${click}>${d}</div>`;
+  }
+  el.innerHTML=`
+    <div class="fu-cal-header">
+      <button class="fu-cal-nav" onclick="changeFUMonth('${cid}',-1)">‹</button>
+      <div class="fu-cal-title">${months[m]} ${y}</div>
+      <button class="fu-cal-nav" onclick="changeFUMonth('${cid}',1)">›</button>
+    </div>
+    <div class="fu-cal-grid">
+      ${dows.map(d=>`<div class="fu-cal-dow">${d}</div>`).join('')}
+      ${days}
+    </div>`;
+}
+
+function changeFUMonth(cid,dir){
+  if(!fuCalState[cid])return;
+  fuCalState[cid].month+=dir;
+  if(fuCalState[cid].month>11){fuCalState[cid].month=0;fuCalState[cid].year++;}
+  if(fuCalState[cid].month<0){fuCalState[cid].month=11;fuCalState[cid].year--;}
+  renderFUCalendar(cid);
+}
+
+function selectFUDate(cid,dateStr){
+  if(!fuCalState[cid])return;
+  fuCalState[cid].selected=dateStr;
+  const inp=document.getElementById('fuDateCD_'+cid);
+  if(inp)inp.value=dateStr;
+  const lbl=document.getElementById('fuSelectedDateLabel_'+cid);
+  if(lbl){
+    const d=new Date(dateStr+'T12:00:00');
+    lbl.textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  }
+  renderFUCalendar(cid);
+}
+
+function selectFUTime(cid,label,el){
+  const grid=document.getElementById('fuTimeGrid_'+cid);
+  if(grid)grid.querySelectorAll('.fu-time-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  const inp=document.getElementById('fuTimeCD_'+cid);
+  if(inp){
+    const [time,period]=label.split(' ');
+    let [h,min]=time.split(':');
+    h=parseInt(h);
+    if(period==='PM'&&h!==12)h+=12;
+    if(period==='AM'&&h===12)h=0;
+    inp.value=String(h).padStart(2,'0')+':'+min;
+  }
+}
+
+function clearFUTimeBtns(cid){
+  const grid=document.getElementById('fuTimeGrid_'+cid);
+  if(grid)grid.querySelectorAll('.fu-time-btn').forEach(b=>b.classList.remove('selected'));
+}
+
+function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();if(tab==='followup'&&selectedContact){setTimeout(()=>initFUCalendar(selectedContact),50);}}
 
 async function saveContactDetail(cid){
   const c=contacts.find(x=>x.id===cid);
@@ -1185,6 +1375,113 @@ function showToast(msg,type=''){
 }
 
 // ── INIT ──
+// ── CSV IMPORT ──
+let csvData=[];
+let csvHeaders=[];
+
+function openCSVImport(){
+  document.getElementById('csvModal').classList.add('open');
+  // populate agent dropdown
+  const sel=document.getElementById('csvAgentAssign');
+  sel.innerHTML=agents.filter(a=>!a.isAll).map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+  csvData=[];csvHeaders=[];
+  document.getElementById('csvPreview').style.display='none';
+  document.getElementById('csvMap').style.display='none';
+  document.getElementById('csvImportBtn').disabled=true;
+  document.getElementById('csvResult').style.display='none';
+  document.getElementById('csvDropzone').classList.remove('drag');
+}
+
+function closeCSVImport(){document.getElementById('csvModal').classList.remove('open');}
+
+function handleCSVDrop(e){
+  e.preventDefault();
+  document.getElementById('csvDropzone').classList.remove('drag');
+  const file=e.dataTransfer.files[0];
+  if(file&&file.name.endsWith('.csv'))handleCSVFile(file);
+  else showToast('Please drop a .csv file','err');
+}
+
+function handleCSVFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const text=e.target.result;
+    parseCSV(text);
+  };
+  reader.readAsText(file);
+}
+
+function parseCSV(text){
+  const lines=text.trim().split('\n').map(l=>l.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));
+  if(lines.length<2){showToast('CSV appears empty','err');return;}
+  csvHeaders=lines[0];
+  csvData=lines.slice(1).filter(r=>r.some(c=>c));
+
+  // Show preview
+  document.getElementById('csvRowCount').textContent=csvData.length;
+  const previewEl=document.getElementById('csvPreviewRows');
+  previewEl.innerHTML=csvData.slice(0,3).map(r=>
+    `<div class="csv-row"><span>${r[0]||''}</span><span>${r[1]||''}</span><span>${r[2]||''}</span></div>`
+  ).join('')+(csvData.length>3?`<div style="font-size:10px;color:var(--t5);margin-top:4px;">+${csvData.length-3} more rows</div>`:'');
+  document.getElementById('csvPreview').style.display='block';
+
+  // Build column mapping
+  const fields=['First Name','Last Name','Phone','Email','Notes'];
+  const fieldKeys=['fn','ln','phone','email','notes'];
+  const mapEl=document.getElementById('csvMapRows');
+  mapEl.innerHTML=fields.map((f,i)=>{
+    const guess=csvHeaders.findIndex(h=>h.toLowerCase().includes(fieldKeys[i])||h.toLowerCase().includes(f.toLowerCase().split(' ')[0]));
+    return `<div class="csv-map-row">
+      <div style="color:var(--t2)">${f}</div>
+      <div class="csv-map-arrow">←</div>
+      <select class="csv-map-select" id="csvMap_${fieldKeys[i]}">
+        <option value="">-- skip --</option>
+        ${csvHeaders.map((h,j)=>`<option value="${j}" ${j===guess?'selected':''}>${h}</option>`).join('')}
+      </select>
+    </div>`;
+  }).join('');
+  document.getElementById('csvMap').style.display='block';
+  document.getElementById('csvImportBtn').disabled=false;
+}
+
+async function runCSVImport(){
+  const btn=document.getElementById('csvImportBtn');
+  btn.disabled=true;
+  btn.textContent='Importing...';
+  const fieldKeys=['fn','ln','phone','email','notes'];
+  const colMap={};
+  fieldKeys.forEach(k=>{
+    const sel=document.getElementById('csvMap_'+k);
+    colMap[k]=sel&&sel.value!==''?parseInt(sel.value):-1;
+  });
+  const agentId=document.getElementById('csvAgentAssign').value;
+  const type=document.getElementById('csvTypeAssign').value;
+  let imported=0;
+  for(const row of csvData){
+    const nc={
+      id:null,
+      fn:colMap.fn>=0?row[colMap.fn]||'Unknown':'Unknown',
+      ln:colMap.ln>=0?row[colMap.ln]||'':'',
+      phone:colMap.phone>=0?row[colMap.phone]||'':'',
+      email:colMap.email>=0?row[colMap.email]||'':'',
+      notes:colMap.notes>=0?row[colMap.notes]||'':'',
+      agentId,type,status:null,followUps:[]
+    };
+    if(!nc.fn||nc.fn==='Unknown'&&!nc.ln)continue;
+    await saveContactToDB(nc);
+    contacts.push(nc);
+    imported++;
+  }
+  const result=document.getElementById('csvResult');
+  result.textContent=`✓ ${imported} contacts imported successfully!`;
+  result.style.display='block';
+  btn.textContent='Import Contacts';
+  renderNavAgents();renderMain();
+  showToast(imported+' contacts imported!','ok');
+  setTimeout(closeCSVImport,2000);
+}
+
 loadFromDB();
 // Set today as default selected day
 const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate()};
@@ -1216,7 +1513,47 @@ const _t=new Date();selectedDay={y:_t.getFullYear(),m:_t.getMonth(),d:_t.getDate
     </div>
   </div>
 </div>
+
+<!-- CSV IMPORT MODAL -->
+<div class="csv-modal" id="csvModal">
+  <div class="csv-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <div class="csv-title">Import Contacts</div>
+      <button onclick="closeCSVImport()" style="background:none;border:none;color:var(--t2);font-size:18px;cursor:pointer;">&#x2715;</button>
+    </div>
+    <div class="csv-sub">Upload a CSV from Google Sheets, iPhone, or Android. We will map the columns for you.<br><strong style="color:var(--t2);">How to export:</strong> Google Sheets: File &rarr; Download &rarr; CSV &nbsp;|&nbsp; iPhone: Google Contacts &rarr; Export &nbsp;|&nbsp; Android: Contacts &rarr; Export to CSV</div>
+    <div class="csv-dropzone" id="csvDropzone" onclick="document.getElementById('csvFileInput').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleCSVDrop(event)">
+      <div class="csv-dropzone-icon">&#128196;</div>
+      <div class="csv-dropzone-text">Drag &amp; drop your CSV here or <span>browse files</span></div>
+      <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="handleCSVFile(this.files[0])"/>
+    </div>
+    <div class="csv-preview" id="csvPreview">
+      <div class="csv-preview-title">Preview (<span id="csvRowCount">0</span> contacts found)</div>
+      <div id="csvPreviewRows"></div>
+    </div>
+    <div class="csv-map" id="csvMap">
+      <div class="csv-map-title">Map your columns</div>
+      <div id="csvMapRows"></div>
+      <div class="sf-field" style="margin-top:12px;">
+        <div class="sf-label">Assign to Agent</div>
+        <select class="sf-input" id="csvAgentAssign"></select>
+      </div>
+      <div class="sf-field">
+        <div class="sf-label">Default Type</div>
+        <select class="sf-input" id="csvTypeAssign">
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+          <option value="investor">Investor</option>
+          <option value="hot">Hot Lead</option>
+        </select>
+      </div>
+    </div>
+    <button class="csv-import-btn" id="csvImportBtn" disabled onclick="runCSVImport()">Import Contacts</button>
+    <div class="csv-result" id="csvResult"></div>
+  </div>
 </div>
+</div>
+
 <script>
 const TEAM_PASSWORD = "AZCollective2025!";
 function tryLogin() {
