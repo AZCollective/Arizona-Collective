@@ -1149,7 +1149,11 @@ async function saveContact(){
     const c=contacts.find(x=>x.id===editingContactId);
     c.fn=fn;c.ln=ln;c.phone=document.getElementById('mPhone').value;c.email=document.getElementById('mEmail').value;
     c.agentId=document.getElementById('mAgent').value;c.type=document.getElementById('mType').value;
+    await saveContactToDB(c);
     showToast('Updated!','ok');
+    closeOverlay('contactModal');
+    renderNavAgents();renderMain();
+    if(selectedContact===c.id)renderContactDetail();
   } else {
     const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',status:null,followUps:[]};
     await saveContactToDB(nc);
@@ -1158,6 +1162,7 @@ async function saveContact(){
     closeOverlay('contactModal');
     renderNavAgents();renderMain();
     if(nc.id){selectedContact=nc.id;renderContactDetail();}
+  }
 }
 
 function openAgentModal(){document.getElementById('aN').value='';document.getElementById('aRole').value='';document.getElementById('agentModal').classList.add('open');}
