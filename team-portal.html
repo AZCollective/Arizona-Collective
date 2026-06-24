@@ -460,7 +460,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
           <option value="buyer">Buyer</option><option value="seller">Seller</option><option value="investor">Investor</option><option value="hot">Hot Lead</option>
         </select>
       </div>
-      <div class="cd-field m-full"><div class="cd-label">Acquisition Method</div><input class="cd-input" id="mAcq" placeholder="e.g. Open house, referral, friend..."/></div>
     </div>
     <div class="m-actions">
       <button class="mbtn mbtn-cancel" onclick="closeOverlay('contactModal')">Cancel</button>
@@ -543,7 +542,6 @@ async function loadFromDB(){
     contacts = (dbContacts||[]).map(c => ({
       ...c,
       agentId: c.agent_id,
-      acq: c.acq||'',
       status: c.status||null,
       notesList: c.notes_list ? JSON.parse(c.notes_list) : [],
       followUps: (dbFollowups||[]).filter(f=>f.contact_id===c.id).map(f=>({
@@ -577,7 +575,7 @@ async function saveContactToDB(c){
   const payload = {
     fn:c.fn||'', ln:c.ln||'', phone:c.phone||'', email:c.email||'',
     agent_id:c.agentId||'', type:c.type||'buyer', notes:c.notes||'',
-    acq:c.acq||'', status:c.status||null,
+    status:c.status||null,
     notes_list:c.notesList?JSON.stringify(c.notesList):null
   };
   try {
@@ -1106,7 +1104,7 @@ function renderContactDetail(){
       <button class="btn-del-cd" onclick="deleteContact(${c.id})">Delete</button>
     </div>
   </div>`;
-  if(contactDetailTab==='followup'){var _cid=c.id;setTimeout(function(){initFUCalendar(_cid);},0);}
+  if(contactDetailTab==='followup')initFUCalendar(c.id);
   if(contactDetailTab==='notes'){setTimeout(()=>{const b=document.getElementById('notesBubbles_'+c.id);if(b)b.scrollTop=b.scrollHeight;},30);}
 }
 
@@ -1422,7 +1420,7 @@ async function saveContact(){
     renderNavAgents();renderMain();
     if(selectedContact===c.id)renderContactDetail();
   } else {
-    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',acq:document.getElementById('mAcq')?.value||'',status:null,followUps:[]};
+    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',status:null,followUps:[]};
     await saveContactToDB(nc);
     contacts.push(nc);
     showToast('Contact added!','ok');
