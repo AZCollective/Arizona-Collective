@@ -460,9 +460,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
           <option value="buyer">Buyer</option><option value="seller">Seller</option><option value="investor">Investor</option><option value="hot">Hot Lead</option>
         </select>
       </div>
-      <div class="cd-field m-full"><div class="cd-label">Acquisition Method</div>
-        <input class="cd-input" id="mAcq" placeholder="e.g. Open house, met at event, referral, friend..."/>
-      </div>
+      <div class="cd-field m-full"><div class="cd-label">Acquisition Method</div><input class="cd-input" id="mAcq" placeholder="e.g. Open house, met at event, referral..."/></div>
     </div>
     <div class="m-actions">
       <button class="mbtn mbtn-cancel" onclick="closeOverlay('contactModal')">Cancel</button>
@@ -579,7 +577,7 @@ async function saveContactToDB(c){
   const payload = {
     fn:c.fn||'', ln:c.ln||'', phone:c.phone||'', email:c.email||'',
     agent_id:c.agentId||'', type:c.type||'buyer', notes:c.notes||'',
-    status:c.status||null, acq:c.acq||'',
+    acq:c.acq||'', status:c.status||null,
     notes_list:c.notesList?JSON.stringify(c.notesList):null
   };
   try {
@@ -1125,8 +1123,7 @@ function cdTabContent(c,fuPending,fuDone){
       </div>
       <div class="cd-field"><div class="cd-label">Agent</div>
         <select class="cd-input cd-select" id="dAgent">${agents.filter(a=>!a.isAll).map(a=>`<option value="${a.id}" ${c.agentId===a.id?'selected':''}>${a.name}</option>`).join('')}</select>
-      </div>
-      <div class="cd-field"><div class="cd-label">Acquisition</div><input class="cd-input" id="dAcq" placeholder="How did you meet?" value="${c.acq||''}"></div>`;
+      </div>${c.acq!==undefined?'<div class="cd-field"><div class="cd-label">Acquisition Method</div><input class="cd-input" id="dAcq" placeholder="How did you meet?" value="'+c.acq+'"></div>':''}`;
   }
   if(contactDetailTab==='notes'){
     const nl = c.notesList||[];
@@ -1375,7 +1372,7 @@ async function saveContactDetail(cid){
     c.email=document.getElementById('dEmail')?.value||c.email;
     c.type=document.getElementById('dType')?.value||c.type;
     c.agentId=document.getElementById('dAgent')?.value||c.agentId;
-    c.acq=document.getElementById('dAcq')?.value||c.acq||'';
+    c.acq=document.getElementById('dAcq')?.value||'';
   }
   await saveContactToDB(c);
   showToast('Saved!','ok');
@@ -1426,7 +1423,7 @@ async function saveContact(){
     renderNavAgents();renderMain();
     if(selectedContact===c.id)renderContactDetail();
   } else {
-    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,acq:document.getElementById('mAcq')?.value||'',notes:'',status:null,followUps:[]};
+    const nc={id:null,fn,ln,phone:document.getElementById('mPhone').value,email:document.getElementById('mEmail').value,agentId:document.getElementById('mAgent').value,type:document.getElementById('mType').value,notes:'',acq:document.getElementById('mAcq')?.value||'',status:null,followUps:[]};
     await saveContactToDB(nc);
     contacts.push(nc);
     showToast('Contact added!','ok');
