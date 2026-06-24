@@ -351,6 +351,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);font-
 .cd-input:focus{border-color:var(--red);}
 .cd-input::placeholder{color:var(--t5);}
 .cd-textarea{resize:none;min-height:80px;}
+
+/* ── iMESSAGE NOTES BUBBLES ── */
+.notes-wrap{display:flex;flex-direction:column;height:100%;min-height:0;}
+.notes-bubbles{flex:1;overflow-y:auto;padding:12px 0;display:flex;flex-direction:column;gap:8px;max-height:360px;}
+.note-bubble-row{display:flex;flex-direction:column;align-items:flex-end;}
+.note-bubble{background:var(--red);color:#fff;border-radius:18px 18px 4px 18px;padding:10px 14px;max-width:85%;font-size:13px;line-height:1.5;word-break:break-word;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.note-bubble-time{font-size:9px;color:var(--t5);margin-top:3px;letter-spacing:.04em;padding-right:4px;}
+.note-bubble-row.note-system .note-bubble{background:var(--bg3);color:var(--t2);border-radius:18px 18px 18px 4px;align-self:flex-start;}
+.note-bubble-row.note-system{align-items:flex-start;}
+.notes-empty{text-align:center;color:var(--t5);font-size:12px;padding:40px 0;}
+.notes-input-row{display:flex;gap:8px;margin-top:10px;align-items:flex-end;padding-top:10px;border-top:1px solid var(--bg4);}
+.notes-input{flex:1;background:var(--bg3);border:1px solid var(--bg4);border-radius:20px;color:var(--t1);padding:9px 16px;font-size:13px;font-family:"DM Sans",sans-serif;outline:none;resize:none;min-height:38px;max-height:100px;overflow-y:auto;transition:border var(--tr);}
+.notes-input:focus{border-color:var(--red);}
+.notes-send-btn{background:var(--red);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity var(--tr);font-size:14px;}
+.notes-send-btn:hover{opacity:.85;}
+.note-delete-btn{background:none;border:none;color:var(--t5);cursor:pointer;font-size:10px;padding:0 4px;opacity:0;transition:opacity var(--tr);}
+.note-bubble-row:hover .note-delete-btn{opacity:1;}
 .cd-select{appearance:none;cursor:pointer;}
 .cd-select option{background:var(--bg3);}
 .cd-footer{padding:12px 16px;border-top:1px solid #1f1f1f;display:flex;gap:6px;}
@@ -526,6 +543,7 @@ async function loadFromDB(){
       ...c,
       agentId: c.agent_id,
       status: c.status||null,
+      notesList: c.notes_list ? JSON.parse(c.notes_list) : [],
       followUps: (dbFollowups||[]).filter(f=>f.contact_id===c.id).map(f=>({
         id: f.id,
         date: f.date,
@@ -557,7 +575,8 @@ async function saveContactToDB(c){
   const payload = {
     fn:c.fn||'', ln:c.ln||'', phone:c.phone||'', email:c.email||'',
     agent_id:c.agentId||'', type:c.type||'buyer', notes:c.notes||'',
-    status:c.status||null
+    status:c.status||null,
+    notes_list:c.notesList?JSON.stringify(c.notesList):null
   };
   try {
     if(c.id && typeof c.id === 'number'){
@@ -1085,6 +1104,8 @@ function renderContactDetail(){
       <button class="btn-del-cd" onclick="deleteContact(${c.id})">Delete</button>
     </div>
   </div>`;
+  if(contactDetailTab==='followup'){var _cid=c.id;setTimeout(function(){initFUCalendar(_cid);},0);}
+  if(contactDetailTab==='notes'){setTimeout(()=>{const b=document.getElementById('notesBubbles_'+c.id);if(b)b.scrollTop=b.scrollHeight;},30);}
 }
 
 function cdTabContent(c,fuPending,fuDone){
@@ -1103,7 +1124,26 @@ function cdTabContent(c,fuPending,fuDone){
       </div>`;
   }
   if(contactDetailTab==='notes'){
-    return `<div class="cd-field"><div class="cd-label">Notes</div><textarea class="cd-input cd-textarea" id="dNotes">${c.notes}</textarea></div>`;
+    const nl = c.notesList||[];
+    const noteBubbles = nl.length===0
+      ? '<div class="notes-empty">No notes yet. Add the first one below.</div>'
+      : nl.map(function(n,i){
+          const safe = n.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+          return '<div class="note-bubble-row">'
+            + '<div style="display:flex;align-items:center;gap:4px;">'
+            + '<button class="note-delete-btn" onclick="deleteNote('+c.id+','+i+')" title="Delete">&#x2715;</button>'
+            + '<div class="note-bubble">'+safe+'</div>'
+            + '</div>'
+            + '<div class="note-bubble-time">'+n.ts+'</div>'
+            + '</div>';
+        }).join('');
+    return '<div class="notes-wrap">'
+      + '<div class="notes-bubbles" id="notesBubbles_'+c.id+'">'+noteBubbles+'</div>'
+      + '<div class="notes-input-row">'
+      + '<textarea class="notes-input" id="noteInput_'+c.id+'" placeholder="Add a note..." rows="1" onkeydown="noteKeydown(event,'+c.id+')"></textarea>'
+      + '<button class="notes-send-btn" onclick="addNote('+c.id+')">&#8593;</button>'
+      + '</div>'
+      + '</div>';
   }
   if(contactDetailTab==='followup'){
     const calDots = c.followUps.filter(f=>!f.done).map(f=>f.date);
@@ -1166,26 +1206,31 @@ async function scheduleFUFromContact(cid){
   cdAIToggle=false;
   showToast('Follow-up scheduled!','ok');
   renderNavAgents();renderMain();renderContactDetail();
-  setTimeout(()=>initFUCalendar(cid),50);
 }
 
 function fuCardHTML(cid,f){
-  const d=new Date(f.date+'T'+(f.time||'09:00'));
-  const ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-  return `<div class="fu-card ${f.done?'fu-done':''} ${f.ai?'fu-ai':''}">
-    <div class="fu-card-top">
-      <div class="fu-card-icon">${f.done?'✅':f.ai?'✦':'📌'}</div>
-      <div style="flex:1;">
-        <div class="fu-card-msg">${f.msg}</div>
-        <div class="fu-card-time">${ds}</div>
-      </div>
-    </div>
-    ${!f.done?`<div class="fu-card-btns">
-      <button class="fu-cb fu-cb-done" onclick="markFUDone(${cid},${f.id})">✓ Done</button>
-      ${!f.ai?`<button class="fu-cb fu-cb-ai" onclick="enableAI(${cid},${f.id})">✦ AI</button>`:''}
-      <button class="fu-cb fu-cb-del" onclick="deleteFU(${cid},${f.id})">Delete</button>
-    </div>`:''}
-  </div>`;
+  var d=new Date(f.date+'T'+(f.time||'09:00'));
+  var ds=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  var doneIcon=f.done?'&#x2705;':(f.ai?'❖':'&#128204;');
+  var btns='';
+  if(!f.done){
+    var aiBtn=!f.ai?'<button class="fu-cb fu-cb-ai" onclick="enableAI('+cid+','+f.id+')">❖ AI</button>':'';
+    btns='<div class="fu-card-btns">'
+      +'<button class="fu-cb fu-cb-done" onclick="markFUDone('+cid+','+f.id+')">✓ Done</button>'
+      +aiBtn
+      +'<button class="fu-cb fu-cb-del" onclick="deleteFU('+cid+','+f.id+')">Delete</button>'
+      +'</div>';
+  }
+  return '<div class="fu-card'+(f.done?' fu-done':'')+(f.ai?' fu-ai':'')+'">'
+    +'<div class="fu-card-top">'
+    +'<div class="fu-card-icon">'+doneIcon+'</div>'
+    +'<div style="flex:1;">'
+    +'<div class="fu-card-msg">'+f.msg+'</div>'
+    +'<div class="fu-card-time">'+ds+'</div>'
+    +'</div>'
+    +'</div>'
+    +btns
+    +'</div>';
 }
 
 async function markFUDone(cid,fid){const c=contacts.find(x=>x.id===cid);const f=c?.followUps.find(x=>x.id===fid);if(f){f.done=true;await saveFollowupToDB(cid,f);}showToast('Done!','ok');renderNavAgents();renderMain();renderContactDetail();}
@@ -1202,44 +1247,40 @@ function initFUCalendar(cid){
 }
 
 function renderFUCalendar(cid){
-  const el=document.getElementById('fuCalPicker_'+cid);
+  var el=document.getElementById('fuCalPicker_'+cid);
   if(!el)return;
-  const st=fuCalState[cid];
-  const y=st.year, m=st.month;
-  const c=contacts.find(x=>x.id===cid);
-  const fuDates=c?c.followUps.filter(f=>!f.done).map(f=>f.date):[];
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const dows=['Su','Mo','Tu','We','Th','Fr','Sa'];
-  const today=new Date(); today.setHours(0,0,0,0);
-  const firstDay=new Date(y,m,1).getDay();
-  const daysInMonth=new Date(y,m+1,0).getDate();
-  let days='';
-  for(let d=0;d<firstDay;d++) days+=`<div class="fu-cal-day empty"></div>`;
-  for(let d=1;d<=daysInMonth;d++){
-    const dateStr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    const dt=new Date(y,m,d); dt.setHours(0,0,0,0);
-    const isPast=dt<today;
-    const isToday=dt.getTime()===today.getTime();
-    const isSel=st.selected===dateStr;
-    const hasFU=fuDates.includes(dateStr);
-    let cls='fu-cal-day';
+  var st=fuCalState[cid];
+  var y=st.year, m=st.month;
+  var c=contacts.find(function(x){return x.id===cid;});
+  var fuDates=c?c.followUps.filter(function(f){return !f.done;}).map(function(f){return f.date;}):[];
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var dows=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  var today=new Date(); today.setHours(0,0,0,0);
+  var firstDay=new Date(y,m,1).getDay();
+  var daysInMonth=new Date(y,m+1,0).getDate();
+  var days='';
+  for(var d2=0;d2<firstDay;d2++) days+='<div class="fu-cal-day empty"></div>';
+  for(var d=1;d<=daysInMonth;d++){
+    var dateStr=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    var dt=new Date(y,m,d); dt.setHours(0,0,0,0);
+    var isPast=dt<today;
+    var isToday2=dt.getTime()===today.getTime();
+    var isSel=st.selected===dateStr;
+    var hasFU=fuDates.includes(dateStr);
+    var cls='fu-cal-day';
     if(isPast) cls+=' past';
     else if(isSel) cls+=' selected';
-    else if(isToday) cls+=' today';
+    else if(isToday2) cls+=' today';
     if(hasFU) cls+=' has-fu';
-    const click=isPast?'':('onclick="selectFUDate('+JSON.stringify(cid)+',\''+dateStr+'\')"');
-    days+=`<div class="${cls}" ${click}>${d}</div>`;
+        var click=isPast?"":"onclick=\"selectFUDate("+cid+",'"+dateStr+"')\""
+    days+='<div class="'+cls+'" '+click+'>'+d+'</div>';
   }
-  el.innerHTML=`
-    <div class="fu-cal-header">
-      <button class="fu-cal-nav" onclick="changeFUMonth('${cid}',-1)">‹</button>
-      <div class="fu-cal-title">${months[m]} ${y}</div>
-      <button class="fu-cal-nav" onclick="changeFUMonth('${cid}',1)">›</button>
-    </div>
-    <div class="fu-cal-grid">
-      ${dows.map(d=>`<div class="fu-cal-dow">${d}</div>`).join('')}
-      ${days}
-    </div>`;
+  var dowsHTML=dows.map(function(d){return '<div class="fu-cal-dow">'+d+'</div>';}).join('');
+  var prevBtn='<button class="fu-cal-nav" onclick="changeFUMonth('+cid+',-1)">&#8249;</button>';
+  var nextBtn='<button class="fu-cal-nav" onclick="changeFUMonth('+cid+',1)">&#8250;</button>';
+  var titleDiv='<div class="fu-cal-title">'+months[m]+' '+y+'</div>';
+  el.innerHTML='<div class="fu-cal-header">'+prevBtn+titleDiv+nextBtn+'</div>'
+    +'<div class="fu-cal-grid">'+dowsHTML+days+'</div>';
 }
 
 function changeFUMonth(cid,dir){
@@ -1283,7 +1324,42 @@ function clearFUTimeBtns(cid){
   if(grid)grid.querySelectorAll('.fu-time-btn').forEach(b=>b.classList.remove('selected'));
 }
 
-function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();if(tab==='followup'&&selectedContact){setTimeout(()=>initFUCalendar(selectedContact),50);}}
+// ── NOTES BUBBLE FUNCTIONS ──
+function noteKeydown(e,cid){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addNote(cid);}}
+
+async function addNote(cid){
+  const inp=document.getElementById('noteInput_'+cid);
+  if(!inp)return;
+  const text=inp.value.trim();
+  if(!text)return;
+  const c=contacts.find(x=>x.id===cid);
+  if(!c)return;
+  if(!c.notesList)c.notesList=[];
+  const now=new Date();
+  const ts=now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' '+now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  c.notesList.push({text,ts});
+  inp.value='';
+  await saveNotesList(c);
+  renderContactDetail();
+  setTimeout(()=>{const b=document.getElementById('notesBubbles_'+cid);if(b)b.scrollTop=b.scrollHeight;},50);
+}
+
+async function deleteNote(cid,idx){
+  const c=contacts.find(x=>x.id===cid);
+  if(!c||!c.notesList)return;
+  c.notesList.splice(idx,1);
+  await saveNotesList(c);
+  renderContactDetail();
+}
+
+async function saveNotesList(c){
+  const payload={notes_list:JSON.stringify(c.notesList)};
+  if(c.id&&typeof c.id==='number'){
+    await sbFetch('contacts?id=eq.'+c.id,'PATCH',payload);
+  }
+}
+
+function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();// calendar now init in renderContactDetail}
 
 async function saveContactDetail(cid){
   const c=contacts.find(x=>x.id===cid);
@@ -1295,7 +1371,6 @@ async function saveContactDetail(cid){
     c.type=document.getElementById('dType')?.value||c.type;
     c.agentId=document.getElementById('dAgent')?.value||c.agentId;
   }
-  if(contactDetailTab==='notes')c.notes=document.getElementById('dNotes')?.value||c.notes;
   await saveContactToDB(c);
   showToast('Saved!','ok');
   renderNavAgents();renderMain();renderContactDetail();
