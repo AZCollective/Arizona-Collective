@@ -1359,7 +1359,7 @@ async function saveNotesList(c){
   }
 }
 
-function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();// calendar now init in renderContactDetail}
+function switchCDTab(tab){contactDetailTab=tab;cdAIToggle=false;renderContactDetail();} // calendar now init in renderContactDetail
 
 async function saveContactDetail(cid){
   const c=contacts.find(x=>x.id===cid);
