@@ -9,8 +9,8 @@
 <style>
 :root{
   --gold:#C09A4A;--gold2:#E2B96A;--gold3:#8B6914;
-  --black:#0A0A0A;--dark:#111;--darker:#0D0D0D;
-  --mid:#1A1A1A;--gray:#888;--lgray:#CCC;
+  --black:#2A2A2A;--dark:#323232;--darker:#2E2E2E;
+  --mid:#3A3A3A;--gray:#888;--lgray:#CCC;
   --cream:#F7F3EC;--white:#FFF;
   --border:rgba(192,154,74,0.2);
   --serif:'Cormorant Garamond',Georgia,serif;
@@ -25,13 +25,13 @@ a{text-decoration:none;color:inherit;}
 button{cursor:pointer;font-family:var(--sans);}
 img{display:block;width:100%;object-fit:cover;}
 
-#topbar{background:rgba(0,0,0,0.97);padding:8px 5vw;display:flex;justify-content:flex-end;align-items:center;gap:24px;border-bottom:1px solid rgba(255,255,255,0.06);}
+#topbar{background:rgba(20,20,20,0.97);padding:8px 5vw;display:flex;justify-content:flex-end;align-items:center;gap:24px;border-bottom:1px solid rgba(255,255,255,0.06);}
 #topbar a{font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:0.12em;text-transform:uppercase;transition:color .2s;}
 #topbar a:hover{color:var(--gold);}
 .tb-divider{color:rgba(255,255,255,0.15);font-size:11px;}
 
 #nav{position:fixed;top:0;width:100%;z-index:999;transition:background .3s,border .3s;border-bottom:1px solid transparent;}
-#nav.scrolled{background:rgba(10,10,10,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+#nav.scrolled{background:rgba(30,30,30,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:var(--nav);}
 .nav-logo{display:flex;flex-direction:column;gap:2px;}
 .nav-logo-main{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:0.04em;color:var(--white);}
@@ -40,7 +40,7 @@ img{display:block;width:100%;object-fit:cover;}
 .nav-links a{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.6);transition:color .2s;font-weight:400;}
 .nav-links a:hover{color:var(--gold);}
 .nav-drop{position:relative;}
-.nav-drop-menu{display:none;position:absolute;top:100%;left:0;background:rgba(10,10,10,0.98);border:1px solid var(--border);padding:12px 0;min-width:200px;z-index:100;}
+.nav-drop-menu{display:none;position:absolute;top:100%;left:0;background:rgba(30,30,30,0.98);border:1px solid var(--border);padding:12px 0;min-width:200px;z-index:100;}
 .nav-drop:hover .nav-drop-menu{display:block;}
 .nav-drop-menu a{display:block;padding:9px 20px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);transition:color .2s;}
 .nav-drop-menu a:hover{color:var(--gold);}
@@ -52,13 +52,13 @@ img{display:block;width:100%;object-fit:cover;}
 
 #hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;overflow:hidden;}
 .hero-bg{position:absolute;inset:0;background:
-  linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.6) 70%, rgba(10,10,10,1) 100%),
-  url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80') center/cover no-repeat;}
+  linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.45) 65%, rgba(42,42,42,1) 100%),
+  url('https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1920&q=85') center/cover no-repeat;}
 .hero-content{position:relative;z-index:2;padding:0 5vw 90px;max-width:800px;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:400;}
 .hero-headline{font-family:var(--serif);font-size:clamp(46px,6.5vw,86px);font-weight:300;line-height:1.0;letter-spacing:-0.01em;margin-bottom:24px;color:var(--white);}
 .hero-headline em{font-style:italic;color:var(--gold2);}
-.hero-sub{font-size:14px;line-height:1.85;color:rgba(255,255,255,0.6);max-width:500px;margin-bottom:44px;font-weight:300;letter-spacing:0.01em;}
+.hero-sub{font-size:14px;line-height:1.85;color:rgba(255,255,255,0.65);max-width:500px;margin-bottom:44px;font-weight:300;letter-spacing:0.01em;}
 .hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .btn-primary{background:var(--gold);color:var(--black);padding:14px 36px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;border:none;font-weight:500;transition:background .3s;display:inline-block;}
 .btn-primary:hover{background:var(--gold2);}
@@ -75,9 +75,12 @@ img{display:block;width:100%;object-fit:cover;}
 .search-inner input::placeholder{color:rgba(255,255,255,0.35);}
 .search-btn{background:var(--gold);color:var(--black);border:none;padding:13px 28px;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500;font-family:var(--sans);cursor:pointer;flex:0 0 auto;transition:background .3s;white-space:nowrap;}
 .search-btn:hover{background:var(--gold2);}
+.idx-note{font-size:11px;color:rgba(255,255,255,0.3);margin-top:10px;letter-spacing:0.05em;}
+.idx-note a{color:var(--gold);transition:opacity .2s;}
+.idx-note a:hover{opacity:0.7;}
 
 #stats{background:var(--darker);border-bottom:1px solid var(--border);}
-.stats-inner{display:grid;grid-template-columns:repeat(3,1fr);padding:0 5vw;}
+.stats-inner{display:grid;grid-template-columns:repeat(2,1fr);padding:0 5vw;}
 .stat-item{padding:32px 0;text-align:center;border-right:1px solid var(--border);}
 .stat-item:last-child{border-right:none;}
 .stat-num{font-family:var(--serif);font-size:40px;font-weight:300;color:var(--gold);letter-spacing:-0.02em;}
@@ -110,27 +113,27 @@ section{padding:100px 5vw;}
 
 #intro{background:var(--darker);border-top:1px solid var(--border);}
 .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px;}
-.intro-text p{font-size:14px;line-height:1.95;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:20px;}
+.intro-text p{font-size:14px;line-height:1.95;color:rgba(255,255,255,0.55);font-weight:300;margin-bottom:20px;}
 .intro-pillars{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
 .pillar{padding:20px;border:1px solid var(--border);}
 .pillar-icon{font-size:20px;margin-bottom:8px;}
 .pillar-title{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:400;}
-.pillar-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;}
+.pillar-desc{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;}
 .intro-img img{height:540px;object-fit:cover;}
 
 #services{background:var(--black);}
 .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:60px;}
 .service-card{background:var(--black);padding:40px 34px;transition:background .3s;}
-.service-card:hover{background:#111;}
+.service-card:hover{background:#333;}
 .service-num{font-family:var(--serif);font-size:13px;color:var(--gold);letter-spacing:0.1em;margin-bottom:18px;}
 .service-title{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--white);margin-bottom:12px;line-height:1.2;}
-.service-desc{font-size:12px;line-height:1.85;color:rgba(255,255,255,0.4);font-weight:300;}
+.service-desc{font-size:12px;line-height:1.85;color:rgba(255,255,255,0.45);font-weight:300;}
 .service-link{display:inline-block;margin-top:18px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid transparent;transition:border .2s;}
 .service-link:hover{border-bottom-color:var(--gold);}
 
 #neighborhoods{background:var(--darker);}
 .neighborhoods-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:48px;}
-.neighborhoods-intro p{font-size:13px;line-height:1.9;color:rgba(255,255,255,0.45);font-weight:300;}
+.neighborhoods-intro p{font-size:13px;line-height:1.9;color:rgba(255,255,255,0.5);font-weight:300;}
 .areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
 .area-card{position:relative;overflow:hidden;cursor:pointer;}
 .area-card img{height:280px;width:100%;object-fit:cover;transition:transform .6s;}
@@ -146,13 +149,13 @@ section{padding:100px 5vw;}
 .process-step:last-child{border-right:none;}
 .process-step-num{font-family:var(--serif);font-size:42px;font-weight:300;color:rgba(192,154,74,0.2);margin-bottom:16px;line-height:1;}
 .process-step-title{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:400;}
-.process-step-desc{font-size:12px;line-height:1.8;color:rgba(255,255,255,0.38);font-weight:300;}
+.process-step-desc{font-size:12px;line-height:1.8;color:rgba(255,255,255,0.42);font-weight:300;}
 
 #reviews{background:var(--darker);border-top:1px solid var(--border);}
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:56px;}
 .review-card{background:var(--darker);padding:36px 32px;}
 .review-stars{color:var(--gold);font-size:13px;margin-bottom:16px;letter-spacing:2px;}
-.review-text{font-family:var(--serif);font-size:16px;font-weight:300;font-style:italic;line-height:1.65;color:rgba(255,255,255,0.7);margin-bottom:24px;}
+.review-text{font-family:var(--serif);font-size:16px;font-weight:300;font-style:italic;line-height:1.65;color:rgba(255,255,255,0.75);margin-bottom:24px;}
 .review-author{display:flex;align-items:center;gap:12px;}
 .review-avatar{width:38px;height:38px;border-radius:50%;background:var(--gold3);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--white);font-weight:500;flex-shrink:0;}
 .review-name{font-size:12px;color:var(--white);font-weight:400;letter-spacing:0.04em;}
@@ -175,13 +178,13 @@ section{padding:100px 5vw;}
 
 footer{background:var(--darker);border-top:1px solid var(--border);}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding:60px 5vw;}
-.footer-brand p{margin-top:16px;font-size:12px;line-height:1.85;color:rgba(255,255,255,0.3);font-weight:300;max-width:260px;}
+.footer-brand p{margin-top:16px;font-size:12px;line-height:1.85;color:rgba(255,255,255,0.35);font-weight:300;max-width:260px;}
 .footer-col h4{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:400;}
 .footer-col a{display:block;font-size:12px;color:rgba(255,255,255,0.38);margin-bottom:10px;transition:color .2s;font-weight:300;}
 .footer-col a:hover{color:var(--white);}
 .footer-bottom{padding:20px 5vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-.footer-bottom p{font-size:11px;color:rgba(255,255,255,0.22);font-weight:300;}
-.footer-bottom a{font-size:11px;color:rgba(255,255,255,0.22);margin-left:20px;transition:color .2s;}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,0.25);font-weight:300;}
+.footer-bottom a{font-size:11px;color:rgba(255,255,255,0.25);margin-left:20px;transition:color .2s;}
 .footer-bottom a:hover{color:var(--gold);}
 
 @media(max-width:960px){
@@ -195,7 +198,7 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   .process-steps{grid-template-columns:1fr 1fr;}
   .process-step:nth-child(2){border-right:none;}
   .reviews-grid{grid-template-columns:1fr 1fr;}
-  .stats-inner{grid-template-columns:1fr 1fr 1fr;}
+  .stats-inner{grid-template-columns:1fr 1fr;}
   .cta-banner-inner{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr 1fr;}
   .footer-bottom{flex-direction:column;gap:10px;text-align:center;}
@@ -267,7 +270,7 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
     <p class="hero-sub">Arizona Collective Real Estate Group brings a strategic, team-driven approach to every transaction — whether you're buying your first home, selling a luxury property, or building an investment portfolio across the Valley.</p>
     <div class="hero-actions">
       <a href="home-search.html" class="btn-primary">Search Homes</a>
-      <a href="#" class="btn-ghost">Get Your Home Value</a>
+      <a href="https://YOUR-FUNNEL-LINK-HERE.com" class="btn-ghost">Get Your Home Value</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -276,41 +279,42 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   </div>
 </section>
 
+<!-- IDX SEARCH BAR — replace action URL with your IDX provider's search endpoint -->
 <div id="search-bar">
-  <div class="search-inner">
-    <select>
-      <option>All Types</option>
-      <option>Single Family</option>
-      <option>Condo / Townhome</option>
-      <option>Multi-Family</option>
-      <option>Land</option>
-      <option>Luxury</option>
+  <form class="search-inner" action="https://YOUR-IDX-PROVIDER.com/search" method="GET" target="_blank">
+    <select name="type">
+      <option value="">All Types</option>
+      <option value="sfr">Single Family</option>
+      <option value="condo">Condo / Townhome</option>
+      <option value="multi">Multi-Family</option>
+      <option value="land">Land</option>
+      <option value="luxury">Luxury</option>
     </select>
-    <select>
-      <option>Any Price</option>
-      <option>Under $300K</option>
-      <option>$300K – $500K</option>
-      <option>$500K – $800K</option>
-      <option>$800K – $1.2M</option>
-      <option>$1.2M+</option>
+    <select name="price_max">
+      <option value="">Any Price</option>
+      <option value="300000">Under $300K</option>
+      <option value="500000">$300K – $500K</option>
+      <option value="800000">$500K – $800K</option>
+      <option value="1200000">$800K – $1.2M</option>
+      <option value="99999999">$1.2M+</option>
     </select>
-    <select>
-      <option>Any Beds</option>
-      <option>1+ Beds</option>
-      <option>2+ Beds</option>
-      <option>3+ Beds</option>
-      <option>4+ Beds</option>
+    <select name="beds_min">
+      <option value="">Any Beds</option>
+      <option value="1">1+ Beds</option>
+      <option value="2">2+ Beds</option>
+      <option value="3">3+ Beds</option>
+      <option value="4">4+ Beds</option>
     </select>
-    <input type="text" placeholder="City, zip code, or neighborhood…"/>
-    <button class="search-btn">Search Properties</button>
-  </div>
+    <input type="text" name="q" placeholder="City, zip code, or neighborhood…"/>
+    <button type="submit" class="search-btn">Search Properties</button>
+  </form>
+  <p class="idx-note">Live MLS data powered by IDX — <a href="home-search.html">Browse full listings →</a></p>
 </div>
 
 <div id="stats">
   <div class="stats-inner">
-    <div class="stat-item"><div class="stat-num">$120M+</div><div class="stat-label">Volume Closed</div></div>
-    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Homes Sold</div></div>
-    <div class="stat-item"><div class="stat-num">5.0 ★</div><div class="stat-label">Google Rating</div></div>
+    <div class="stat-item"><div class="stat-num">$350M+</div><div class="stat-label">Volume Closed</div></div>
+    <div class="stat-item"><div class="stat-num">1,000+</div><div class="stat-label">Homes Sold</div></div>
   </div>
 </div>
 
@@ -395,18 +399,18 @@ footer{background:var(--darker);border-top:1px solid var(--border);}
   <div class="intro-grid">
     <div class="intro-text">
       <p>We're the Arizona Collective Real Estate Group, a dedicated team operating under Keller Williams Integrity First Realty. With deep roots in the Phoenix metro, we specialize in turning real estate goals into real outcomes — for first-time buyers, seasoned sellers, and serious investors alike.</p>
-      <p>Led by Alex Hernandez, our approach combines local market expertise, data-driven strategy, and a genuine commitment to every client we work with. From Scottsdale to San Tan Valley, we know this market because we live it every day.</p>
+      <p>Led by Derrick "Rick" Thram and <a href="mailto:alexhernandez@kw.com" style="color:var(--gold);text-decoration:none;">Alex Hernandez</a>, our approach combines 34 years of local market expertise, data-driven strategy, and a genuine commitment to every client we work with. From Scottsdale to San Tan Valley, we know this market because we live it every day.</p>
       <div class="intro-pillars">
-        <div class="pillar"><div class="pillar-icon">🏆</div><div class="pillar-title">Top 1% Agents</div><div class="pillar-desc">Consistently ranked among Arizona's top-producing teams.</div></div>
-        <div class="pillar"><div class="pillar-icon">📊</div><div class="pillar-title">Data-Driven</div><div class="pillar-desc">Every recommendation backed by real-time MLS data.</div></div>
+        <div class="pillar"><div class="pillar-icon">🏆</div><div class="pillar-title">34 Years of Experience</div><div class="pillar-desc">Decades of proven results across residential, commercial, and investment real estate.</div></div>
+        <div class="pillar"><div class="pillar-icon">📊</div><div class="pillar-title">Data-Driven</div><div class="pillar-desc">Every recommendation backed by real-time MLS data and market intelligence.</div></div>
         <div class="pillar"><div class="pillar-icon">🤝</div><div class="pillar-title">Full-Service</div><div class="pillar-desc">Offer to close — negotiation, inspection, escrow, and beyond.</div></div>
-        <div class="pillar"><div class="pillar-icon">💼</div><div class="pillar-title">Investor Ready</div><div class="pillar-desc">Specialized in investment properties and 1031 exchanges.</div></div>
+        <div class="pillar"><div class="pillar-icon">💼</div><div class="pillar-title">Investor Ready</div><div class="pillar-desc">Specialized in investment properties and 1031 exchanges across the Valley.</div></div>
       </div>
       <br/>
       <a href="about.html" class="btn-ghost">Meet the Team &rarr;</a>
     </div>
     <div class="intro-img">
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Arizona luxury home"/>
+      <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80" alt="Arizona luxury desert home"/>
     </div>
   </div>
 </section>
